@@ -1,5 +1,7 @@
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:hive/hive.dart';
 import 'package:workroom_flutter_app/counter/counter.dart';
 import 'package:workroom_flutter_app/l10n/l10n.dart';
 
@@ -30,6 +32,14 @@ class CounterView extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () => context.read<CounterCubit>().increment(),
+            // ! just for testing hive initialization.
+            // onPressed: () async {
+            //   final box = await Hive.openBox<String>('workroom');
+            //   await box.put('name', 'animesh');
+            //   if (kDebugMode) {
+            //     print(box.get('name'));
+            //   }
+            // },
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),
