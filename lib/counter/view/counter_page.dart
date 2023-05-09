@@ -1,6 +1,10 @@
 // import 'package:flutter/foundation.dart';
+// ignore_for_file: cascade_invocations
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workroom_flutter_app/common/services/dio_api_service.dart';
 // import 'package:hive/hive.dart';
 import 'package:workroom_flutter_app/counter/counter.dart';
 // import 'package:workroom_flutter_app/l10n/l10n.dart';
@@ -40,6 +44,38 @@ class CounterView extends StatelessWidget {
             //     print(box.get('name'));
             //   }
             // },
+
+            // ! just for testing dio.
+            // onPressed: () async {
+            //   try {
+            //     final dioApiService = DioApiService();
+            //     dioApiService.baseUrl = 'https://httpbin.org/';
+            // await dioApiService.get('get', null).then((value) {
+            //   if (kDebugMode) {
+            //     print(value.data);
+            //     print(value.statusCode);
+            //   }
+            // });
+            // await dioApiService
+            //     .post(
+            //   'post',
+            //   {
+            //     'id': 8,
+            //     'info': {'name': 'wendux', 'age': 25}
+            //   },
+            //   null,
+            // )
+            //     .then((value) {
+            //   if (kDebugMode) {
+            //     print(value.statusCode);
+            //     print(value.data);
+            //   }
+            // });
+            // } catch (e) {
+            //   if (kDebugMode) {
+            //     print(e);
+            //   }
+            // }
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),
