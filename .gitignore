@@ -2,6 +2,9 @@
 
 # Files and directories created by pub
 .dart_tool/
+.github/
+.idea/
+.vscode/
 .packages
 build/
 # If you're building an application, you may want to check-in your pubspec.lock
