@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 
 class DioApiService {
@@ -18,12 +16,8 @@ class DioApiService {
     _dio = Dio(
       BaseOptions(
         baseUrl: _baseUrl,
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 10),
-        headers: {
-          HttpHeaders.userAgentHeader: 'dio',
-          'api': '1.0.0',
-        },
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 15),
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
       ),
@@ -33,30 +27,60 @@ class DioApiService {
   Future<Response<dynamic>> get(
     String path,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
   ) {
-    return _dio.get(path, queryParameters: queryParameters);
+    return _dio.get(
+      path,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
   }
 
   Future<Response<dynamic>> post(
     String path,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
   ) {
-    return _dio.post(path, data: data, queryParameters: queryParameters);
+    return _dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
   }
 
   Future<Response<dynamic>> put(
     String path,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
   ) {
-    return _dio.put(path, data: data, queryParameters: queryParameters);
+    return _dio.put(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
   }
 
   Future<Response<dynamic>> delete(
     String path,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
   ) {
-    return _dio.delete(path, queryParameters: queryParameters);
+    return _dio.delete(
+      path,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
   }
 }
