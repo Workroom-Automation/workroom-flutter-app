@@ -10,20 +10,30 @@ dependencies:
   bloc: ^8.1.1
   connectivity_plus: ^3.0.6
   dio: ^5.1.1
+  dio_cache_interceptor: ^3.4.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
   flutter_localizations:
     sdk: flutter
+   # add get_it  
+  get_it: 
   hive: ^2.2.3
+   # add injectable to your dependencies  
+  injectable:  
   intl: ^0.17.0
   path_provider: ^2.0.14
   rxdart: ^0.27.7
+  
 
 dev_dependencies:
   bloc_test: ^9.1.1
+   # add build runner if not already added  
+  build_runner:  
   flutter_test:
     sdk: flutter
+   # add the generator to your dev_dependencies  
+  injectable_generator:  
   mocktail: ^0.3.0
   very_good_analysis: ^3.1.0
 

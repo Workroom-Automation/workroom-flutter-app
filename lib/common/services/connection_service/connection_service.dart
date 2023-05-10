@@ -1,18 +1,16 @@
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum ConnectionStatus { good, bad, none }
 
+@lazySingleton
 class ConnectionService {
-  ConnectionService._internal() {
-    initialize();
-  }
-
-  static final instance = ConnectionService._internal();
   final Connectivity _connectivity = Connectivity();
 
   // To capture the network changes in an Application...
@@ -23,6 +21,7 @@ class ConnectionService {
       _connectionChangeController.stream;
 
   // When initialized will subscribe to network change stream of Connectivty pkg
+  @PostConstruct()
   void initialize() {
     _connectivity.onConnectivityChanged.listen(_connectionChange);
   }
@@ -58,9 +57,8 @@ class ConnectionService {
     _connectionChangeController.add(value);
   }
 
+  @disposeMethod
   void dispose() {
     _connectionChangeController.close();
   }
 }
-
-final ConnectionService connectionServiceSingleton = ConnectionService.instance;
