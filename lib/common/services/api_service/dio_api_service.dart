@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 
 class DioApiService {
-  DioApiService(@factoryParam String baseUrl) {
+  DioApiService(String baseUrl) {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
