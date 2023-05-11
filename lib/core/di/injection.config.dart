@@ -15,6 +15,8 @@ import 'package:injectable/injectable.dart' as _i2;
 import '../../common/services/connection_service/connection_service.dart'
     as _i4;
 import '../../common/services/hive_service/hive_service.dart' as _i3;
+import '../../common/services/navigation_service/navigation_service.dart'
+    as _i5;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +34,7 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i4.ConnectionService()..initialize(),
       dispose: (i) => i.dispose(),
     );
+    gh.singleton<_i5.NavigationService>(_i5.NavigationService());
     return this;
   }
 }
