@@ -1,1 +1,1 @@
-const mobileScreeSizeLimit = 600;
+const mobileScreenSizeLimit = 600;

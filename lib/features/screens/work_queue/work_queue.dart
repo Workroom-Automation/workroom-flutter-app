@@ -7,14 +7,14 @@ import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 
-class WorkQuePage extends StatefulWidget {
-  const WorkQuePage({super.key});
+class WorkQueuePage extends StatefulWidget {
+  const WorkQueuePage({super.key});
 
   @override
-  State<WorkQuePage> createState() => _WorkQuePageState();
+  State<WorkQueuePage> createState() => _WorkQueuePagePageState();
 }
 
-class _WorkQuePageState extends State<WorkQuePage> {
+class _WorkQueuePagePageState extends State<WorkQueuePage> {
   void pop() {
     getIt<NavigationService>().pop();
   }
@@ -39,7 +39,7 @@ class _WorkQuePageState extends State<WorkQuePage> {
                 const SizedBox(
                   height: 16,
                 ),
-                if (constraints.maxWidth >= mobileScreeSizeLimit)
+                if (constraints.maxWidth >= mobileScreenSizeLimit)
                   SizedBox(
                     height: 54,
                     width: double.infinity,
@@ -142,7 +142,7 @@ class _WorkQuePageState extends State<WorkQuePage> {
                 const SizedBox(
                   height: 28,
                 ),
-                if (constraints.maxWidth >= mobileScreeSizeLimit)
+                if (constraints.maxWidth >= mobileScreenSizeLimit)
                   _buildListTileCompletedOrRejectedMO(
                     status: MOStatus.completed,
                     isMobile: false,
@@ -158,7 +158,7 @@ class _WorkQuePageState extends State<WorkQuePage> {
                     startTime: '11:45 AM',
                     endTime: '12:15 PM',
                   ),
-                if (constraints.maxWidth >= 600)
+                if (constraints.maxWidth >= mobileScreenSizeLimit)
                   _buildListTileCompletedOrRejectedMO(
                     status: MOStatus.rejected,
                     isMobile: false,
