@@ -4,13 +4,77 @@ class AppColors {
   AppColors._();
 
   static const Color red = Colors.red;
-  static const Color redColor = Color(0xFFFFB2B2);
+  // rejected MO status
+  static const Color redColor = Color.fromRGBO(255, 8, 68, 0.19);
+  static const Color redBorderColor = Color(0xFFED0000);
+  // rejected MO status
   static const Color whiteColor = Colors.white;
+  static const Color greyColor = Color(0xFF7D7676);
   static const Color textColor = Colors.black;
+  static const Color tileTextColor = Colors.white;
   static const Color subtitleColor = Colors.grey;
   static const Color iconColor = Colors.black;
+  static const Color tileIconColor = Colors.white;
   static const Color borderColor = Colors.black;
-  static const Color tileColor = Color.fromRGBO(217, 217, 217, 0.3);
+  static const Color tileColor = Colors.white;
+  // static const Color tileColor = Color.fromRGBO(217, 217, 217, 0.3);
   static const Color blueColor = Color.fromRGBO(177, 226, 253, 0.8);
-  static const Color greenColor = Color.fromRGBO(143, 245, 127, 0.8);
+  static const Color blueBorderColor = Color(0xFF009AFF);
+  // completed MO status
+  static const Color greenColor = Color.fromRGBO(206, 244, 187, 0.4);
+  static const Color greenBorderColor = Color(0xFF27C052);
+
+  // completed MO status
+  static LinearGradient linearGradient = const LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFF00C6FB), // #00C6FB
+      Color(0xFF005BEA), // #005BEA
+    ],
+  );
+  static LinearGradient gradientLeftToRight = const LinearGradient(
+    colors: [
+      Color(0xFF00C6FB),
+      Color(0xFF005BEA),
+    ],
+  );
+  static LinearGradient gradientRightToLeft = const LinearGradient(
+    colors: [
+      Color(0xFF005BEA),
+      Color(0xFF00C6FB),
+    ],
+  );
+  static LinearGradient gradientRightToLeftTile = const LinearGradient(
+    colors: [
+      Color(0xFF005BEA),
+      Color(0xFFD900FF),
+    ],
+  );
+
+  static List<Color> gradientColors = const [
+    Color(0xFF00C6FB), // #00C6FB
+    Color(0xFF005BEA), // #005BEA
+  ];
+
+  //counterBoxColors
+  static const Color counterBoxCompletedColor = Color(0xFF27C052);
+  static const Color counterBoxOpenColor = Color(0xFF009AFF);
+  static const Color counterBoxRejectedColor = Color(0xFFED0000);
+  static const Color counterBoxReworkColor = Color(0xFFFF9E44);
+
+  // status colors
+  static const Color completedStatusColor = Color(0xFF27C052);
+  static const Color openStatusColor = Color(0xFF009AFF);
+  static const Color rejectedStatusColor = Color(0xFFED0000);
+  static const Color reworkStatusColor = Color(0xFFFF9E44);
+  static const Color inProgressStatusColor = Color(0xFFFF9E44);
+  static const Color scrappedStatusColor = Color.fromRGBO(25, 71, 233, 0.61);
+  static const Color onHoldStatusColor = Color(0xFFA49F9F);
+
+  static const Color timerBorderColor = Color(0xFFDADADA);
+  static const Color timericonColor = Color(0xFF7D7676);
+
+  // transparent
+  static const Color transparent = Colors.transparent;
 }

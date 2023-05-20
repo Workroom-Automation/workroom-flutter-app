@@ -12,11 +12,14 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../common/services/connection_service/connection_service.dart'
+import 'package:workroom_flutter_app/common/services/connection_service/connection_service.dart'
     as _i4;
-import '../../common/services/hive_service/hive_service.dart' as _i3;
-import '../../common/services/navigation_service/navigation_service.dart'
+import 'package:workroom_flutter_app/common/services/hive_service/hive_service.dart'
+    as _i3;
+import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart'
     as _i5;
+import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart'
+    as _i6;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,6 +38,7 @@ extension GetItInjectableX on _i1.GetIt {
       dispose: (i) => i.dispose(),
     );
     gh.singleton<_i5.NavigationService>(_i5.NavigationService());
+    gh.lazySingleton<_i6.RxStateClass>(() => _i6.RxStateClass());
     return this;
   }
 }

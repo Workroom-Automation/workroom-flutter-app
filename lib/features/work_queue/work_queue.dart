@@ -6,6 +6,10 @@ import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
+import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_list_tile_completed_or_rejected_mo.dart';
+import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_list_tile_open_mo.dart';
+import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_mo_header.dart';
+import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_status_tile.dart';
 
 class WorkQueuePage extends StatefulWidget {
   const WorkQueuePage({super.key});
@@ -28,14 +32,14 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
           onPressed: pop,
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        title: const Text('Work Que'),
+        title: const Text('Work Queue'),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
             child: Column(
               children: [
-                _buildMOHeader(title: 'MO Title & Details'),
+                const BuildMOHeader(title: 'MO Title & Details'),
                 const SizedBox(
                   height: 16,
                 ),
@@ -46,25 +50,29 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildStatusTile(
+                        BuildStatusTile(
                           width: width,
                           status: 'Completed',
                           count: '0',
+                          color: AppColors.counterBoxCompletedColor,
                         ),
-                        _buildStatusTile(
+                        BuildStatusTile(
                           width: width,
-                          status: 'In Process',
+                          status: 'Open',
                           count: '0',
+                          color: AppColors.counterBoxOpenColor,
                         ),
-                        _buildStatusTile(
+                        BuildStatusTile(
                           width: width,
                           status: 'Reject',
                           count: '0',
+                          color: AppColors.counterBoxRejectedColor,
                         ),
-                        _buildStatusTile(
+                        BuildStatusTile(
                           width: width,
                           status: 'Rework',
                           count: '0',
+                          color: AppColors.counterBoxReworkColor,
                         ),
                       ],
                     ),
@@ -78,15 +86,17 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildStatusTile(
+                            BuildStatusTile(
                               width: width,
                               status: 'Completed',
                               count: '0',
+                              color: AppColors.counterBoxCompletedColor,
                             ),
-                            _buildStatusTile(
+                            BuildStatusTile(
                               width: width,
-                              status: 'In Process',
+                              status: 'Open',
                               count: '0',
+                              color: AppColors.counterBoxOpenColor,
                             ),
                           ],
                         ),
@@ -96,15 +106,17 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildStatusTile(
+                            BuildStatusTile(
                               width: width,
                               status: 'Reject',
                               count: '0',
+                              color: AppColors.counterBoxRejectedColor,
                             ),
-                            _buildStatusTile(
+                            BuildStatusTile(
                               width: width,
                               status: 'Rework',
                               count: '0',
+                              color: AppColors.counterBoxReworkColor,
                             ),
                           ],
                         ),
@@ -143,34 +155,34 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                   height: 28,
                 ),
                 if (constraints.maxWidth >= mobileScreenSizeLimit)
-                  _buildListTileCompletedOrRejectedMO(
+                  const BuildListTileCompletedOrRejectedMo(
                     status: MOStatus.completed,
                     isMobile: false,
-                    title: 'Part ID: MO-S2',
+                    title: 'MO-S2',
                     startTime: '11:45 AM',
                     endTime: '12:15 PM',
                   )
                 else
-                  _buildListTileCompletedOrRejectedMO(
+                  const BuildListTileCompletedOrRejectedMo(
                     status: MOStatus.completed,
                     isMobile: true,
-                    title: 'Part ID: MO-S2',
+                    title: 'MO-S2',
                     startTime: '11:45 AM',
                     endTime: '12:15 PM',
                   ),
                 if (constraints.maxWidth >= mobileScreenSizeLimit)
-                  _buildListTileCompletedOrRejectedMO(
+                  const BuildListTileCompletedOrRejectedMo(
                     status: MOStatus.rejected,
                     isMobile: false,
-                    title: 'Part ID: MO-S2',
+                    title: 'MO-S2',
                     startTime: '11:45 AM',
                     endTime: '12:15 PM',
                   )
                 else
-                  _buildListTileCompletedOrRejectedMO(
+                  const BuildListTileCompletedOrRejectedMo(
                     status: MOStatus.rejected,
                     isMobile: true,
-                    title: 'Part ID: MO-S2',
+                    title: 'MO-S2',
                     startTime: '11:45 AM',
                     endTime: '12:15 PM',
                   ),
@@ -179,180 +191,13 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                   shrinkWrap: true,
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return _buildListTileOpenMO(title: 'Part ID: MO-S3');
+                    return const BuildListTileOpenMO(title: 'MO-S3');
                   },
                 ),
               ],
             ),
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildMOHeader({required String title}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: ListTile(
-        textColor: AppColors.textColor,
-        iconColor: AppColors.iconColor,
-        tileColor: AppColors.tileColor,
-        title: Text(
-          title,
-          style: CfTextStyles.getTextStyle(TStyle.h1_400)?.copyWith(
-            color: AppColors.textColor,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
-        trailing: const Icon(Icons.arrow_drop_down),
-        onTap: () {
-          // Handle tile tap event here
-        },
-      ),
-    );
-  }
-
-  Widget _buildListTileOpenMO({
-    required String title,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: ListTile(
-        textColor: AppColors.textColor,
-        iconColor: AppColors.iconColor,
-        tileColor: AppColors.tileColor,
-        title: Text(
-          title,
-          overflow: TextOverflow.ellipsis,
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            InkWell(
-              onTap: () {
-                // Handle open button press
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(90),
-                child: Container(
-                  width: 79,
-                  height: 28,
-                  color: AppColors.blueColor,
-                  child: const Center(child: Text('Open')),
-                ),
-              ),
-            ),
-            const SizedBox(width: 14),
-            InkWell(
-              onTap: () {
-                // Handle start button press
-              },
-              child: Container(
-                width: 79,
-                height: 28,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(90),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.play_arrow_rounded),
-                      Text('Start'),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatusTile({
-    required double width,
-    required String status,
-    required String count,
-  }) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Container(
-          width: width / 4,
-          height: 54,
-          decoration: BoxDecoration(
-            color: AppColors.tileColor,
-            border: Border.all(),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('$status: '),
-              Text(count),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildListTileCompletedOrRejectedMO({
-    required MOStatus status,
-    required bool isMobile,
-    required String title,
-    required String startTime,
-    required String endTime,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: ListTile(
-        textColor: AppColors.textColor,
-        iconColor: AppColors.iconColor,
-        tileColor: AppColors.tileColor,
-        title: isMobile
-            ? Text(title)
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(child: Text(title)),
-                  Expanded(child: Text('Start: $startTime')),
-                  Expanded(child: Text('End: $endTime')),
-                ],
-              ),
-        subtitle: isMobile
-            ? const Text(
-                'Start: 11:45 AM\nEnd:   12:15 PM',
-                overflow: TextOverflow.ellipsis,
-              )
-            : null,
-        trailing: InkWell(
-          onTap: () {
-            // Handle open button press
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(90),
-            child: Container(
-              width: 110,
-              height: 28,
-              color: status == MOStatus.completed
-                  ? AppColors.greenColor
-                  : AppColors.redColor,
-              child: status == MOStatus.completed
-                  ? const Center(child: Text('Completed'))
-                  : Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Icon(Icons.access_time, size: 20),
-                          Text('Rejected'),
-                        ],
-                      ),
-                    ),
-            ),
-          ),
-        ),
       ),
     );
   }
