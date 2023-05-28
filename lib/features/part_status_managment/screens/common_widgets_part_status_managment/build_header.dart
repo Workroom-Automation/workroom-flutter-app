@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
+import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 
 class BuildHeader extends StatelessWidget {
   const BuildHeader({
@@ -10,53 +11,59 @@ class BuildHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        height: 113,
-        width: double.infinity,
-        color: AppColors.tileColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    'Part ID: ',
-                    style: TextStyle(
-                      color: AppColors.greyColor,
-                      fontSize: 14,
-                    ),
+    return Container(
+      height: 80,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: AppColors.gradientLeftToRight,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                // Text(
+                //   'Part ID: ',
+                //   style: CfTextStyles.getTextStyle(TStyle.h1_600),
+                // ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_back_ios),
+                  color: AppColors.whiteColor,
+                ),
+                Text(
+                  title,
+                  style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
+                    color: AppColors.whiteColor,
                   ),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
+                )
+              ],
+            ),
+            Container(
+              height: 31,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color:
+                      AppColors.partStatusManagementHeaderStatusBoxBorderColor,
+                ),
+                borderRadius: BorderRadius.circular(5),
+                color: AppColors.partStatusManagementHeaderStatusBoxColor,
               ),
-              Container(
-                height: 34,
-                width: 146,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.greenBorderColor,
-                  ),
-                  borderRadius: BorderRadius.circular(90),
-                ),
-                child: const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text('Completed'),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'In-Progress',
+                    style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

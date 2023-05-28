@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/common/constants/app_colors.dart';
+import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart';
@@ -27,22 +29,50 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(widget.fieldProperties.title),
+              Text(
+                widget.fieldProperties.title,
+                style: CfTextStyles.getTextStyle(
+                  TStyle.h1_600,
+                )?.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Text('Multi Select'),
-                    SizedBox(
+                  children: [
+                    Text(
+                      'Multi Select',
+                      style: CfTextStyles.getTextStyle(
+                        TStyle.h1_600,
+                      )?.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    if (widget.fieldProperties.is_required)
+                      Text(
+                        '*',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 14,
+                          color: AppColors.red,
+                        ),
+                      )
+                    else
+                      const SizedBox.shrink(),
+                    const SizedBox(
                       width: 8,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 51,
                     )
                   ],
@@ -91,7 +121,16 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
                                               horizontal: 8,
                                             ),
                                             child: Center(
-                                              child: Text(option),
+                                              child: Text(
+                                                option,
+                                                style:
+                                                    CfTextStyles.getTextStyle(
+                                                  TStyle.h1_600,
+                                                )?.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -118,7 +157,15 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
                                   ?.map((String option) {
                                 return PopupMenuItem<String>(
                                   value: option,
-                                  child: Text(option),
+                                  child: Text(
+                                    option,
+                                    style: CfTextStyles.getTextStyle(
+                                      TStyle.h1_600,
+                                    )?.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
                                 );
                               }).toList() ??
                               [];
@@ -156,7 +203,81 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
                 ),
                 child: Center(
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog<dynamic>(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            elevation: 0,
+                            content: SizedBox(
+                              height: 350,
+                              width: 700,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      OutlinedButton.icon(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.photo_camera_outlined,
+                                          color: AppColors.iconColor,
+                                        ),
+                                        label: Text(
+                                          'Add Evidence Image',
+                                          style: CfTextStyles.getTextStyle(
+                                            TStyle.h1_600,
+                                          )?.copyWith(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  SizedBox(
+                                    height: 100,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 5,
+                                      itemBuilder: (context, index) {
+                                        return const Padding(
+                                          padding: EdgeInsets.all(8),
+                                          child: Placeholder(
+                                            fallbackHeight: 50,
+                                            fallbackWidth: 100,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  TextField(
+                                    maxLines: 5,
+                                    decoration: InputDecoration(
+                                      labelText: 'Add Your Remarks here',
+                                      labelStyle: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      border: const OutlineInputBorder(),
+                                      alignLabelWithHint: true,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                     icon: const Icon(
                       Icons.edit,
                     ),
@@ -168,5 +289,22 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
         ],
       ),
     );
+  }
+
+  void showImageDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Column(
+              children: [
+                TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.photo_camera_outlined),
+                    label: Text('Add Evidence Image'))
+              ],
+            ),
+          );
+        });
   }
 }

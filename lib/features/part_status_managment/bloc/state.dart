@@ -32,8 +32,9 @@ class RxStateClass {
     // fetch data from api and store in sheetModel
     _sheetModel = SheetModel(
       id: '6461ee4606a1fe5ec7dfas7b5d69',
-      name: 'bfsd',
-      description: 'fvdcs',
+      name: 'Rejects Review Sheet',
+      description:
+          'Purpose of this sheet is to capture the reasons for rejecting a shaft for future reviews & RCA.',
       externalCode: 'Kuch bh',
       applicationId: 1,
       assetId: 1,
@@ -51,7 +52,7 @@ class RxStateClass {
                 type: 'MULTI_SELECTION',
                 title: 'Multi select Field1',
                 description: 'description1',
-                is_required: false,
+                is_required: true,
                 require_observation: false,
                 require_attachment: false,
                 data: FieldData(
@@ -101,6 +102,66 @@ class RxStateClass {
           isDeleted: false,
         ),
         SectionModel(
+          id: '6461ee5006a1fe5gfgejjjjc77b5d6b',
+          name: 'name',
+          description: 'description',
+          fields: [
+            FieldModel(
+              id: '6461ee5306afjghda1fe5ec77b5d6c',
+              properties: FieldProperties(
+                type: 'MULTI_SELECTION',
+                title: 'Multi select Field1',
+                description: 'description1',
+                is_required: true,
+                require_observation: false,
+                require_attachment: false,
+                data: FieldData(
+                  options: ['Field 1', 'Field 2', 'Field 5678'],
+                ),
+              ),
+              triggers: [],
+              isActive: true,
+              isDeleted: false,
+            ),
+            FieldModel(
+              id: '6461ee5306a1fyuhgtyudfgaae5ec77b5d6c333',
+              properties: FieldProperties(
+                type: 'SINGLE_SELECTION',
+                title: 'single select Field1232',
+                description: 'description122',
+                is_required: false,
+                require_observation: false,
+                require_attachment: false,
+                data: FieldData(
+                  options: ['Fiel2d 1', 'Field4 2', 'Field 56728'],
+                ),
+              ),
+              triggers: [],
+              isActive: true,
+              isDeleted: false,
+            ),
+            FieldModel(
+              id: '6461ee5ygu306a1fegfagf5ec77b5d6c33ff3dffd',
+              properties: FieldProperties(
+                type: 'TEXT',
+                title: 'text Field1232',
+                description: 'description122ew',
+                is_required: false,
+                require_observation: false,
+                require_attachment: false,
+                data: FieldData(
+                  options: [],
+                ),
+              ),
+              triggers: [],
+              isActive: true,
+              isDeleted: false,
+            ),
+          ],
+          isActive: false,
+          isDeleted: false,
+        ),
+        SectionModel(
           id: '6461ee5006a1fedfad5ec77b5d6b11',
           name: 'name1',
           description: 'description1',
@@ -111,7 +172,7 @@ class RxStateClass {
                 type: 'MULTI_SELECTION',
                 title: 'Multi select Field11',
                 description: 'description11',
-                is_required: false,
+                is_required: true,
                 require_observation: false,
                 require_attachment: false,
                 data: FieldData(

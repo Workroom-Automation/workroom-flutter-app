@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 
 class TimerClass extends StatefulWidget {
   const TimerClass({super.key});
@@ -46,7 +47,7 @@ class _TimerClassState extends State<TimerClass> {
   Widget build(BuildContext context) {
     return Text(
       _formatTimer(_seconds),
-      style: const TextStyle(fontSize: 14),
+      style: CfTextStyles.getTextStyle(TStyle.h1_600),
     );
   }
 }

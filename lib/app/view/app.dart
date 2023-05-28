@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/services/connection_service/connection_service.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
@@ -20,6 +21,14 @@ class App extends StatelessWidget {
             navigatorKey: navigatorKey,
             theme: ThemeData(
               useMaterial3: true,
+              scaffoldBackgroundColor: AppColors.whiteColor,
+              dialogBackgroundColor: AppColors.whiteColor,
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: AppColors.whiteColor,
+              ),
+              dialogTheme: const DialogTheme(
+                backgroundColor: AppColors.whiteColor,
+              ),
               // appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
               // colorScheme: ColorScheme.fromSwatch(
               //   accentColor: const Color(0xFF13B9FF),
@@ -34,6 +43,14 @@ class App extends StatelessWidget {
           navigatorKey: navigatorKey,
           theme: ThemeData(
             useMaterial3: true,
+            scaffoldBackgroundColor: AppColors.whiteColor,
+            dialogBackgroundColor: AppColors.whiteColor,
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: AppColors.whiteColor,
+            ),
+            dialogTheme: const DialogTheme(
+              backgroundColor: AppColors.whiteColor,
+            ),
             // appBarTheme:
             //     const AppBarTheme(color: Color.fromARGB(255, 15, 16, 16)),
             // colorScheme: ColorScheme.fromSwatch(

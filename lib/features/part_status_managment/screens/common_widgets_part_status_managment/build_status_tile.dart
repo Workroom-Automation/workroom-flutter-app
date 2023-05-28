@@ -38,7 +38,7 @@ class BuildStatusTile extends StatelessWidget {
     return InkWell(
       onTap: onTap == null ? null : () => onTap!(width: width),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Container(
           height: 141,
           width: width / 2,
@@ -48,14 +48,23 @@ class BuildStatusTile extends StatelessWidget {
               color: colorMap[statusMap[title]]!,
             ),
             color: colorMap[statusMap[title]],
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.greyColor.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: const Offset(0, 5), // horizontal, vertical offset
+              ),
+            ],
           ),
           child: Center(
             child: Text(
-              title,
-              style: CfTextStyles.getTextStyle(TStyle.h1_700)?.copyWith(
+              title.toUpperCase(),
+              style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
                 color: AppColors.whiteColor,
-                fontWeight: FontWeight.w700,
+                fontSize: 30,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ),

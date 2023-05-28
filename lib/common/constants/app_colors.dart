@@ -12,10 +12,11 @@ class AppColors {
   static const Color greyColor = Color(0xFF7D7676);
   static const Color textColor = Colors.black;
   static const Color tileTextColor = Colors.white;
-  static const Color subtitleColor = Colors.grey;
+  static const Color subtitleColor = Color(0xFF7D7676);
   static const Color iconColor = Colors.black;
   static const Color tileIconColor = Colors.white;
   static const Color borderColor = Colors.black;
+  static const Color greyBorderColor = Color(0xFFDADADA);
   static const Color tileColor = Colors.white;
   // static const Color tileColor = Color.fromRGBO(217, 217, 217, 0.3);
   static const Color blueColor = Color.fromRGBO(177, 226, 253, 0.8);
@@ -77,4 +78,25 @@ class AppColors {
 
   // transparent
   static const Color transparent = Colors.transparent;
+
+  // bottom sheet colors
+  static Color bottomSheetColor = Colors.grey[200]!;
+
+  // inputs modal
+  static const Color inputsModalExternalcolor = Color(0xFFAC32E4);
+  static const Color inputsModalRoutingcolor = Color(0xFF009AFF);
+  static const Color inputsModalAvailabilityBordercolor = Color(0xFFDADADA);
+
+  // part status managment header status box color
+  static const Color partStatusManagementHeaderStatusBoxColor =
+      Color(0xFFFCE3A3);
+  static const Color partStatusManagementHeaderStatusBoxBorderColor =
+      Color(0xFFFF9E44);
+
+  // pinned sheet
+  static const Color pinnedSheetBoxShadowColor = Color.fromRGBO(0, 0, 0, 0.25);
+
+  // bottom navigation baar
+  static const Color bottomNavigationBarDeactivatedIconColor =
+      Color(0xFFC4C4C4);
 }

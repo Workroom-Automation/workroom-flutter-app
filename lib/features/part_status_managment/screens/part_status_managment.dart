@@ -1,12 +1,19 @@
-// ignore_for_file: avoid_dynamic_calls, lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/app/app.dart';
+import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/common/constants/constants.dart';
+import 'package:workroom_flutter_app/common/widgets/alerts.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/bottom_sheet_detail.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_bottom_sheet/timer.dart';
+import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/animated_bottom_sheet.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/build_header.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/build_status_tile.dart';
+import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/display_sheet_tile.dart';
+import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/input_list_tile.dart';
 
 class PartStatusManagment extends StatefulWidget {
   const PartStatusManagment({super.key});
@@ -16,18 +23,6 @@ class PartStatusManagment extends StatefulWidget {
 }
 
 class _PartStatusManagmentState extends State<PartStatusManagment> {
-  Color getColorFromGradient(List<Color> colors, double position) {
-    if (colors.isEmpty) return Colors.transparent;
-    if (position <= 0) return colors.first;
-    if (position >= 1) return colors.last;
-
-    final segment = 1 / (colors.length - 1);
-    final index = (position / segment).floor();
-    final t = (position - index * segment) / segment;
-
-    return Color.lerp(colors[index], colors[index + 1], t)!;
-  }
-
   // String _selectedItem = 'Completed';
   // final List<String> options = [
   //   'Oil Leakage',
@@ -39,7 +34,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
   List<String> selectedOptions = [];
   List<String> selectedOptionSingle = [];
   double value = 0;
-  bool showDetailModal = false;
+  bool showDetailModal = true;
 
   // SheetModel? sheetModel;
   // SheetInformationModel? sheetInformationModel;
@@ -61,15 +56,29 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
     super.initState();
   }
 
-  void onNumberChanged(String val) {
-    setState(() {
-      value = double.tryParse(val) ?? 0.0;
-    });
-  }
+  // void onNumberChanged(String val) {
+  //   setState(() {
+  //     value = double.tryParse(val) ?? 0.0;
+  //   });
+  // }
 
-  void changleModalState() {
+  // void changleModalState() {
+  //   setState(() {
+  //     showDetailModal = !showDetailModal;
+  //   });
+  // }
+
+  double containerHeight = 100;
+  bool isExpanded = false;
+
+  void toggleContainer() {
     setState(() {
-      showDetailModal = !showDetailModal;
+      if (isExpanded) {
+        containerHeight = 100.0;
+      } else {
+        containerHeight = MediaQuery.of(context).size.height * 0.8;
+      }
+      isExpanded = !isExpanded;
     });
   }
 
@@ -78,82 +87,363 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Part Status Managment'),
+        title: const Text(
+          'Part Status Managment',
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: SafeArea(
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            const BuildHeader(
-              title: 'MO-S1',
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            _buildTimer(),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: BuildStatusTile(title: 'On Hold', width: width),
-                ),
-                Expanded(
-                  child: BuildStatusTile(
-                    title: 'Reject',
-                    width: width,
-                    onTap: showBottomSheetWidget,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const BuildHeader(
+                    title: 'MO-01-A-123-S2',
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildTimer(),
+                        Container(
+                          height: 42,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: TextButton.icon(
+                            onPressed: () {
+                              showDialog<dynamic>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        15,
+                                      ), // Set your desired border radius here
+                                    ),
+                                    backgroundColor: AppColors.whiteColor,
+                                    elevation: 0,
+                                    child: SizedBox(
+                                      height: 300,
+                                      width: 700,
+                                      // color: AppColors.whiteColor,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                        ),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 8,
+                                                  vertical: 8,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Input(s) Checker',
+                                                      style: CfTextStyles
+                                                          .getTextStyle(
+                                                        TStyle.h1_600,
+                                                      )?.copyWith(
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                    DecoratedBox(
+                                                      decoration: BoxDecoration(
+                                                        gradient: AppColors
+                                                            .gradientRightToLeft,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                          5,
+                                                        ),
+                                                      ),
+                                                      child: IconButton(
+                                                        onPressed: () {},
+                                                        icon: const Icon(
+                                                          Icons.done,
+                                                          color: AppColors
+                                                              .whiteColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              const Divider(),
+                                              const InputListTile(
+                                                status: 'External',
+                                                statusBoxColor: AppColors
+                                                    .inputsModalExternalcolor,
+                                                title: 'Battery 40kwh',
+                                              ),
+                                              const Divider(),
+                                              const InputListTile(
+                                                status: 'External',
+                                                statusBoxColor: AppColors
+                                                    .inputsModalExternalcolor,
+                                                title: 'Lubricant',
+                                              ),
+                                              const Divider(),
+                                              const InputListTile(
+                                                status: 'Routing',
+                                                statusBoxColor: AppColors
+                                                    .inputsModalRoutingcolor,
+                                                title: 'Soft Trim Body',
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                  // return AlertDialog(
+                                  //   title: Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       const Text('Input(s) checker'),
+                                  //       Container(
+                                  //         decoration: BoxDecoration(
+                                  //           gradient:
+                                  //               AppColors.gradientRightToLeft,
+                                  //           borderRadius:
+                                  //               BorderRadius.circular(5),
+                                  //         ),
+                                  //         child: IconButton(
+                                  //           // style: ButtonStyle(
+                                  //           //   backgroundColor:
+                                  //           //       MaterialStateProperty.all(
+                                  //           //     getColorFromGradient(
+                                  //           //       AppColors.gradientColors,
+                                  //           //       0.5,
+                                  //           //     ),
+                                  //           //   ),
+                                  //           //   padding: MaterialStateProperty.all(
+                                  //           //     EdgeInsets.zero,
+                                  //           //   ),
+                                  //           // ),
+                                  //           onPressed: () {},
+                                  //           icon: const Icon(
+                                  //             Icons.done,
+                                  //             color: AppColors.whiteColor,
+                                  //           ),
+                                  //         ),
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  //   content: SingleChildScrollView(
+                                  //     child: Column(
+                                  //       children: [
+                                  //         Card(
+                                  //           child: Padding(
+                                  //             padding: const EdgeInsets.all(8),
+                                  //             child: ListTile(
+                                  //               title: Row(
+                                  //                 mainAxisAlignment:
+                                  //                     MainAxisAlignment
+                                  //                         .spaceBetween,
+                                  //                 children: [
+                                  //                   Expanded(
+                                  //                     child: Text(
+                                  //                       'Battery 40kWh',
+                                  //                       style: CfTextStyles
+                                  //                           .getTextStyle(
+                                  //                         TStyle.h1_400,
+                                  //                       )?.copyWith(
+                                  //                         fontSize: 14,
+                                  //                         fontWeight:
+                                  //                             FontWeight.w400,
+                                  //                         color:
+                                  //                             AppColors.textColor,
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                   Row(
+                                  //                     children: [
+                                  //                       IconButton(
+                                  //                         onPressed: () {},
+                                  //                         icon: const Icon(
+                                  //                           Icons.done,
+                                  //                         ),
+                                  //                       ),
+                                  //                       IconButton(
+                                  //                         onPressed: () {},
+                                  //                         icon: const Icon(
+                                  //                           Icons.close,
+                                  //                         ),
+                                  //                       ),
+                                  //                     ],
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //               subtitle: const Text(
+                                  //                 'External',
+                                  //                 style: TextStyle(
+                                  //                   color: Colors.purple,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //         Card(
+                                  //           child: Padding(
+                                  //             padding: const EdgeInsets.all(8.0),
+                                  //             child: ListTile(
+                                  //                 title: Row(
+                                  //                   mainAxisAlignment:
+                                  //                       MainAxisAlignment
+                                  //                           .spaceBetween,
+                                  //                   children: [
+                                  //                     Expanded(
+                                  //                       child: Text(
+                                  //                         'Lubricant',
+                                  //                         style: CfTextStyles
+                                  //                                 .getTextStyle(
+                                  //                                     TStyle
+                                  //                                         .h1_400)
+                                  //                             ?.copyWith(
+                                  //                           fontSize: 14,
+                                  //                           fontWeight:
+                                  //                               FontWeight.w400,
+                                  //                           color: AppColors
+                                  //                               .textColor,
+                                  //                         ),
+                                  //                       ),
+                                  //                     ),
+                                  //                     Row(
+                                  //                       children: [
+                                  //                         IconButton(
+                                  //                           onPressed: () {},
+                                  //                           icon:
+                                  //                               Icon(Icons.done),
+                                  //                         ),
+                                  //                         IconButton(
+                                  //                           onPressed: () {},
+                                  //                           icon:
+                                  //                               Icon(Icons.close),
+                                  //                         ),
+                                  //                       ],
+                                  //                     ),
+                                  //                   ],
+                                  //                 ),
+                                  //                 subtitle: Text(
+                                  //                   'External',
+                                  //                   style: TextStyle(
+                                  //                     color: Colors.purple,
+                                  //                   ),
+                                  //                 )),
+                                  //           ),
+                                  //         )
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                              );
+                            },
+                            icon: Image.asset(
+                              AppAssets.inputIcon,
+                            ),
+                            label: Text(
+                              'Inputs',
+                              style: CfTextStyles.getTextStyle(TStyle.h1_600)
+                                  ?.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: BuildStatusTile(title: 'On Hold', width: width),
+                      ),
+                      Expanded(
+                        child: BuildStatusTile(
+                          title: 'Reject',
+                          width: width,
+                          onTap: showBottomSheetWidget,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: BuildStatusTile(title: 'Rework', width: width),
+                      ),
+                      Expanded(
+                        child: BuildStatusTile(title: 'Scrap', width: width),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  BuildStatusTile(title: 'Completed', width: width),
+                  const SizedBox(
+                    height: 141,
+                  ),
+                ],
+              ),
+            ),
+            if (isExpanded)
+              InkWell(
+                onTap: toggleContainer,
+                child: Container(
+                  color: Colors.black.withOpacity(0.5),
                 ),
-              ],
+              ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              // top: 0,
+              child: AnimatedBottomSheet(
+                containerHeight: containerHeight,
+                isExpanded: isExpanded,
+                tooogleContainer: toggleContainer,
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: BuildStatusTile(title: 'Rework', width: width),
-                ),
-                Expanded(
-                  child: BuildStatusTile(title: 'Scrap', width: width),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            BuildStatusTile(title: 'Completed', width: width)
+
+            // DraggableScrollableSheet(
+            //   initialChildSize: 0.4,
+            //   // maxChildSize: 0.8,
+            //   minChildSize: 0.1,
+            //   builder: (context, scrollontroller) {
+            //     return SingleChildScrollView(
+            //       controller: scrollontroller,
+            //       child: ColoredBox(
+            //         color: AppColors.whiteColor,
+            //         child:
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_rounded),
-            label: 'Actions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pageview_outlined),
-            label: 'Access',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more),
-            label: 'More',
-          ),
-        ],
-        currentIndex: 1,
-        selectedItemColor: getColorFromGradient(AppColors.gradientColors, 0.5),
-        unselectedItemColor: AppColors.greyColor,
-        showUnselectedLabels: true,
-        unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-        onTap: (index) {},
       ),
     );
   }
@@ -163,19 +453,14 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
       height: 42,
       width: 125,
       decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.timerBorderColor,
-        ),
+        border: Border.all(),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          Icon(
-            Icons.timer,
-            color: AppColors.timericonColor,
-          ),
-          TimerClass(),
+        children: [
+          Image.asset(AppAssets.timerIcon),
+          const TimerClass(),
         ],
       ),
     );
@@ -199,6 +484,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
                     showDetailModal = !showDetailModal;
                   });
                 },
+                scrollcontroller: ScrollController(),
               );
             }
             return Container(

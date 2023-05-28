@@ -49,5 +49,13 @@ class CfTextStyles {
       fontWeight: FontWeight.w900,
       color: AppColors.red,
     ),
+    TStyle.h1_600: const TextStyle(
+      fontFamily: 'GlacialIndifference',
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textColor,
+      letterSpacing: -0.5,
+      fontStyle: FontStyle.normal,
+    ),
   };
 }

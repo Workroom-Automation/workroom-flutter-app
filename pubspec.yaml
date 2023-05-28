@@ -16,24 +16,21 @@ dependencies:
   flutter_bloc: ^8.1.2
   flutter_localizations:
     sdk: flutter
-   # add get_it  
-  get_it: 
+  get_it: null
   hive: ^2.2.3
-   # add injectable to your dependencies  
-  injectable:  
+  injectable: null
   intl: ^0.17.0
   path_provider: ^2.0.14
   rxdart: ^0.27.7
-  
 
 dev_dependencies:
   bloc_test: ^9.1.1
-   # add build runner if not already added  
-  build_runner:  
+  # add build runner if not already added
+  build_runner: null
   flutter_test:
     sdk: flutter
-   # add the generator to your dev_dependencies  
-  injectable_generator:  
+  # add the generator to your dev_dependencies
+  injectable_generator: null
   mocktail: ^0.3.0
   very_good_analysis: ^3.1.0
 
@@ -42,3 +39,11 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/icons/
+  fonts:
+    - family : GlacialIndifference
+      fonts:
+        - asset: assets/fonts/GlacialIndifference-Regular.otf
+        - asset: assets/fonts/GlacialIndifference-Bold.otf
+        - asset: assets/fonts/GlacialIndifference-Italic.otf
+          weight: 700
