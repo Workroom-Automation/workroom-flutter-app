@@ -99,4 +99,13 @@ class AppColors {
   // bottom navigation baar
   static const Color bottomNavigationBarDeactivatedIconColor =
       Color(0xFFC4C4C4);
+
+  // worK queue
+  static const headerTextColor = Color(0xFF7D7676);
+  static const statusTileBackgroundContainerColor =
+      Color.fromRGBO(245, 245, 245, 0.6);
+  static const statusCircleColor = Color(0xFFE5E5E5);
+  static const selectedRadioButtonTileColor =
+      Color.fromRGBO(208, 235, 255, 0.35);
+  static const selectedRadioButtonColor = Color(0xFF009AFF);
 }

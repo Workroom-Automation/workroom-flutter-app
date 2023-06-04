@@ -3,15 +3,14 @@ import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 
-class BuildStatusTile extends StatelessWidget {
-  const BuildStatusTile({
+class PendingOrSubmittedStatusTile extends StatelessWidget {
+  const PendingOrSubmittedStatusTile({
     super.key,
     required this.width,
     required this.status,
     required this.count,
     required this.color,
   });
-
   final double width;
   final String status;
   final String count;
@@ -21,7 +20,7 @@ class BuildStatusTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      width: width / 4,
+      width: width / 3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
@@ -37,7 +36,7 @@ class BuildStatusTile extends StatelessWidget {
               child: Row(
                 children: [
                   Image.asset(
-                    AppAssets.bigDotImage,
+                    AppAssets.sheetIcon,
                     color: color,
                   ),
                   const SizedBox(
@@ -70,7 +69,7 @@ class BuildStatusTile extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: AppColors.statusCircleColor,
                   child: Text(
-                    '23',
+                    count,
                     style: CfTextStyles.getTextStyle(
                       TStyle.h1_600,
                     )?.copyWith(

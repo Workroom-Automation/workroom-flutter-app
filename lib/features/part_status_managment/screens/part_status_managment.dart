@@ -17,6 +17,7 @@ import 'package:workroom_flutter_app/features/part_status_managment/screens/comm
 
 class PartStatusManagment extends StatefulWidget {
   const PartStatusManagment({super.key});
+  static const routeName = '/part_status_managment';
 
   @override
   State<PartStatusManagment> createState() => _PartStatusManagmentState();
@@ -86,11 +87,11 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Part Status Managment',
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     'Part Status Managment',
+      //   ),
+      // ),
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
@@ -113,7 +114,9 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
                         Container(
                           height: 42,
                           decoration: BoxDecoration(
-                            border: Border.all(),
+                            border: Border.all(
+                              color: AppColors.greyBorderColor,
+                            ),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: TextButton.icon(
@@ -451,17 +454,17 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
   Widget _buildTimer() {
     return Container(
       height: 42,
-      width: 125,
+      width: 92,
       decoration: BoxDecoration(
-        border: Border.all(),
+        border: Border.all(
+          color: AppColors.greyBorderColor,
+        ),
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(AppAssets.timerIcon),
-          const TimerClass(),
-        ],
+      child: TextButton.icon(
+        onPressed: () {},
+        icon: Image.asset(AppAssets.timerIcon),
+        label: const TimerClass(),
       ),
     );
   }

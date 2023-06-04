@@ -38,6 +38,7 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+    - assets/icons/work_queue_icons/
     - assets/images/
     - assets/icons/
   fonts:

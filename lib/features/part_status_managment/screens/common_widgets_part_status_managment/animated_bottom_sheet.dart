@@ -26,7 +26,8 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 100),
+      // ignore: use_named_constants
+      duration: const Duration(),
       height: widget.containerHeight,
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
@@ -41,8 +42,8 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
         ],
       ),
       child: !widget.isExpanded
-          ? Hero(
-              tag: 'abc',
+          ? InkWell(
+              onTap: () => widget.tooogleContainer(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -94,7 +95,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                         ],
                       ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () => widget.tooogleContainer(),
                       child: Container(
                         padding: const EdgeInsets.all(16),
@@ -148,8 +149,8 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                           const SizedBox(
                             height: 8,
                           ),
-                          Hero(
-                            tag: 'abc',
+                          InkWell(
+                            onTap: () => widget.tooogleContainer(),
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -209,7 +210,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                                       ],
                                     ),
                                   ),
-                                  GestureDetector(
+                                  InkWell(
                                     onTap: () => widget.tooogleContainer(),
                                     child: Container(
                                       padding: const EdgeInsets.all(16),

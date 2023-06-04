@@ -4,7 +4,9 @@ import 'package:workroom_flutter_app/common/services/connection_service/connecti
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/part_status_managment.dart';
-// import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';
+import 'package:workroom_flutter_app/features/work_queue/bottom_sheet_work_queue.dart';
+// import 'package:workroom_flutter_app/features/part_status_managment/screens/part_status_managment.dart';
+import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';
 import 'package:workroom_flutter_app/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -36,7 +38,11 @@ class App extends StatelessWidget {
             ),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            home: const PartStatusManagment(),
+            home: const WorkQueuePage(),
+            routes: {
+              PartStatusManagment.routeName: (context) =>
+                  const PartStatusManagment(),
+            },
           );
         }
         return MaterialApp(
