@@ -1,4 +1,5 @@
-enum MOStatus {
+enum MoPartStatus {
+  open,
   completed,
   rejected,
   onHold,

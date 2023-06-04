@@ -3,22 +3,20 @@ import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
-import 'package:workroom_flutter_app/features/work_queue/bottom_sheet_work_queue.dart';
 
-class StartOrCompletedInspectionTile extends StatefulWidget {
-  const StartOrCompletedInspectionTile({
+class BuildMoListInspectionPart extends StatefulWidget {
+  const BuildMoListInspectionPart({
     super.key,
     required this.isStartInspection,
   });
   final bool isStartInspection;
 
   @override
-  State<StartOrCompletedInspectionTile> createState() =>
-      _StartOrCompletedInspectionTileState();
+  State<BuildMoListInspectionPart> createState() =>
+      _BuildMoListInspectionPartState();
 }
 
-class _StartOrCompletedInspectionTileState
-    extends State<StartOrCompletedInspectionTile> {
+class _BuildMoListInspectionPartState extends State<BuildMoListInspectionPart> {
   @override
   Widget build(BuildContext context) {
     return Padding(

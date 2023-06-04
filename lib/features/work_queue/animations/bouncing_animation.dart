@@ -9,7 +9,7 @@ class BouncingAnimation extends StatefulWidget {
     this.onTap,
   });
   final Widget widget;
-  final Function? onTap;
+  final VoidCallback? onTap;
 
   @override
   State<BouncingAnimation> createState() => _BouncingAnimationState();
@@ -25,7 +25,7 @@ class _BouncingAnimationState extends State<BouncingAnimation> {
           _scale = 0.9;
         });
         if (widget.onTap != null) {
-          widget.onTap!();
+          widget.onTap?.call();
         }
 
         Timer(const Duration(milliseconds: 100), () {

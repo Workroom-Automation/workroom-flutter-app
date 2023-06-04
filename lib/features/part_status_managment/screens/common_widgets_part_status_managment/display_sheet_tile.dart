@@ -15,14 +15,12 @@ class DisplaySheetTile extends StatelessWidget {
   final String title;
   final String status;
   final Color statusColor;
-  final Function callback;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        callback();
-      },
+      onTap: callback,
       child: Column(
         children: [
           Padding(

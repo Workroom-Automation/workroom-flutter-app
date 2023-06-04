@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class BuildMOHeader extends StatelessWidget {
   const BuildMOHeader({
@@ -12,7 +11,7 @@ class BuildMOHeader extends StatelessWidget {
     required this.isExpanded,
   });
   final String title;
-  final Function toggleContainer;
+  final VoidCallback toggleContainer;
   final bool isExpanded;
 
   @override
@@ -67,7 +66,7 @@ class BuildMOHeader extends StatelessWidget {
                       width: 18,
                     ),
                     GestureDetector(
-                      onTap: () => toggleContainer(),
+                      onTap: toggleContainer,
                       child: isExpanded
                           ? Image.asset(
                               AppAssets.upArrowIcon,

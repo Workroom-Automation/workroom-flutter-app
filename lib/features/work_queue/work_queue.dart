@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 // import 'package:workroom_flutter_app/app/app.dart';
-import 'package:workroom_flutter_app/common/constants/all_status.dart';
-import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/common/widgets/bottom_navigation_bar.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
-import 'package:workroom_flutter_app/features/work_queue/bottom_sheet_work_queue.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/animated_detail_sheet.dart';
-import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_list_tile_completed_or_rejected_mo.dart';
-import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_list_tile_open_mo.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_mo_header.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_status_tile.dart';
-import 'package:workroom_flutter_app/features/work_queue/common_widgets/inspection%20queue%20widgets/start__or_completed_inspection_tile.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/pending_or_submitted_status_tile.dart';
+import 'package:workroom_flutter_app/features/work_queue/inspection_work_queue.dart';
+import 'package:workroom_flutter_app/features/work_queue/production_work_queue.dart';
 
 class WorkQueuePage extends StatefulWidget {
   const WorkQueuePage({super.key});
@@ -49,14 +44,14 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: pop,
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        title: const Text('Work Queue'),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   leading: IconButton(
+      //     onPressed: pop,
+      //     icon: const Icon(Icons.arrow_back_ios),
+      //   ),
+      //   title: const Text('Work Queue'),
+      // ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -289,104 +284,9 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                   height: 28,
                 ),
                 if (isProductionQueueSelected)
-                  Column(
-                    children: [
-                      const BuildListTileCompletedOrRejectedMo(
-                        status: MOStatus.completed,
-                        isMobile: false,
-                        title: 'MO-S2',
-                        startTime: '11:45 AM',
-                        endTime: '12:15 PM',
-                      ),
-                      const BuildListTileCompletedOrRejectedMo(
-                        status: MOStatus.rejected,
-                        isMobile: false,
-                        title: 'MO-S2',
-                        startTime: '11:45 AM',
-                        endTime: '12:15 PM',
-                      ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return const BuildListTileOpenMO(title: 'MO-S3');
-                        },
-                      ),
-                    ],
-                  ),
-                if (!isProductionQueueSelected)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      BouncingAnimation(
-                        onTap: () {
-                          showModalBottomSheet<dynamic>(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) => const BottomSheetWorkQueue(),
-                          );
-                        },
-                        widget: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: AppColors.gradientLeftToRight,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            padding: const EdgeInsets.all(12),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Select Part',
-                                  style:
-                                      CfTextStyles.getTextStyle(TStyle.h1_600)
-                                          ?.copyWith(
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'No parts inspected. Select a part and start inspection.',
-                          style: CfTextStyles.getTextStyle(TStyle.h1_600)
-                              ?.copyWith(
-                            fontStyle: FontStyle.italic,
-                            color: AppColors.greyColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      const StartOrCompletedInspectionTile(
-                        isStartInspection: true,
-                      ),
-                      const StartOrCompletedInspectionTile(
-                        isStartInspection: false,
-                      ),
-                    ],
-                  ),
+                  const ProductionWorkQueue()
+                else
+                  const InspectionWorkQueue(),
               ],
             ),
           );

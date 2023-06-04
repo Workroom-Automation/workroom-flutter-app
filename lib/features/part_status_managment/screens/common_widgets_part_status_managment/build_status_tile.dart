@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable, avoid_dynamic_calls
 
 import 'package:flutter/material.dart';
-import 'package:workroom_flutter_app/common/constants/all_status.dart';
 
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/features/part_status_managment/constants/mo_part_status.dart';
 
 class BuildStatusTile extends StatelessWidget {
   BuildStatusTile({
@@ -16,21 +16,21 @@ class BuildStatusTile extends StatelessWidget {
   final String title;
   final double width;
   Function? onTap;
-  Map<String, MOStatus> statusMap = {
-    'Completed': MOStatus.completed,
-    'In Progress': MOStatus.inProgress,
-    'On Hold': MOStatus.onHold,
-    'Rework': MOStatus.rework,
-    'Scrap': MOStatus.scrapped,
-    'Reject': MOStatus.rejected,
+  Map<String, MoPartStatus> statusMap = {
+    'Completed': MoPartStatus.completed,
+    'In Progress': MoPartStatus.inProgress,
+    'On Hold': MoPartStatus.onHold,
+    'Rework': MoPartStatus.rework,
+    'Scrap': MoPartStatus.scrapped,
+    'Reject': MoPartStatus.rejected,
   };
-  Map<MOStatus, Color> colorMap = {
-    MOStatus.completed: AppColors.completedStatusColor,
-    MOStatus.inProgress: AppColors.inProgressStatusColor,
-    MOStatus.onHold: AppColors.onHoldStatusColor,
-    MOStatus.rework: AppColors.reworkStatusColor,
-    MOStatus.scrapped: AppColors.scrappedStatusColor,
-    MOStatus.rejected: AppColors.rejectedStatusColor,
+  Map<MoPartStatus, Color> colorMap = {
+    MoPartStatus.completed: AppColors.completedStatusColor,
+    MoPartStatus.inProgress: AppColors.inProgressStatusColor,
+    MoPartStatus.onHold: AppColors.onHoldStatusColor,
+    MoPartStatus.rework: AppColors.reworkStatusColor,
+    MoPartStatus.scrapped: AppColors.scrappedStatusColor,
+    MoPartStatus.rejected: AppColors.rejectedStatusColor,
   };
 
   @override

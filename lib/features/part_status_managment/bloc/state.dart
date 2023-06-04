@@ -33,8 +33,7 @@ class RxStateClass {
     _sheetModel = SheetModel(
       id: '6461ee4606a1fe5ec7dfas7b5d69',
       name: 'Rejects Review Sheet',
-      description:
-          'Purpose of this sheet is to capture the reasons for rejecting a shaft for future reviews & RCA.',
+      description: 'Random Sheet Desc.',
       externalCode: 'Kuch bh',
       applicationId: 1,
       assetId: 1,

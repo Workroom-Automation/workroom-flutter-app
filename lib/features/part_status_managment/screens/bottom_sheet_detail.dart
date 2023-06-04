@@ -330,19 +330,21 @@ class _SheetState extends State<Sheet> {
 
   // show modal for image
   void showImageDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Column(
-              children: [
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.photo_camera_outlined),
-                    label: Text('Add Evidence Image'))
-              ],
-            ),
-          );
-        });
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            children: [
+              TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.photo_camera_outlined),
+                label: const Text('Add Evidence Image'),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }

@@ -10,11 +10,11 @@ class AnimatedBottomSheet extends StatefulWidget {
     super.key,
     required this.containerHeight,
     required this.isExpanded,
-    required this.tooogleContainer,
+    required this.toggleContainer,
   });
   final double containerHeight;
   final bool isExpanded;
-  final Function tooogleContainer;
+  final VoidCallback toggleContainer;
 
   @override
   State<AnimatedBottomSheet> createState() => _AnimatedBottomSheetState();
@@ -43,7 +43,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
       ),
       child: !widget.isExpanded
           ? InkWell(
-              onTap: () => widget.tooogleContainer(),
+              onTap: widget.toggleContainer,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -96,7 +96,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => widget.tooogleContainer(),
+                      onTap: widget.toggleContainer,
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         child: Image.asset(
@@ -150,7 +150,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                             height: 8,
                           ),
                           InkWell(
-                            onTap: () => widget.tooogleContainer(),
+                            onTap: widget.toggleContainer,
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -211,7 +211,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () => widget.tooogleContainer(),
+                                    onTap: widget.toggleContainer,
                                     child: Container(
                                       padding: const EdgeInsets.all(16),
                                       child: Image.asset(

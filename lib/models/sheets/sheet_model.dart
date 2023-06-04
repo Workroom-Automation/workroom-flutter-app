@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes, lines_longer_than_80_chars, avoid_dynamic_calls
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes, lines_longer_than_80_chars, avoid_dynamic_calls, cascade_invocations
 
 import 'dart:convert';
 
