@@ -4,7 +4,6 @@ import 'package:workroom_flutter_app/common/constants/all_status.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/features/work_queue/test.dart';
 
 class BuildListTileCompletedOrRejectedMo extends StatelessWidget {
   const BuildListTileCompletedOrRejectedMo({
@@ -231,16 +230,7 @@ class BuildListTileCompletedOrRejectedMo extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => SizedBox(
-                          height: 500,
-                          width: 500,
-                          child: CustomAlertDialog(),
-                        ),
-                      );
-                    },
+                    onTap: () {},
                     child: Image.asset(AppAssets.timerIcon),
                   ),
                 ),
