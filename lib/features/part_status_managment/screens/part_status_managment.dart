@@ -550,12 +550,12 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
                       const SizedBox(
                         height: 16,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 16,
                         ),
                         child: Row(
-                          children: const [
+                          children: [
                             Expanded(
                               child: Text(
                                 'Purpose of this sheet is to capture the reasons for rejecting a shaft for future reviews & RCA.',
