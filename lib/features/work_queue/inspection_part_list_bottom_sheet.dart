@@ -3,14 +3,16 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
-class BottomSheetWorkQueue extends StatefulWidget {
-  const BottomSheetWorkQueue({super.key});
+class InspectionPartListBottomSheet extends StatefulWidget {
+  const InspectionPartListBottomSheet({super.key});
 
   @override
-  State<BottomSheetWorkQueue> createState() => _BottomSheetWorkQueueState();
+  State<InspectionPartListBottomSheet> createState() =>
+      _InspectionPartListBottomSheetState();
 }
 
-class _BottomSheetWorkQueueState extends State<BottomSheetWorkQueue> {
+class _InspectionPartListBottomSheetState
+    extends State<InspectionPartListBottomSheet> {
   int _selectedTileIndex = -1;
 
   final _tiles = [

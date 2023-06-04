@@ -3,7 +3,7 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_mo_list_inspection_part.dart';
-import 'package:workroom_flutter_app/features/work_queue/ispection_part_list_bottom_sheet.dart';
+import 'package:workroom_flutter_app/features/work_queue/inspection_part_list_bottom_sheet.dart';
 
 class InspectionWorkQueue extends StatefulWidget {
   const InspectionWorkQueue({super.key});
@@ -30,7 +30,7 @@ class _InspectionWorkQueueState extends State<InspectionWorkQueue> {
             showModalBottomSheet<dynamic>(
               context: context,
               isScrollControlled: true,
-              builder: (context) => const BottomSheetWorkQueue(),
+              builder: (context) => const InspectionPartListBottomSheet(),
             );
           },
           widget: Padding(
