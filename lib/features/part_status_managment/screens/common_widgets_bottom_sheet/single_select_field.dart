@@ -17,6 +17,7 @@ class SingleSelectField extends StatefulWidget {
     required this.sheetInformationModel,
     required this.snapshotOfSelectedOption,
     required this.rxStateClass,
+    required this.logginedStarted,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
@@ -24,6 +25,7 @@ class SingleSelectField extends StatefulWidget {
 
   final AsyncSnapshot<String> snapshotOfSelectedOption;
   final RxStateClass rxStateClass;
+  final bool logginedStarted;
 
   @override
   State<SingleSelectField> createState() => _SingleSelectFieldState();
@@ -49,7 +51,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -85,16 +87,88 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: InkWell(
                   splashColor: AppColors.transparent,
                   onTap: () {
-                    showDialog<Dialog>(
+                    showDialog<AlertDialog>(
                       context: context,
                       builder: (context) {
-                        return Dialog(
+                        return AlertDialog(
                           elevation: 0,
-                          child: SizedBox(
+                          actionsAlignment: MainAxisAlignment.spaceBetween,
+                          actions: [
+                            BouncingAnimation(
+                              onTap: () {
+                                getIt<NavigationService>().pop();
+                                FocusScope.of(context).unfocus();
+                              },
+                              widget: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: Container(
+                                  height: 40,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.gradientLeftToRight,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Cancel',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        color: AppColors.whiteColor,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            BouncingAnimation(
+                              onTap: () {
+                                _formKey.currentState?.save();
+                                getIt<NavigationService>().pop();
+                                FocusScope.of(context).unfocus();
+                              },
+                              widget: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: Container(
+                                  height: 40,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.gradientLeftToRight,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'OK',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        color: AppColors.whiteColor,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                          content: SizedBox(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: SingleChildScrollView(
                               child: Column(
@@ -105,121 +179,19 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                                       horizontal: 8,
                                       vertical: 8,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 8,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'Select options',
-                                              style: CfTextStyles.getTextStyle(
-                                                TStyle.h1_600,
-                                              )?.copyWith(
-                                                fontSize: 18,
-                                              ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Select option',
+                                            style: CfTextStyles.getTextStyle(
+                                              TStyle.h1_600,
+                                            )?.copyWith(
+                                              fontSize: 18,
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                BouncingAnimation(
-                                                  onTap: () {
-                                                    getIt<NavigationService>()
-                                                        .pop();
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                  },
-                                                  widget: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 16,
-                                                    ),
-                                                    child: Container(
-                                                      height: 40,
-                                                      // width: 60,
-                                                      decoration: BoxDecoration(
-                                                        gradient: AppColors
-                                                            .gradientLeftToRight,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        horizontal: 12,
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style: CfTextStyles
-                                                              .getTextStyle(
-                                                            TStyle.h1_600,
-                                                          )?.copyWith(
-                                                            color: AppColors
-                                                                .whiteColor,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                BouncingAnimation(
-                                                  onTap: () {
-                                                    _formKey.currentState
-                                                        ?.save();
-                                                    getIt<NavigationService>()
-                                                        .pop();
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                  },
-                                                  widget: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 16,
-                                                    ),
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 60,
-                                                      decoration: BoxDecoration(
-                                                        gradient: AppColors
-                                                            .gradientLeftToRight,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        horizontal: 12,
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'OK',
-                                                          style: CfTextStyles
-                                                              .getTextStyle(
-                                                            TStyle.h1_600,
-                                                          )?.copyWith(
-                                                            color: AppColors
-                                                                .whiteColor,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   FormBuilder(
@@ -230,9 +202,9 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                                       ),
                                       initialValue:
                                           widget.snapshotOfSelectedOption.data,
-                                      // enabled: false,
+                                      enabled: widget.logginedStarted,
                                       activeColor:
-                                          AppColors.selectedRadioButtonColor,
+                                          AppColors.selectedButtonColor,
                                       orientation: OptionsOrientation.vertical,
                                       onSaved: (value) {
                                         widget.rxStateClass

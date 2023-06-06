@@ -109,5 +109,8 @@ class AppColors {
   static const statusCircleColor = Color(0xFFE5E5E5);
   static const selectedRadioButtonTileColor =
       Color.fromRGBO(208, 235, 255, 0.35);
-  static const selectedRadioButtonColor = Color(0xFF009AFF);
+  static const selectedButtonColor = Color(0xFF009AFF);
+
+  // sheet basic detail background color
+  static const basicDetailTileColor = Color.fromRGBO(208, 235, 255, 0.35);
 }

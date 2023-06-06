@@ -21,6 +21,7 @@ class DisplaySheetTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: AppColors.transparent,
+      highlightColor: AppColors.transparent,
       onTap: callback,
       child: Column(
         children: [
@@ -69,7 +70,6 @@ class DisplaySheetTile extends StatelessWidget {
                       ),
                     ),
                     backgroundColor: statusColor,
-                    onPressed: () {},
                   ),
                 ],
               ),

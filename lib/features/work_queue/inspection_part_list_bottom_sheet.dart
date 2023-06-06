@@ -145,7 +145,7 @@ class _InspectionPartListBottomSheetState
                           ),
                         ),
                         child: Radio(
-                          activeColor: AppColors.selectedRadioButtonColor,
+                          activeColor: AppColors.selectedButtonColor,
                           value: index,
                           groupValue: widget.isRadioDisabled
                               ? null

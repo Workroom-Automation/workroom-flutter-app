@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
-import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
 
@@ -75,170 +74,135 @@ class _SheetState extends State<Sheet> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
+                    ListTile(
+                      leading: BouncingAnimation(
+                        onTap: () {
+                          widget.callBack();
+                        },
+                        widget: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                        ),
+                      ),
+                      title: Text(
+                        '${sheetModel?.name}',
+                        overflow: TextOverflow.ellipsis,
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '${sheetModel?.description}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.subtitleColor,
+                        ),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Expanded(
-                            child: Column(
+                          if (logginedStarted)
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        widget.callBack();
-                                      },
-                                      icon: const Icon(
-                                        Icons.arrow_back_ios_new_rounded,
+                                BouncingAnimation(
+                                  onTap: () {
+                                    // what happens when sheet is submitted
+                                  },
+                                  widget: Container(
+                                    height: 31,
+                                    decoration: BoxDecoration(
+                                      gradient: AppColors.gradientRightToLeft,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        '${sheetModel?.name}',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: CfTextStyles.getTextStyle(
-                                          TStyle.h1_600,
-                                        )?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
+                                      child: Center(
+                                        child: Text(
+                                          'Submit Sheet',
+                                          style: CfTextStyles.getTextStyle(
+                                            TStyle.h1_600,
+                                          )?.copyWith(
+                                            fontSize: 14,
+                                            color: AppColors.whiteColor,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 55,
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                BouncingAnimation(
+                                  onTap: () {
+                                    // what happens when progress is saved
+                                  },
+                                  widget: Container(
+                                    height: 31,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppColors.greyBorderColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
-                                    Expanded(
-                                      child: Text(
-                                        '${sheetModel?.description}',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: CfTextStyles.getTextStyle(
-                                          TStyle.h1_600,
-                                        )?.copyWith(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.subtitleColor,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Save Progress',
+                                          style: CfTextStyles.getTextStyle(
+                                            TStyle.h1_600,
+                                          )?.copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
                           if (!logginedStarted)
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  BouncingAnimation(
-                                    onTap: () {
-                                      setState(() {
-                                        logginedStarted = true;
-                                      });
-                                    },
-                                    widget: Container(
-                                      height: 31,
-                                      decoration: BoxDecoration(
-                                        gradient: AppColors.gradientRightToLeft,
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Start Logging',
-                                            style: CfTextStyles.getTextStyle(
-                                              TStyle.h1_600,
-                                            )?.copyWith(
-                                              fontSize: 14,
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                        ),
+                            BouncingAnimation(
+                              onTap: () {
+                                setState(() {
+                                  logginedStarted = true;
+                                });
+                              },
+                              widget: Container(
+                                height: 31,
+                                decoration: BoxDecoration(
+                                  gradient: AppColors.gradientRightToLeft,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Start Logging',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        fontSize: 14,
+                                        color: AppColors.whiteColor,
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            )
-                          else
-                            Expanded(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  BouncingAnimation(
-                                    onTap: () {
-                                      // what happens when sheet is submitted
-                                    },
-                                    widget: Container(
-                                      height: 31,
-                                      decoration: BoxDecoration(
-                                        gradient: AppColors.gradientRightToLeft,
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Submit Sheet',
-                                            style: CfTextStyles.getTextStyle(
-                                              TStyle.h1_600,
-                                            )?.copyWith(
-                                              fontSize: 14,
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  BouncingAnimation(
-                                    onTap: () {
-                                      // what happens when progress is saved
-                                    },
-                                    widget: Container(
-                                      height: 31,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Save Progress',
-                                            style: CfTextStyles.getTextStyle(
-                                              TStyle.h1_600,
-                                            )?.copyWith(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
                         ],
@@ -250,11 +214,8 @@ class _SheetState extends State<Sheet> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: sheetModel?.sections.length,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: section(
-                            sectionModel: (sheetModel?.sections[index])!,
-                          ),
+                        return section(
+                          sectionModel: (sheetModel?.sections[index])!,
                         );
                       },
                     ),
@@ -275,27 +236,46 @@ class _SheetState extends State<Sheet> {
     //   },
     // );
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                'Section: ${sectionModel.name}',
-                style: CfTextStyles.getTextStyle(
-                  TStyle.h1_600,
-                )?.copyWith(
-                  fontSize: 18,
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            height: 50,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: AppColors.greyBorderColor,
+                ),
+                top: BorderSide(
+                  color: AppColors.greyBorderColor,
                 ),
               ),
-            ],
+              color: AppColors.basicDetailTileColor,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Text(
+                    sectionModel.name,
+                    style: CfTextStyles.getTextStyle(TStyle.h1_600),
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           ...sectionModel.fields.map(
             (fieldModel) {
               return field(fieldModel: fieldModel);
             },
           ),
-          // const Divider(),
         ],
       ),
     );
@@ -319,6 +299,7 @@ class _SheetState extends State<Sheet> {
             sheetInformationModel: sheetInformationModel,
             snapshotOfSelectedOptions: snapshotOfSelectedOptions,
             rxStateClass: rxStateClass,
+            logginedStarted: logginedStarted,
           );
         },
       );
@@ -333,6 +314,7 @@ class _SheetState extends State<Sheet> {
             sheetInformationModel: sheetInformationModel,
             snapshotOfSelectedOption: snapshotOfSelectedOption,
             rxStateClass: rxStateClass,
+            logginedStarted: logginedStarted,
           );
         },
       );
@@ -342,6 +324,7 @@ class _SheetState extends State<Sheet> {
         fieldId: fieldModel.id,
         sheetInformationModel: sheetInformationModel,
         rxStateClass: rxStateClass,
+        logginedStarted: logginedStarted,
       );
     }
     return Container();

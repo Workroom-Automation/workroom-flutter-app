@@ -14,11 +14,13 @@ class TextSelectField extends StatefulWidget {
     required this.fieldId,
     required this.sheetInformationModel,
     required this.rxStateClass,
+    required this.logginedStarted,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
   final SheetInformationModel sheetInformationModel;
   final RxStateClass rxStateClass;
+  final bool logginedStarted;
 
   @override
   State<TextSelectField> createState() => _TextSelectFieldState();
@@ -56,7 +58,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -92,7 +94,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
@@ -106,7 +108,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
                     child: FormBuilderTextField(
                       decoration:
                           const InputDecoration(border: InputBorder.none),
-                      // enabled: false,
+                      enabled: widget.logginedStarted,
                       controller: _controller,
                       name: 'form',
                       onChanged: (String? val) {

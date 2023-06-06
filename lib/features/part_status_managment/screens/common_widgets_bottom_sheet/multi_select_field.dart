@@ -18,12 +18,14 @@ class MultiSelectField extends StatefulWidget {
     required this.sheetInformationModel,
     required this.snapshotOfSelectedOptions,
     required this.rxStateClass,
+    required this.logginedStarted,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
   final SheetInformationModel sheetInformationModel;
   final AsyncSnapshot<List<String>> snapshotOfSelectedOptions;
   final RxStateClass rxStateClass;
+  final bool logginedStarted;
 
   @override
   State<MultiSelectField> createState() => _MultiSelectFieldState();
@@ -49,7 +51,7 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -85,16 +87,88 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: InkWell(
                   splashColor: AppColors.transparent,
                   onTap: () {
-                    showDialog<Dialog>(
+                    showDialog<AlertDialog>(
                       context: context,
                       builder: (context) {
-                        return Dialog(
+                        return AlertDialog(
                           elevation: 0,
-                          child: SizedBox(
+                          actionsAlignment: MainAxisAlignment.spaceBetween,
+                          actions: [
+                            BouncingAnimation(
+                              onTap: () {
+                                getIt<NavigationService>().pop();
+                                FocusScope.of(context).unfocus();
+                              },
+                              widget: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: Container(
+                                  height: 40,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.gradientLeftToRight,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Cancel',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        color: AppColors.whiteColor,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            BouncingAnimation(
+                              onTap: () {
+                                _formKey.currentState?.save();
+                                getIt<NavigationService>().pop();
+                                FocusScope.of(context).unfocus();
+                              },
+                              widget: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: Container(
+                                  height: 40,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.gradientLeftToRight,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'OK',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        color: AppColors.whiteColor,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                          content: SizedBox(
                             height: MediaQuery.of(context).size.height * 0.5,
                             child: SingleChildScrollView(
                               child: Column(
@@ -105,121 +179,19 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
                                       horizontal: 8,
                                       vertical: 8,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 8,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'Select options',
-                                              style: CfTextStyles.getTextStyle(
-                                                TStyle.h1_600,
-                                              )?.copyWith(
-                                                fontSize: 18,
-                                              ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Select options',
+                                            style: CfTextStyles.getTextStyle(
+                                              TStyle.h1_600,
+                                            )?.copyWith(
+                                              fontSize: 18,
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                BouncingAnimation(
-                                                  onTap: () {
-                                                    getIt<NavigationService>()
-                                                        .pop();
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                  },
-                                                  widget: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 16,
-                                                    ),
-                                                    child: Container(
-                                                      height: 40,
-                                                      // width: 60,
-                                                      decoration: BoxDecoration(
-                                                        gradient: AppColors
-                                                            .gradientLeftToRight,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        horizontal: 12,
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style: CfTextStyles
-                                                              .getTextStyle(
-                                                            TStyle.h1_600,
-                                                          )?.copyWith(
-                                                            color: AppColors
-                                                                .whiteColor,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                BouncingAnimation(
-                                                  onTap: () {
-                                                    _formKey.currentState
-                                                        ?.save();
-                                                    getIt<NavigationService>()
-                                                        .pop();
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                  },
-                                                  widget: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 16,
-                                                    ),
-                                                    child: Container(
-                                                      height: 40,
-                                                      width: 60,
-                                                      decoration: BoxDecoration(
-                                                        gradient: AppColors
-                                                            .gradientLeftToRight,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        horizontal: 12,
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'OK',
-                                                          style: CfTextStyles
-                                                              .getTextStyle(
-                                                            TStyle.h1_600,
-                                                          )?.copyWith(
-                                                            color: AppColors
-                                                                .whiteColor,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   FormBuilder(
@@ -232,10 +204,11 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
                                           ),
                                           initialValue: widget
                                               .snapshotOfSelectedOptions.data,
-                                          activeColor: AppColors
-                                              .selectedRadioButtonColor,
+                                          activeColor:
+                                              AppColors.selectedButtonColor,
                                           orientation:
                                               OptionsOrientation.vertical,
+                                          enabled: widget.logginedStarted,
                                           onSaved: (value) {
                                             final vals = <String>[];
                                             for (final i in value!) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 
 class BouncingAnimation extends StatefulWidget {
   const BouncingAnimation({
@@ -30,7 +31,7 @@ class _BouncingAnimationState extends State<BouncingAnimation> {
             _scale = 1.0;
           });
         });
-        Timer(const Duration(milliseconds: 300), () {
+        Timer(const Duration(milliseconds: 200), () {
           if (widget.onTap != null) {
             widget.onTap?.call();
           }
@@ -41,7 +42,8 @@ class _BouncingAnimationState extends State<BouncingAnimation> {
       //     _scale = 1.0;
       //   });
       // },
-      splashColor: Colors.transparent,
+      splashColor: AppColors.transparent,
+      highlightColor: AppColors.transparent,
       child: AnimatedContainer(
         duration: const Duration(
           milliseconds: 100,
