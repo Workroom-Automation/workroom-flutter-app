@@ -25,6 +25,8 @@ class AppColors {
   static const Color greenColor = Color.fromRGBO(206, 244, 187, 0.4);
   static const Color greenBorderColor = Color(0xFF27C052);
 
+  static const Color disabledTextColor = Color(0XFF7D7676);
+
   // completed MO status
   static LinearGradient linearGradient = const LinearGradient(
     begin: Alignment.topCenter,

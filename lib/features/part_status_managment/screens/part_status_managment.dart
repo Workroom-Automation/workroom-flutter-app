@@ -406,6 +406,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
           ),
           if (isExpanded)
             InkWell(
+              splashColor: AppColors.transparent,
               onTap: toggleContainer,
               child: Container(
                 color: Colors.black.withOpacity(0.5),
@@ -512,7 +513,8 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
                             Expanded(
                               child: Row(
                                 children: [
-                                  GestureDetector(
+                                  InkWell(
+                                    splashColor: AppColors.transparent,
                                     onTap: () {},
                                     child: const Icon(
                                       Icons.notes,

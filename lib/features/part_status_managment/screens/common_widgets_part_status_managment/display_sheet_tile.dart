@@ -19,12 +19,13 @@ class DisplaySheetTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashColor: AppColors.transparent,
       onTap: callback,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: SizedBox(
               height: 59,
               child: Row(

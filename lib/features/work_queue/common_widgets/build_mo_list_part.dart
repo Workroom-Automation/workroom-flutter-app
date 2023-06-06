@@ -8,6 +8,7 @@ import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/part_status_managment.dart';
 import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/features/work_queue/constants/mo_part_status.dart';
+import 'package:workroom_flutter_app/features/work_queue/common_widgets/timeline_modal.dart';
 
 class PartToAttributes {
   PartToAttributes({
@@ -18,7 +19,7 @@ class PartToAttributes {
   String text;
 }
 
-class BuildMoListPart extends StatelessWidget {
+class BuildMoListPart extends StatefulWidget {
   BuildMoListPart({
     super.key,
     required this.status,
@@ -33,6 +34,11 @@ class BuildMoListPart extends StatelessWidget {
   final String startTime;
   final String endTime;
 
+  @override
+  State<BuildMoListPart> createState() => _BuildMoListPartState();
+}
+
+class _BuildMoListPartState extends State<BuildMoListPart> {
   final partToAttributeMapping = {
     MoPartStatus.completed: PartToAttributes(
       color: AppColors.completedStatusColor,
@@ -62,9 +68,10 @@ class BuildMoListPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (status == MoPartStatus.completed || status == MoPartStatus.rejected) {
+    if (widget.status == MoPartStatus.completed ||
+        widget.status == MoPartStatus.rejected) {
       return nonOpenStatusPartWidget();
-    } else if (status == MoPartStatus.open) {
+    } else if (widget.status == MoPartStatus.open) {
       return openStatusPartWidget();
     }
     return Container();
@@ -85,7 +92,7 @@ class BuildMoListPart extends StatelessWidget {
           iconColor: AppColors.iconColor,
           tileColor: AppColors.whiteColor,
           leading: Text(
-            title,
+            widget.title,
             style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(),
           ),
           title: Row(
@@ -125,7 +132,156 @@ class BuildMoListPart extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: InkWell(
-                    onTap: () {},
+                    splashColor: AppColors.transparent,
+                    onTap: () {
+                      showDialog<AlertDialog>(
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            elevation: 0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: SizedBox(
+                                width: 600,
+                                height: 400,
+                                child: Scaffold(
+                                  body: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 32,
+                                          vertical: 8,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Time Activity',
+                                              style: CfTextStyles.getTextStyle(
+                                                TStyle.h1_600,
+                                              )?.copyWith(
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 28,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    AppColors.greenBorderColor,
+                                                border: Border.all(
+                                                  color: AppColors
+                                                      .greenBorderColor,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 8,
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'IN TIME',
+                                                    style: CfTextStyles
+                                                        .getTextStyle(
+                                                      TStyle.h1_600,
+                                                    )?.copyWith(
+                                                      color:
+                                                          AppColors.whiteColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 32,
+                                          vertical: 12,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'MO1-S1',
+                                              style: CfTextStyles.getTextStyle(
+                                                TStyle.h1_600,
+                                              )?.copyWith(
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Image.asset(
+                                                  AppAssets.runningClockIcon,
+                                                ),
+                                                const SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Text.rich(
+                                                  TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text:
+                                                            'Total Time Taken: ',
+                                                        style: CfTextStyles
+                                                            .getTextStyle(
+                                                          TStyle.h1_600,
+                                                        )?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: AppColors
+                                                              .greyColor,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: '21 minutes',
+                                                        style: CfTextStyles
+                                                            .getTextStyle(
+                                                          TStyle.h1_600,
+                                                        )?.copyWith(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 32,
+                                            vertical: 12,
+                                          ),
+                                          child: TimeLineModal(
+                                            stauses: [
+                                              MoPartStatus.open,
+                                              MoPartStatus.inProgress,
+                                              MoPartStatus.onHold,
+                                              MoPartStatus.completed,
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                     child: Image.asset(AppAssets.timerIcon),
                   ),
                 ),
@@ -136,16 +292,16 @@ class BuildMoListPart extends StatelessWidget {
                 height: 31,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: partToAttributeMapping[status]!.color,
+                    color: partToAttributeMapping[widget.status]!.color,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                  color: status == MoPartStatus.completed
+                  color: widget.status == MoPartStatus.completed
                       ? AppColors.greenColor
                       : AppColors.redColor,
                 ),
                 child: Center(
                   child: Text(
-                    partToAttributeMapping[status]!.text,
+                    partToAttributeMapping[widget.status]!.text,
                     style: CfTextStyles.getTextStyle(
                       TStyle.h1_600,
                     )?.copyWith(
@@ -157,7 +313,7 @@ class BuildMoListPart extends StatelessWidget {
               const SizedBox(width: 8),
               const Icon(
                 Icons.more_vert,
-                color: Colors.black,
+                color: AppColors.iconColor,
               ),
             ],
           ),
@@ -180,28 +336,16 @@ class BuildMoListPart extends StatelessWidget {
           textColor: AppColors.textColor,
           iconColor: AppColors.iconColor,
           tileColor: AppColors.whiteColor,
-          title: Row(
-            children: [
-              const Text(
-                'Part ID: ',
-                style: TextStyle(
-                  color: AppColors.greyColor,
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
-              )
-            ],
+          title: Text(
+            widget.title,
+            style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
+                splashColor: AppColors.transparent,
                 onTap: () {
                   // Handle open button press
                 },
@@ -243,7 +387,7 @@ class BuildMoListPart extends StatelessWidget {
                         ),
                         Text(
                           'Start',
-                          style: CfTextStyles.getTextStyle(TStyle.h1_700)
+                          style: CfTextStyles.getTextStyle(TStyle.h1_600)
                               ?.copyWith(
                             color: AppColors.tileTextColor,
                             fontWeight: FontWeight.bold,

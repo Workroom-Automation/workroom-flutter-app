@@ -4,7 +4,11 @@ import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class BottomSheetWorkQueue extends StatefulWidget {
-  const BottomSheetWorkQueue({super.key});
+  const BottomSheetWorkQueue({
+    super.key,
+    this.isRadioDisabled = false,
+  });
+  final bool isRadioDisabled;
 
   @override
   State<BottomSheetWorkQueue> createState() => _BottomSheetWorkQueueState();
@@ -89,15 +93,14 @@ class _BottomSheetWorkQueueState extends State<BottomSheetWorkQueue> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
-                              Icons.done,
-                              color: Colors.white,
-                            ),
+                            const Icon(Icons.done, color: AppColors.whiteColor),
                             const SizedBox(width: 8),
                             Text(
                               'Select',
                               style: CfTextStyles.getTextStyle(TStyle.h1_600)
-                                  ?.copyWith(color: AppColors.whiteColor),
+                                  ?.copyWith(
+                                color: AppColors.whiteColor,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -126,8 +129,12 @@ class _BottomSheetWorkQueueState extends State<BottomSheetWorkQueue> {
                     child: ListTile(
                       title: Text(
                         _tiles[index],
-                        style: CfTextStyles.getTextStyle(TStyle.h1_600)
-                            ?.copyWith(),
+                        style:
+                            CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
+                          color: widget.isRadioDisabled
+                              ? AppColors.disabledTextColor
+                              : AppColors.textColor,
+                        ),
                       ),
                       leading: DecoratedBox(
                         decoration: const BoxDecoration(
@@ -138,21 +145,31 @@ class _BottomSheetWorkQueueState extends State<BottomSheetWorkQueue> {
                         child: Radio(
                           activeColor: AppColors.selectedRadioButtonColor,
                           value: index,
-                          groupValue: _selectedTileIndex,
-                          onChanged: (int? value) {
-                            setState(() {
-                              _selectedTileIndex = value!;
-                            });
-                          },
+                          groupValue: widget.isRadioDisabled
+                              ? null
+                              : _selectedTileIndex,
+                          onChanged: widget.isRadioDisabled
+                              ? null
+                              : (int? value) {
+                                  setState(() {
+                                    _selectedTileIndex = value!;
+                                  });
+                                },
                         ),
                       ),
                       trailing: Container(
                         width: 90,
                         height: 31,
                         decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.greenBorderColor),
+                          border: Border.all(
+                            color: widget.isRadioDisabled
+                                ? AppColors.disabledTextColor
+                                : AppColors.greenBorderColor,
+                          ),
                           borderRadius: BorderRadius.circular(5),
-                          color: AppColors.greenColor,
+                          color: widget.isRadioDisabled
+                              ? AppColors.transparent
+                              : AppColors.greenColor,
                         ),
                         child: Center(
                           child: Text(

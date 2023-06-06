@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart';
@@ -45,91 +47,181 @@ class _TextSelectFieldState extends State<TextSelectField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 4,
+        vertical: 8,
+      ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(
-                widget.fieldProperties.title,
-                style: CfTextStyles.getTextStyle(
-                  TStyle.h1_600,
-                )?.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
               Expanded(
+                flex: 9,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Text',
+                      widget.fieldProperties.title,
                       style: CfTextStyles.getTextStyle(
                         TStyle.h1_600,
                       )?.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
+                        color: AppColors.textColor,
                       ),
                     ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const SizedBox(
-                      width: 51,
+                    Text(
+                      'Text',
+                      style: CfTextStyles.getTextStyle(
+                        TStyle.h1_600,
+                      )?.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.textColor,
+                      ),
                     )
                   ],
                 ),
-              )
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(child: Container())
             ],
           ),
           Row(
             children: [
-              Flexible(
+              Expanded(
+                flex: 9,
                 child: Container(
-                  height: 51,
-                  // width: width * 0.75,
+                  height: 50,
                   decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: TextField(
-                    controller: _controller,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.only(left: 8),
+                    border: Border.all(
+                      color: AppColors.greyColor,
                     ),
-                    onChanged: (String val) {
-                      widget.rxStateClass.onTextEntered(widget.fieldId, val);
-                    },
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: FormBuilderTextField(
+                      decoration:
+                          const InputDecoration(border: InputBorder.none),
+                      // enabled: false,
+                      controller: _controller,
+                      name: 'form',
+                      onChanged: (String? val) {
+                        widget.rxStateClass.onTextEntered(widget.fieldId, val!);
+                      },
+                    ),
                   ),
                 ),
               ),
               const SizedBox(
                 width: 8,
               ),
-              Container(
-                height: 51,
-                width: 51,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Center(
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.edit,
+              Flexible(
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColors.greyColor,
                     ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ],
       ),
     );
+    // return Padding(
+    //   padding: const EdgeInsets.all(8),
+    //   child: Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       Row(
+    //         children: [
+    //           Text(
+    //             widget.fieldProperties.title,
+    //             style: CfTextStyles.getTextStyle(
+    //               TStyle.h1_600,
+    //             )?.copyWith(
+    //               fontSize: 14,
+    //               fontWeight: FontWeight.w400,
+    //             ),
+    //           ),
+    //           Expanded(
+    //             child: Row(
+    //               mainAxisAlignment: MainAxisAlignment.end,
+    //               children: [
+    //                 Text(
+    //                   'Text',
+    //                   style: CfTextStyles.getTextStyle(
+    //                     TStyle.h1_600,
+    //                   )?.copyWith(
+    //                     fontSize: 14,
+    //                     fontWeight: FontWeight.w400,
+    //                   ),
+    //                 ),
+    //                 const SizedBox(
+    //                   width: 8,
+    //                 ),
+    //                 const SizedBox(
+    //                   width: 51,
+    //                 )
+    //               ],
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //       Row(
+    //         children: [
+    //           Flexible(
+    //             child: Container(
+    //               height: 51,
+    //               // width: width * 0.75,
+    //               decoration: BoxDecoration(
+    //                 border: Border.all(),
+    //                 borderRadius: BorderRadius.circular(5),
+    //               ),
+    //               child: TextField(
+    //                 controller: _controller,
+    //                 keyboardType: TextInputType.text,
+    //                 decoration: const InputDecoration(
+    //                   border: InputBorder.none,
+    //                   contentPadding: EdgeInsets.only(left: 8),
+    //                 ),
+    //                 onChanged: (String val) {
+    //                   widget.rxStateClass.onTextEntered(widget.fieldId, val);
+    //                 },
+    //               ),
+    //             ),
+    //           ),
+    //           const SizedBox(
+    //             width: 8,
+    //           ),
+    //           Container(
+    //             height: 51,
+    //             width: 51,
+    //             decoration: BoxDecoration(
+    //               border: Border.all(),
+    //               borderRadius: BorderRadius.circular(5),
+    //             ),
+    //             child: Center(
+    //               child: IconButton(
+    //                 onPressed: () {},
+    //                 icon: const Icon(
+    //                   Icons.edit,
+    //                 ),
+    //               ),
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }

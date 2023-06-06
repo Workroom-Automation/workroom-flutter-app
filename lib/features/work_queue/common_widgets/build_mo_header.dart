@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class BuildMOHeader extends StatelessWidget {
   const BuildMOHeader({
@@ -23,22 +24,21 @@ class BuildMOHeader extends StatelessWidget {
       ),
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        // what happens when you click the back button
-                      },
-                      child: Image.asset(
-                        AppAssets.backArrowIcon,
-                        height: 20,
-                        width: 20,
+                    BouncingAnimation(
+                      widget: const Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColors.whiteColor,
                       ),
+                      onTap: () {
+                        // getIt<NavigationService>().pop();
+                      },
                     ),
                     const SizedBox(
                       width: 18,
@@ -65,16 +65,22 @@ class BuildMOHeader extends StatelessWidget {
                     const SizedBox(
                       width: 18,
                     ),
-                    GestureDetector(
-                      onTap: toggleContainer,
+                    InkWell(
+                      splashColor: AppColors.transparent,
                       child: isExpanded
-                          ? Image.asset(
-                              AppAssets.upArrowIcon,
-                              color: AppColors.whiteColor,
+                          ? BouncingAnimation(
+                              onTap: toggleContainer,
+                              widget: Image.asset(
+                                AppAssets.upArrowIcon,
+                                color: AppColors.whiteColor,
+                              ),
                             )
-                          : Image.asset(
-                              AppAssets.downArrowIcon,
-                              color: AppColors.whiteColor,
+                          : BouncingAnimation(
+                              onTap: toggleContainer,
+                              widget: Image.asset(
+                                AppAssets.downArrowIcon,
+                                color: AppColors.whiteColor,
+                              ),
                             ),
                     ),
                   ],

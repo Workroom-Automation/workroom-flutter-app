@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
+import 'package:workroom_flutter_app/core/di/injection.dart';
+import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class BuildHeader extends StatelessWidget {
   const BuildHeader({
@@ -28,10 +31,17 @@ class BuildHeader extends StatelessWidget {
                 //   'Part ID: ',
                 //   style: CfTextStyles.getTextStyle(TStyle.h1_600),
                 // ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_back_ios),
-                  color: AppColors.whiteColor,
+                BouncingAnimation(
+                  widget: const Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColors.whiteColor,
+                  ),
+                  onTap: () {
+                    getIt<NavigationService>().pop();
+                  },
+                ),
+                const SizedBox(
+                  width: 8,
                 ),
                 Text(
                   title,

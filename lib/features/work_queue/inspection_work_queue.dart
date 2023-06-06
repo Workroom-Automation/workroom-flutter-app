@@ -30,7 +30,9 @@ class _InspectionWorkQueueState extends State<InspectionWorkQueue> {
             showModalBottomSheet<dynamic>(
               context: context,
               isScrollControlled: true,
-              builder: (context) => const BottomSheetWorkQueue(),
+              builder: (context) => const BottomSheetWorkQueue(
+                  // isRadioDisabled: false,
+                  ),
             );
           },
           widget: Padding(

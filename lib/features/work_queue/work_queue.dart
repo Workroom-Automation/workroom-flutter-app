@@ -210,7 +210,8 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Row(
                     children: [
-                      GestureDetector(
+                      InkWell(
+                        splashColor: AppColors.transparent,
                         onTap: () {
                           setState(() {
                             isProductionQueueSelected = true;
@@ -245,7 +246,8 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                       const SizedBox(
                         width: 8,
                       ),
-                      GestureDetector(
+                      InkWell(
+                        splashColor: AppColors.transparent,
                         onTap: () {
                           setState(() {
                             isProductionQueueSelected = false;

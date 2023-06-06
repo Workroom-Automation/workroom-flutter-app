@@ -25,4 +25,6 @@ class AppAssets {
   // work queue icons
   static const String qaPassedIcon =
       'assets/icons/work_queue_icons/qa_passed.png';
+  static const String runningClockIcon =
+      'assets/icons/work_queue_icons/running_clock.png';
 }

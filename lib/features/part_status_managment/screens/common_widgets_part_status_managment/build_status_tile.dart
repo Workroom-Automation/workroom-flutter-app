@@ -36,6 +36,7 @@ class BuildStatusTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: AppColors.transparent,
       onTap: onTap == null ? null : () => onTap!(width: width),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),

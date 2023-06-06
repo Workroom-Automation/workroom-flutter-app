@@ -43,6 +43,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
       ),
       child: !widget.isExpanded
           ? InkWell(
+              splashColor: AppColors.transparent,
               onTap: widget.toggleContainer,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -96,6 +97,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                       ),
                     ),
                     InkWell(
+                      splashColor: AppColors.transparent,
                       onTap: widget.toggleContainer,
                       child: Container(
                         padding: const EdgeInsets.all(16),
@@ -150,6 +152,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                             height: 8,
                           ),
                           InkWell(
+                            splashColor: AppColors.transparent,
                             onTap: widget.toggleContainer,
                             child: Padding(
                               padding:
@@ -211,6 +214,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet> {
                                     ),
                                   ),
                                   InkWell(
+                                    splashColor: AppColors.transparent,
                                     onTap: widget.toggleContainer,
                                     child: Container(
                                       padding: const EdgeInsets.all(16),
