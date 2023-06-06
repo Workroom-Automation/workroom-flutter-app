@@ -3,18 +3,20 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
-class BottomSheetWorkQueue extends StatefulWidget {
-  const BottomSheetWorkQueue({
+class InspectionPartListBottomSheet extends StatefulWidget {
+  const InspectionPartListBottomSheet({
     super.key,
-    this.isRadioDisabled = false,
+    required this.isRadioDisabled,
   });
   final bool isRadioDisabled;
 
   @override
-  State<BottomSheetWorkQueue> createState() => _BottomSheetWorkQueueState();
+  State<InspectionPartListBottomSheet> createState() =>
+      _InspectionPartListBottomSheetState();
 }
 
-class _BottomSheetWorkQueueState extends State<BottomSheetWorkQueue> {
+class _InspectionPartListBottomSheetState
+    extends State<InspectionPartListBottomSheet> {
   int _selectedTileIndex = -1;
 
   final _tiles = [
@@ -56,8 +58,8 @@ class _BottomSheetWorkQueueState extends State<BottomSheetWorkQueue> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Spacer(),
                 Expanded(
                   child: Divider(
