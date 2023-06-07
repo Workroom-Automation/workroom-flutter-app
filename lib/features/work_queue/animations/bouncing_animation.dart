@@ -31,7 +31,7 @@ class _BouncingAnimationState extends State<BouncingAnimation> {
             _scale = 1.0;
           });
         });
-        Timer(const Duration(milliseconds: 200), () {
+        Timer(const Duration(milliseconds: 100), () {
           if (widget.onTap != null) {
             widget.onTap?.call();
           }
