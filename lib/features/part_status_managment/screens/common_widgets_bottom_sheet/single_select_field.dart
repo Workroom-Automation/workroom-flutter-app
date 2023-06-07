@@ -18,6 +18,8 @@ class SingleSelectField extends StatefulWidget {
     required this.snapshotOfSelectedOption,
     required this.rxStateClass,
     required this.logginedStarted,
+    required this.index,
+    required this.evidenceImageModal,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
@@ -26,6 +28,8 @@ class SingleSelectField extends StatefulWidget {
   final AsyncSnapshot<String> snapshotOfSelectedOption;
   final RxStateClass rxStateClass;
   final bool logginedStarted;
+  final int index;
+  final VoidCallback evidenceImageModal;
 
   @override
   State<SingleSelectField> createState() => _SingleSelectFieldState();
@@ -56,7 +60,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.fieldProperties.title,
+                      '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
                       style: CfTextStyles.getTextStyle(
                         TStyle.h1_600,
                       )?.copyWith(
@@ -240,7 +244,9 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                     height: 50,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: AppColors.greyColor,
+                        color: widget.logginedStarted
+                            ? AppColors.greyColor
+                            : AppColors.formFieldDisabledColor,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -300,9 +306,20 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                   width: 50,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: AppColors.greyColor,
+                      color: widget.logginedStarted
+                          ? AppColors.greyColor
+                          : AppColors.formFieldDisabledColor,
                     ),
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: BouncingAnimation(
+                    onTap: () {
+                      widget.evidenceImageModal();
+                    },
+                    widget: Icon(
+                      Icons.add_a_photo,
+                      color: AppColors.greyColor.withOpacity(0.5),
+                    ),
                   ),
                 ),
               ),

@@ -89,7 +89,6 @@ class _SheetState extends State<Sheet> {
                         style: CfTextStyles.getTextStyle(
                           TStyle.h1_600,
                         )?.copyWith(
-                          fontWeight: FontWeight.w400,
                           fontSize: 18,
                         ),
                       ),
@@ -235,6 +234,7 @@ class _SheetState extends State<Sheet> {
     //     return Field(fieldModel: sectionModel.fields[index]);
     //   },
     // );
+    var index = 0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
@@ -273,7 +273,8 @@ class _SheetState extends State<Sheet> {
           ),
           ...sectionModel.fields.map(
             (fieldModel) {
-              return field(fieldModel: fieldModel);
+              index++;
+              return field(fieldModel: fieldModel, index: index);
             },
           ),
         ],
@@ -281,7 +282,7 @@ class _SheetState extends State<Sheet> {
     );
   }
 
-  Widget field({required FieldModel fieldModel}) {
+  Widget field({required FieldModel fieldModel, required int index}) {
     if (fieldModel.properties.type == Constants.multiSelect) {
       // widget.informationModel.optionsForMultiSelect.addAll({
       //   fieldModel.id: fieldModel.properties.data.options,
@@ -300,6 +301,8 @@ class _SheetState extends State<Sheet> {
             snapshotOfSelectedOptions: snapshotOfSelectedOptions,
             rxStateClass: rxStateClass,
             logginedStarted: logginedStarted,
+            index: index,
+            evidenceImageModal: showImageDialog,
           );
         },
       );
@@ -315,6 +318,8 @@ class _SheetState extends State<Sheet> {
             snapshotOfSelectedOption: snapshotOfSelectedOption,
             rxStateClass: rxStateClass,
             logginedStarted: logginedStarted,
+            index: index,
+            evidenceImageModal: showImageDialog,
           );
         },
       );
@@ -325,6 +330,8 @@ class _SheetState extends State<Sheet> {
         sheetInformationModel: sheetInformationModel,
         rxStateClass: rxStateClass,
         logginedStarted: logginedStarted,
+        index: index,
+        evidenceImageModal: showImageDialog,
       );
     }
     return Container();
@@ -336,14 +343,71 @@ class _SheetState extends State<Sheet> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Column(
-            children: [
-              TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.photo_camera_outlined),
-                label: const Text('Add Evidence Image'),
-              )
-            ],
+          backgroundColor: Colors.white,
+          elevation: 0,
+          content: SizedBox(
+            height: 350,
+            width: 700,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.photo_camera_outlined,
+                        color: AppColors.greyColor,
+                      ),
+                      label: Text(
+                        'Add Evidence Image',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Placeholder(
+                          fallbackHeight: 50,
+                          fallbackWidth: 100,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    labelText: 'Add Your Remarks here',
+                    labelStyle: CfTextStyles.getTextStyle(
+                      TStyle.h1_600,
+                    )?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic,
+                    ),
+                    border: const OutlineInputBorder(),
+                    alignLabelWithHint: true,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },

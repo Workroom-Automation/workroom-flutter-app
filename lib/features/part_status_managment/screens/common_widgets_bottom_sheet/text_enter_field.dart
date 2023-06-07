@@ -4,6 +4,7 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart';
+import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 import 'package:workroom_flutter_app/models/sheets/field_properties_model.dart';
 
@@ -15,12 +16,16 @@ class TextSelectField extends StatefulWidget {
     required this.sheetInformationModel,
     required this.rxStateClass,
     required this.logginedStarted,
+    required this.index,
+    required this.evidenceImageModal,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
   final SheetInformationModel sheetInformationModel;
   final RxStateClass rxStateClass;
   final bool logginedStarted;
+  final int index;
+  final VoidCallback evidenceImageModal;
 
   @override
   State<TextSelectField> createState() => _TextSelectFieldState();
@@ -63,7 +68,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.fieldProperties.title,
+                      '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
                       style: CfTextStyles.getTextStyle(
                         TStyle.h1_600,
                       )?.copyWith(
@@ -99,7 +104,9 @@ class _TextSelectFieldState extends State<TextSelectField> {
                   height: 50,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: AppColors.greyColor,
+                      color: widget.logginedStarted
+                          ? AppColors.greyColor
+                          : AppColors.formFieldDisabledColor,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -127,9 +134,20 @@ class _TextSelectFieldState extends State<TextSelectField> {
                   width: 50,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: AppColors.greyColor,
+                      color: widget.logginedStarted
+                          ? AppColors.greyColor
+                          : AppColors.formFieldDisabledColor,
                     ),
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: BouncingAnimation(
+                    onTap: () {
+                      widget.evidenceImageModal();
+                    },
+                    widget: Icon(
+                      Icons.add_a_photo,
+                      color: AppColors.greyColor.withOpacity(0.5),
+                    ),
                   ),
                 ),
               ),

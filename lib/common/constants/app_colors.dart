@@ -113,4 +113,7 @@ class AppColors {
 
   // sheet basic detail background color
   static const basicDetailTileColor = Color.fromRGBO(208, 235, 255, 0.35);
+
+  // form
+  static const formFieldDisabledColor = Color(0xFFCCCCCC);
 }

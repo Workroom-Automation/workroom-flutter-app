@@ -3,6 +3,7 @@ import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class DisplaySheetTile extends StatelessWidget {
   const DisplaySheetTile({
@@ -19,11 +20,9 @@ class DisplaySheetTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: AppColors.transparent,
-      highlightColor: AppColors.transparent,
+    return BouncingAnimation(
       onTap: callback,
-      child: Column(
+      widget: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
