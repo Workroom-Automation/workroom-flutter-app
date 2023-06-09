@@ -20,9 +20,11 @@ class DisplaySheetTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BouncingAnimation(
+    return InkWell(
+      highlightColor: AppColors.transparent,
+      splashColor: AppColors.transparent,
       onTap: callback,
-      widget: Column(
+      child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

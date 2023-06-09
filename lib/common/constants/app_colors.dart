@@ -116,4 +116,7 @@ class AppColors {
 
   // form
   static const formFieldDisabledColor = Color(0xFFCCCCCC);
+  static LinearGradient disabledGradient = LinearGradient(
+    colors: [Colors.grey.withOpacity(0.2), Colors.grey.withOpacity(0.4)],
+  );
 }

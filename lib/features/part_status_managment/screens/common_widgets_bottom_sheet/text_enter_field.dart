@@ -18,6 +18,7 @@ class TextSelectField extends StatefulWidget {
     required this.logginedStarted,
     required this.index,
     required this.evidenceImageModal,
+    required this.noOfImages,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
@@ -25,7 +26,8 @@ class TextSelectField extends StatefulWidget {
   final RxStateClass rxStateClass;
   final bool logginedStarted;
   final int index;
-  final VoidCallback evidenceImageModal;
+  final Function evidenceImageModal;
+  final int noOfImages;
 
   @override
   State<TextSelectField> createState() => _TextSelectFieldState();
@@ -53,6 +55,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 4,
@@ -63,46 +66,50 @@ class _TextSelectFieldState extends State<TextSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor,
+                child: SizedBox(
+                  width: width * 0.8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Text',
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor,
-                      ),
-                    )
-                  ],
+                      Text(
+                        'Text',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
-                width: 8,
-              ),
-              Expanded(child: Container())
+                width: 70,
+              )
             ],
           ),
           Row(
             children: [
               Expanded(
-                flex: 10,
                 child: Container(
                   height: 50,
+                  width: width * 0.8,
                   decoration: BoxDecoration(
+                    color: widget.logginedStarted
+                        ? AppColors.whiteColor
+                        : AppColors.greyBorderColor.withOpacity(0.5),
                     border: Border.all(
                       color: widget.logginedStarted
                           ? AppColors.greyColor
@@ -125,31 +132,54 @@ class _TextSelectFieldState extends State<TextSelectField> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 8,
-              ),
-              Flexible(
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: widget.logginedStarted
-                          ? AppColors.greyColor
-                          : AppColors.formFieldDisabledColor,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
+              Stack(
+                children: [
+                  const SizedBox(
+                    height: 70,
+                    width: 70,
                   ),
-                  child: BouncingAnimation(
-                    onTap: () {
-                      widget.evidenceImageModal();
-                    },
-                    widget: Icon(
-                      Icons.add_a_photo,
-                      color: AppColors.greyColor.withOpacity(0.5),
+                  Positioned(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: widget.logginedStarted
+                            ? AppColors.whiteColor
+                            : AppColors.greyBorderColor.withOpacity(0.5),
+                        border: Border.all(
+                          color: widget.logginedStarted
+                              ? AppColors.greyColor
+                              : AppColors.formFieldDisabledColor,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: BouncingAnimation(
+                        onTap: () {
+                          if (widget.logginedStarted) {
+                            widget.evidenceImageModal(fieldId: widget.fieldId);
+                          }
+                        },
+                        widget: Icon(
+                          Icons.add_a_photo,
+                          color: AppColors.greyColor.withOpacity(0.5),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  if (widget.noOfImages > 0)
+                    const Positioned(
+                      top: 5,
+                      right: 5,
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.red,
+                        radius: 10,
+                      ),
+                    ),
+                ],
               ),
             ],
           ),

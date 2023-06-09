@@ -20,6 +20,7 @@ class SingleSelectField extends StatefulWidget {
     required this.logginedStarted,
     required this.index,
     required this.evidenceImageModal,
+    required this.noOfImages,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
@@ -29,7 +30,8 @@ class SingleSelectField extends StatefulWidget {
   final RxStateClass rxStateClass;
   final bool logginedStarted;
   final int index;
-  final VoidCallback evidenceImageModal;
+  final Function evidenceImageModal;
+  final int noOfImages;
 
   @override
   State<SingleSelectField> createState() => _SingleSelectFieldState();
@@ -45,6 +47,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 4,
@@ -55,235 +58,239 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor,
+                child: SizedBox(
+                  width: width * 0.8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Single Select',
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor,
-                      ),
-                    )
-                  ],
+                      Text(
+                        'Single Select',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
-                width: 8,
-              ),
-              Expanded(child: Container())
+                width: 70,
+              )
             ],
           ),
           Row(
             children: [
               Expanded(
-                flex: 10,
-                child: InkWell(
-                  splashColor: AppColors.transparent,
-                  onTap: () {
-                    showDialog<AlertDialog>(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          elevation: 0,
-                          actionsAlignment: MainAxisAlignment.spaceBetween,
-                          actions: [
-                            BouncingAnimation(
-                              onTap: () {
-                                getIt<NavigationService>().pop();
-                                FocusScope.of(context).unfocus();
-                              },
-                              widget: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                child: Container(
-                                  height: 40,
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.gradientLeftToRight,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
+                child: SizedBox(
+                  width: width * 0.8,
+                  child: InkWell(
+                    splashColor: AppColors.transparent,
+                    onTap: () {
+                      showDialog<AlertDialog>(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            elevation: 0,
+                            actionsAlignment: MainAxisAlignment.spaceBetween,
+                            actions: [
+                              BouncingAnimation(
+                                onTap: () {
+                                  getIt<NavigationService>().pop();
+                                  FocusScope.of(context).unfocus();
+                                },
+                                widget: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
+                                    horizontal: 16,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      'Cancel',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        color: AppColors.whiteColor,
-                                        fontSize: 12,
+                                  child: Container(
+                                    height: 40,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      gradient: widget.logginedStarted
+                                          ? AppColors.gradientLeftToRight
+                                          : AppColors.disabledGradient,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Cancel',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          color: widget.logginedStarted
+                                              ? AppColors.whiteColor
+                                              : AppColors.textColor,
+                                          fontSize: 12,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            BouncingAnimation(
-                              onTap: () {
-                                _formKey.currentState?.save();
-                                getIt<NavigationService>().pop();
-                                FocusScope.of(context).unfocus();
-                              },
-                              widget: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                child: Container(
-                                  height: 40,
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.gradientLeftToRight,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
+                              BouncingAnimation(
+                                onTap: () {
+                                  _formKey.currentState?.save();
+                                  getIt<NavigationService>().pop();
+                                  FocusScope.of(context).unfocus();
+                                },
+                                widget: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
+                                    horizontal: 16,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      'OK',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        color: AppColors.whiteColor,
-                                        fontSize: 12,
+                                  child: Container(
+                                    height: 40,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      gradient: widget.logginedStarted
+                                          ? AppColors.gradientLeftToRight
+                                          : AppColors.disabledGradient,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'OK',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          color: widget.logginedStarted
+                                              ? AppColors.whiteColor
+                                              : AppColors.textColor,
+                                          fontSize: 12,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
                               ),
+                            ],
+                            title: Text(
+                              'Select options',
+                              style: CfTextStyles.getTextStyle(
+                                TStyle.h1_600,
+                              )?.copyWith(
+                                fontSize: 18,
+                              ),
                             ),
-                          ],
-                          content: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                // mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
+                            content: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  // mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    FormBuilder(
+                                      key: _formKey,
+                                      child: FormBuilderRadioGroup(
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                        ),
+                                        initialValue: widget
+                                            .snapshotOfSelectedOption.data,
+                                        enabled: widget.logginedStarted,
+                                        activeColor:
+                                            AppColors.selectedButtonColor,
+                                        orientation:
+                                            OptionsOrientation.vertical,
+                                        onSaved: (value) {
+                                          widget.rxStateClass
+                                              .onOptionSelectedSingleSelectField(
+                                            widget.fieldId,
+                                            value.toString(),
+                                          );
+                                        },
+                                        name: 'form',
+                                        options: widget
+                                                .sheetInformationModel
+                                                .optionsForSingleSelect[
+                                                    widget.fieldId]
+                                                ?.map(
+                                                  (option) =>
+                                                      FormBuilderFieldOption(
+                                                    value: option,
+                                                  ),
+                                                )
+                                                .toList() ??
+                                            [],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: widget.logginedStarted
+                            ? AppColors.whiteColor
+                            : AppColors.greyBorderColor.withOpacity(0.5),
+                        border: Border.all(
+                          color: widget.logginedStarted
+                              ? AppColors.greyColor
+                              : AppColors.formFieldDisabledColor,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Container(
+                                  height: 36,
+                                  decoration: widget
+                                              .sheetInformationModel
+                                              .selectedOptionForSingleSelect[
+                                                  widget.fieldId]!
+                                              .value !=
+                                          ''
+                                      ? BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(11),
+                                        )
+                                      : const BoxDecoration(),
+                                  child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 8,
-                                      vertical: 8,
                                     ),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Select option',
-                                            style: CfTextStyles.getTextStyle(
-                                              TStyle.h1_600,
-                                            )?.copyWith(
-                                              fontSize: 18,
-                                            ),
-                                          ),
+                                    child: Center(
+                                      child: Text(
+                                        widget.snapshotOfSelectedOption.data ??
+                                            '',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  FormBuilder(
-                                    key: _formKey,
-                                    child: FormBuilderRadioGroup(
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                      initialValue:
-                                          widget.snapshotOfSelectedOption.data,
-                                      enabled: widget.logginedStarted,
-                                      activeColor:
-                                          AppColors.selectedButtonColor,
-                                      orientation: OptionsOrientation.vertical,
-                                      onSaved: (value) {
-                                        widget.rxStateClass
-                                            .onOptionSelectedSingleSelectField(
-                                          widget.fieldId,
-                                          value.toString(),
-                                        );
-                                      },
-                                      name: 'form',
-                                      options: widget
-                                              .sheetInformationModel
-                                              .optionsForSingleSelect[
-                                                  widget.fieldId]
-                                              ?.map(
-                                                (option) =>
-                                                    FormBuilderFieldOption(
-                                                  value: option,
-                                                ),
-                                              )
-                                              .toList() ??
-                                          [],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: widget.logginedStarted
-                            ? AppColors.greyColor
-                            : AppColors.formFieldDisabledColor,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Container(
-                                height: 36,
-                                decoration: widget
-                                            .sheetInformationModel
-                                            .selectedOptionForSingleSelect[
-                                                widget.fieldId]!
-                                            .value !=
-                                        ''
-                                    ? BoxDecoration(
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(11),
-                                      )
-                                    : const BoxDecoration(),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      widget.snapshotOfSelectedOption.data ??
-                                          '',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                   ),
@@ -291,37 +298,60 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                               ),
                             ),
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Stack(
+                children: [
+                  const SizedBox(
+                    height: 70,
+                    width: 70,
+                  ),
+                  Positioned(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: widget.logginedStarted
+                            ? AppColors.whiteColor
+                            : AppColors.greyBorderColor.withOpacity(0.5),
+                        border: Border.all(
+                          color: widget.logginedStarted
+                              ? AppColors.greyColor
+                              : AppColors.formFieldDisabledColor,
                         ),
-                      ],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: BouncingAnimation(
+                        onTap: () {
+                          if (widget.logginedStarted) {
+                            widget.evidenceImageModal(fieldId: widget.fieldId);
+                          }
+                        },
+                        widget: Icon(
+                          Icons.add_a_photo,
+                          color: AppColors.greyColor.withOpacity(0.5),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Flexible(
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: widget.logginedStarted
-                          ? AppColors.greyColor
-                          : AppColors.formFieldDisabledColor,
+                  if (widget.noOfImages > 0)
+                    const Positioned(
+                      top: 5,
+                      right: 5,
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.red,
+                        radius: 10,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: BouncingAnimation(
-                    onTap: () {
-                      widget.evidenceImageModal();
-                    },
-                    widget: Icon(
-                      Icons.add_a_photo,
-                      color: AppColors.greyColor.withOpacity(0.5),
-                    ),
-                  ),
-                ),
+                ],
               ),
             ],
           ),

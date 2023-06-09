@@ -1,5 +1,7 @@
 // ignore_for_file: cast_nullable_to_non_nullable
 
+import 'dart:typed_data';
+
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
@@ -23,6 +25,7 @@ class RxStateClass {
     textFields: {},
     dateFields: {},
     numberFields: {},
+    evidenceImages: {},
   );
 
   SheetModel get getSheetModel => _sheetModel;
@@ -271,6 +274,9 @@ class RxStateClass {
               j.id: BehaviorSubject<List<String>>.seeded([]),
             },
           );
+          _sheetinformationModel.evidenceImages.addAll({
+            j.id: BehaviorSubject<List<Uint8List>>.seeded([]),
+          });
         }
         if (j.properties.type == 'CHECKBOX') {
           _sheetinformationModel.optionsForCheckBoxes.addAll(
@@ -283,6 +289,9 @@ class RxStateClass {
               j.id: BehaviorSubject<List<String>>.seeded([]),
             },
           );
+          _sheetinformationModel.evidenceImages.addAll({
+            j.id: BehaviorSubject<List<Uint8List>>.seeded([]),
+          });
         }
         if (j.properties.type == 'SINGLE_SELECTION') {
           _sheetinformationModel.optionsForSingleSelect.addAll(
@@ -295,6 +304,9 @@ class RxStateClass {
               j.id: BehaviorSubject<String>.seeded(''),
             },
           );
+          _sheetinformationModel.evidenceImages.addAll({
+            j.id: BehaviorSubject<List<Uint8List>>.seeded([]),
+          });
         }
         if (j.properties.type == 'TEXT') {
           _sheetinformationModel.textFields.addAll(
@@ -302,6 +314,9 @@ class RxStateClass {
               j.id: BehaviorSubject<String>.seeded(''),
             },
           );
+          _sheetinformationModel.evidenceImages.addAll({
+            j.id: BehaviorSubject<List<Uint8List>>.seeded([]),
+          });
         }
         if (j.properties.type == 'DATE') {
           _sheetinformationModel.dateFields.addAll(
@@ -309,6 +324,9 @@ class RxStateClass {
               j.id: BehaviorSubject<DateTime>.seeded(DateTime.now()),
             },
           );
+          _sheetinformationModel.evidenceImages.addAll({
+            j.id: BehaviorSubject<List<Uint8List>>.seeded([]),
+          });
         }
         if (j.properties.type == 'NUMBER') {
           _sheetinformationModel.numberFields.addAll(
@@ -316,6 +334,9 @@ class RxStateClass {
               j.id: BehaviorSubject<double>.seeded(0),
             },
           );
+          _sheetinformationModel.evidenceImages.addAll({
+            j.id: BehaviorSubject<List<Uint8List>>.seeded([]),
+          });
         }
       }
     }
@@ -352,5 +373,17 @@ class RxStateClass {
       _sheetinformationModel.textFields[fieldId]?.value as Object,
       tag: 'Sheet.dart/textFields',
     );
+  }
+
+  void onImageSelected(String fieldId, List<Uint8List> value) {
+    AppLogger.printLog(
+      value.length,
+      tag: 'length of image selected',
+    );
+    _sheetinformationModel.evidenceImages[fieldId]?.sink.add(value);
+    // AppLogger.printLog(
+    //   _sheetinformationModel.evidenceImages[fieldId]?.value as Object,
+    //   tag: 'Sheet.dart/evidenceImages',
+    // );
   }
 }

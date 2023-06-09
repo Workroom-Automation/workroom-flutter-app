@@ -16,46 +16,9 @@ class SheetInformationModel {
     required this.textFields,
     required this.dateFields,
     required this.numberFields,
+    required this.evidenceImages,
   });
 
-  factory SheetInformationModel.fromJson(String source) =>
-      SheetInformationModel.fromMap(
-        json.decode(source) as Map<String, dynamic>,
-      );
-
-  factory SheetInformationModel.fromMap(Map<String, dynamic> map) {
-    return SheetInformationModel(
-      optionsForMultiSelect: Map<String, List<String>>.from(
-        map['optionsForMultiSelect'] as Map<dynamic, dynamic>,
-      ),
-      optionsForCheckBoxes: Map<String, List<String>>.from(
-        map['optionsForCheckBoxes'] as Map<dynamic, dynamic>,
-      ),
-      optionsForSingleSelect: Map<String, List<String>>.from(
-        map['optionsForSingleSelect'] as Map<dynamic, dynamic>,
-      ),
-      selectedOptionsForMultiSelect:
-          Map<String, BehaviorSubject<List<String>>>.from(
-        map['selectedOptionsForMultiSelect'] as Map<dynamic, dynamic>,
-      ),
-      selectedOptionsForCheckBoxes:
-          Map<String, BehaviorSubject<List<String>>>.from(
-        map['selectedOptionsForCheckBoxes'] as Map<dynamic, dynamic>,
-      ),
-      selectedOptionForSingleSelect: Map<String, BehaviorSubject<String>>.from(
-        map['selectedOptionForSingleSelect'] as Map<dynamic, dynamic>,
-      ),
-      textFields: Map<String, BehaviorSubject<String>>.from(
-        map['textFields'] as Map<dynamic, dynamic>,
-      ),
-      dateFields: Map<String, BehaviorSubject<DateTime>>.from(
-        map['dateFields'] as Map<dynamic, dynamic>,
-      ),
-      numberFields: Map<String, BehaviorSubject<double>>.from(
-        map['numberFields'] as Map<dynamic, dynamic>,
-      ),
-    );
-  }
   Map<String, List<String>> optionsForMultiSelect;
   Map<String, List<String>> optionsForCheckBoxes;
   Map<String, List<String>> optionsForSingleSelect;
@@ -65,6 +28,7 @@ class SheetInformationModel {
   Map<String, BehaviorSubject<String>> textFields;
   Map<String, BehaviorSubject<DateTime>> dateFields;
   Map<String, BehaviorSubject<double>> numberFields;
+  Map<String, BehaviorSubject<List<Uint8List>>> evidenceImages;
 
   SheetInformationModel copyWith({
     Map<String, List<String>>? optionsForMultiSelect,
@@ -76,6 +40,7 @@ class SheetInformationModel {
     Map<String, BehaviorSubject<String>>? textFields,
     Map<String, BehaviorSubject<DateTime>>? dateFields,
     Map<String, BehaviorSubject<double>>? numberFields,
+    Map<String, BehaviorSubject<List<Uint8List>>>? evidenceImages,
   }) {
     return SheetInformationModel(
       optionsForMultiSelect:
@@ -92,6 +57,7 @@ class SheetInformationModel {
       textFields: textFields ?? this.textFields,
       dateFields: dateFields ?? this.dateFields,
       numberFields: numberFields ?? this.numberFields,
+      evidenceImages: evidenceImages ?? this.evidenceImages,
     );
   }
 
@@ -112,6 +78,7 @@ class SheetInformationModel {
     result.addAll({'textFields': textFields});
     result.addAll({'dateFields': dateFields});
     result.addAll({'numberFields': numberFields});
+    result.addAll({'evidenceImages': evidenceImages});
 
     return result;
   }
@@ -120,7 +87,7 @@ class SheetInformationModel {
 
   @override
   String toString() {
-    return 'SheetInformationModel(optionsForMultiSelect: $optionsForMultiSelect, optionsForCheckBoxes: $optionsForCheckBoxes, optionsForSingleSelect: $optionsForSingleSelect, selectedOptionsForMultiSelect: $selectedOptionsForMultiSelect, selectedOptionsForCheckBoxes: $selectedOptionsForCheckBoxes, selectedOptionForSingleSelect: $selectedOptionForSingleSelect, textFields: $textFields, dateFields: $dateFields, numberFields: $numberFields,)';
+    return 'SheetInformationModel(optionsForMultiSelect: $optionsForMultiSelect, optionsForCheckBoxes: $optionsForCheckBoxes, optionsForSingleSelect: $optionsForSingleSelect, selectedOptionsForMultiSelect: $selectedOptionsForMultiSelect, selectedOptionsForCheckBoxes: $selectedOptionsForCheckBoxes, selectedOptionForSingleSelect: $selectedOptionForSingleSelect, textFields: $textFields, dateFields: $dateFields, numberFields: $numberFields, evidenceImages: $evidenceImages,)';
   }
 
   @override
@@ -145,7 +112,8 @@ class SheetInformationModel {
         ) &&
         mapEquals(other.textFields, textFields) &&
         mapEquals(other.dateFields, dateFields) &&
-        mapEquals(other.numberFields, numberFields);
+        mapEquals(other.numberFields, numberFields) &&
+        mapEquals(other.evidenceImages, evidenceImages);
   }
 
   @override
@@ -158,6 +126,7 @@ class SheetInformationModel {
         selectedOptionForSingleSelect.hashCode ^
         textFields.hashCode ^
         dateFields.hashCode ^
-        numberFields.hashCode;
+        numberFields.hashCode ^
+        evidenceImages.hashCode;
   }
 }

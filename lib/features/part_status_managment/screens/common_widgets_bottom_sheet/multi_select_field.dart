@@ -21,6 +21,7 @@ class MultiSelectField extends StatefulWidget {
     required this.logginedStarted,
     required this.index,
     required this.evidenceImageModal,
+    required this.noOfImages,
   });
   final FieldProperties fieldProperties;
   final String fieldId;
@@ -29,7 +30,8 @@ class MultiSelectField extends StatefulWidget {
   final RxStateClass rxStateClass;
   final bool logginedStarted;
   final int index;
-  final VoidCallback evidenceImageModal;
+  final Function evidenceImageModal;
+  final int noOfImages;
 
   @override
   State<MultiSelectField> createState() => _MultiSelectFieldState();
@@ -55,283 +57,308 @@ class _MultiSelectFieldState extends State<MultiSelectField> {
           Row(
             children: [
               Expanded(
-                flex: 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${(widget.index).toString()}.  ${widget.fieldProperties.title}',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Multi Select',
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textColor,
-                      ),
-                    )
-                  ],
+                      Text(
+                        'Multi Select',
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
-                width: 8,
-              ),
-              Expanded(child: Container())
+                width: 70,
+              )
             ],
           ),
           Row(
             children: [
               Expanded(
-                flex: 10,
-                child: InkWell(
-                  splashColor: AppColors.transparent,
-                  onTap: () {
-                    showDialog<AlertDialog>(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          elevation: 0,
-                          actionsAlignment: MainAxisAlignment.spaceBetween,
-                          actions: [
-                            BouncingAnimation(
-                              onTap: () {
-                                getIt<NavigationService>().pop();
-                                FocusScope.of(context).unfocus();
-                              },
-                              widget: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                child: Container(
-                                  height: 40,
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.gradientLeftToRight,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Cancel',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        color: AppColors.whiteColor,
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            BouncingAnimation(
-                              onTap: () {
-                                _formKey.currentState?.save();
-                                getIt<NavigationService>().pop();
-                                FocusScope.of(context).unfocus();
-                              },
-                              widget: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                child: Container(
-                                  height: 40,
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.gradientLeftToRight,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'OK',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        color: AppColors.whiteColor,
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                          content: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 8,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'Select options',
-                                            style: CfTextStyles.getTextStyle(
-                                              TStyle.h1_600,
-                                            )?.copyWith(
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  FormBuilder(
-                                    key: _formKey,
-                                    child: Column(
-                                      children: [
-                                        FormBuilderCheckboxGroup(
-                                          decoration: const InputDecoration(
-                                            border: InputBorder.none,
-                                          ),
-                                          initialValue: widget
-                                              .snapshotOfSelectedOptions.data,
-                                          activeColor:
-                                              AppColors.selectedButtonColor,
-                                          orientation:
-                                              OptionsOrientation.vertical,
-                                          enabled: widget.logginedStarted,
-                                          onSaved: (value) {
-                                            final vals = <String>[];
-                                            for (final i in value!) {
-                                              vals.add(i.toString());
-                                            }
-                                            widget.rxStateClass
-                                                .onOptionSelectedMultiSelectField(
-                                              widget.fieldId,
-                                              vals,
-                                            );
-                                          },
-                                          name: 'form',
-                                          options: widget
-                                                  .sheetInformationModel
-                                                  .optionsForMultiSelect[
-                                                      widget.fieldId]
-                                                  ?.map(
-                                                    (option) =>
-                                                        FormBuilderFieldOption(
-                                                      value: option,
-                                                    ),
-                                                  )
-                                                  .toList() ??
-                                              [],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: widget.logginedStarted
-                            ? AppColors.greyColor
-                            : AppColors.formFieldDisabledColor,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: widget.snapshotOfSelectedOptions.data?.map(
-                            (option) {
-                              return Padding(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 4,
-                                    ),
-                                    child: Container(
-                                      height: 36,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: AppColors.greyColor,
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                          11,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            option,
-                                            style: CfTextStyles.getTextStyle(
-                                              TStyle.h1_600,
-                                            )?.copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ).toList() ??
-                          [],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Flexible(
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: widget.logginedStarted
-                          ? AppColors.greyColor
-                          : AppColors.formFieldDisabledColor,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: BouncingAnimation(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: InkWell(
+                    splashColor: AppColors.transparent,
                     onTap: () {
-                      widget.evidenceImageModal();
+                      showDialog<AlertDialog>(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            elevation: 0,
+                            actionsAlignment: MainAxisAlignment.spaceBetween,
+                            actions: [
+                              BouncingAnimation(
+                                onTap: () {
+                                  getIt<NavigationService>().pop();
+                                  FocusScope.of(context).unfocus();
+                                },
+                                widget: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  child: Container(
+                                    height: 40,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      gradient: widget.logginedStarted
+                                          ? AppColors.gradientLeftToRight
+                                          : AppColors.disabledGradient,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Cancel',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          color: widget.logginedStarted
+                                              ? AppColors.whiteColor
+                                              : AppColors.textColor,
+                                          fontSize: 12,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              BouncingAnimation(
+                                onTap: () {
+                                  _formKey.currentState?.save();
+                                  getIt<NavigationService>().pop();
+                                  FocusScope.of(context).unfocus();
+                                },
+                                widget: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  child: Container(
+                                    height: 40,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      gradient: widget.logginedStarted
+                                          ? AppColors.gradientLeftToRight
+                                          : AppColors.disabledGradient,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'OK',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          color: widget.logginedStarted
+                                              ? AppColors.whiteColor
+                                              : AppColors.textColor,
+                                          fontSize: 12,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                            title: Text(
+                              'Select options',
+                              style: CfTextStyles.getTextStyle(
+                                TStyle.h1_600,
+                              )?.copyWith(
+                                fontSize: 18,
+                              ),
+                            ),
+                            content: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    FormBuilder(
+                                      key: _formKey,
+                                      child: Column(
+                                        children: [
+                                          FormBuilderCheckboxGroup(
+                                            decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                            ),
+                                            initialValue: widget
+                                                .snapshotOfSelectedOptions.data,
+                                            activeColor:
+                                                AppColors.selectedButtonColor,
+                                            orientation:
+                                                OptionsOrientation.vertical,
+                                            enabled: widget.logginedStarted,
+                                            onSaved: (value) {
+                                              final vals = <String>[];
+                                              for (final i in value!) {
+                                                vals.add(i.toString());
+                                              }
+                                              widget.rxStateClass
+                                                  .onOptionSelectedMultiSelectField(
+                                                widget.fieldId,
+                                                vals,
+                                              );
+                                            },
+                                            name: 'form',
+                                            options: widget
+                                                    .sheetInformationModel
+                                                    .optionsForMultiSelect[
+                                                        widget.fieldId]
+                                                    ?.map(
+                                                      (option) =>
+                                                          FormBuilderFieldOption(
+                                                        value: option,
+                                                      ),
+                                                    )
+                                                    .toList() ??
+                                                [],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
-                    widget: Icon(
-                      Icons.add_a_photo,
-                      color: AppColors.greyColor.withOpacity(0.5),
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: widget.logginedStarted
+                            ? AppColors.whiteColor
+                            : AppColors.greyBorderColor.withOpacity(0.5),
+                        border: Border.all(
+                          color: widget.logginedStarted
+                              ? AppColors.greyColor
+                              : AppColors.formFieldDisabledColor,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: widget.snapshotOfSelectedOptions.data?.map(
+                              (option) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 4,
+                                      ),
+                                      child: Container(
+                                        height: 36,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: AppColors.greyColor,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            11,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              option,
+                                              style: CfTextStyles.getTextStyle(
+                                                TStyle.h1_600,
+                                              )?.copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).toList() ??
+                            [],
+                      ),
                     ),
                   ),
                 ),
+              ),
+              Stack(
+                children: [
+                  const SizedBox(
+                    height: 70,
+                    width: 70,
+                  ),
+                  Positioned(
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: widget.logginedStarted
+                            ? AppColors.whiteColor
+                            : AppColors.greyBorderColor.withOpacity(0.5),
+                        border: Border.all(
+                          color: widget.logginedStarted
+                              ? AppColors.greyColor
+                              : AppColors.formFieldDisabledColor,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: BouncingAnimation(
+                        onTap: () {
+                          if (widget.logginedStarted) {
+                            widget.evidenceImageModal(fieldId: widget.fieldId);
+                          }
+                        },
+                        widget: Icon(
+                          Icons.add_a_photo,
+                          color: AppColors.greyColor.withOpacity(0.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (widget.noOfImages > 0)
+                    const Positioned(
+                      top: 5,
+                      right: 5,
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.red,
+                        radius: 10,
+                      ),
+                    ),
+                ],
               ),
             ],
           ),

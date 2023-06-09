@@ -1,7 +1,13 @@
+import 'dart:typed_data';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
+import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
 
@@ -56,191 +62,185 @@ class _SheetState extends State<Sheet> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                controller: widget.scrollcontroller,
-                child: Column(
-                  children: [
-                    // Row(
-                    //   children: const [
-                    //     Spacer(),
-                    //     Expanded(
-                    //       child: Divider(
-                    //         thickness: 3,
-                    //       ),
-                    //     ),
-                    //     Spacer(),
-                    //   ],
-                    // ),
-                    const SizedBox(
-                      height: 20,
+            : Column(
+                children: [
+                  // Row(
+                  //   children: const [
+                  //     Spacer(),
+                  //     Expanded(
+                  //       child: Divider(
+                  //         thickness: 3,
+                  //       ),
+                  //     ),
+                  //     Spacer(),
+                  //   ],
+                  // ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ListTile(
+                    leading: BouncingAnimation(
+                      onTap: () {
+                        widget.callBack();
+                      },
+                      widget: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                      ),
                     ),
-                    ListTile(
-                      leading: BouncingAnimation(
-                        onTap: () {
-                          widget.callBack();
-                        },
-                        widget: const Icon(
-                          Icons.arrow_back_ios_new_rounded,
-                        ),
+                    title: Text(
+                      '${sheetModel?.name}',
+                      overflow: TextOverflow.ellipsis,
+                      style: CfTextStyles.getTextStyle(
+                        TStyle.h1_600,
+                      )?.copyWith(
+                        fontSize: 18,
                       ),
-                      title: Text(
-                        '${sheetModel?.name}',
-                        overflow: TextOverflow.ellipsis,
-                        style: CfTextStyles.getTextStyle(
-                          TStyle.h1_600,
-                        )?.copyWith(
-                          fontSize: 18,
-                        ),
+                    ),
+                    subtitle: Text(
+                      '${sheetModel?.description}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: CfTextStyles.getTextStyle(
+                        TStyle.h1_600,
+                      )?.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.subtitleColor,
                       ),
-                      subtitle: Text(
-                        '${sheetModel?.description}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: CfTextStyles.getTextStyle(
-                          TStyle.h1_600,
-                        )?.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.subtitleColor,
-                        ),
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (logginedStarted)
-                            Row(
-                              children: [
-                                BouncingAnimation(
-                                  onTap: () {
-                                    // what happens when sheet is submitted
-                                  },
-                                  widget: Container(
-                                    height: 31,
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.gradientRightToLeft,
-                                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (logginedStarted)
+                          Row(
+                            children: [
+                              BouncingAnimation(
+                                onTap: () {
+                                  // what happens when sheet is submitted
+                                },
+                                widget: Container(
+                                  height: 31,
+                                  decoration: BoxDecoration(
+                                    gradient: AppColors.gradientLeftToRight,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Submit Sheet',
-                                          style: CfTextStyles.getTextStyle(
-                                            TStyle.h1_600,
-                                          )?.copyWith(
-                                            fontSize: 14,
-                                            color: AppColors.whiteColor,
-                                          ),
+                                    child: Center(
+                                      child: Text(
+                                        'Submit Sheet',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          fontSize: 14,
+                                          color: AppColors.whiteColor,
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                BouncingAnimation(
-                                  onTap: () {
-                                    // what happens when progress is saved
-                                  },
-                                  widget: Container(
-                                    height: 31,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: AppColors.greyBorderColor,
-                                      ),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Save Progress',
-                                          style: CfTextStyles.getTextStyle(
-                                            TStyle.h1_600,
-                                          )?.copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          if (!logginedStarted)
-                            BouncingAnimation(
-                              onTap: () {
-                                setState(() {
-                                  logginedStarted = true;
-                                });
-                              },
-                              widget: Container(
-                                height: 31,
-                                decoration: BoxDecoration(
-                                  gradient: AppColors.gradientRightToLeft,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Start Logging',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        fontSize: 14,
-                                        color: AppColors.whiteColor,
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              BouncingAnimation(
+                                onTap: () {
+                                  // what happens when progress is saved
+                                },
+                                widget: Container(
+                                  height: 31,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.greyBorderColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Save Progress',
+                                        style: CfTextStyles.getTextStyle(
+                                          TStyle.h1_600,
+                                        )?.copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (!logginedStarted)
+                          BouncingAnimation(
+                            onTap: () {
+                              setState(() {
+                                logginedStarted = true;
+                              });
+                            },
+                            widget: Container(
+                              height: 31,
+                              decoration: BoxDecoration(
+                                gradient: AppColors.gradientLeftToRight,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Start Logging',
+                                    style: CfTextStyles.getTextStyle(
+                                      TStyle.h1_600,
+                                    )?.copyWith(
+                                      fontSize: 14,
+                                      color: AppColors.whiteColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                        ],
+                          ),
+                      ],
+                    ),
+                  ),
+
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: widget.scrollcontroller,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: sheetModel?.sections.length,
+                        itemBuilder: (context, index) {
+                          return section(
+                            sectionModel: (sheetModel?.sections[index])!,
+                          );
+                        },
                       ),
                     ),
-
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: sheetModel?.sections.length,
-                      itemBuilder: (context, index) {
-                        return section(
-                          sectionModel: (sheetModel?.sections[index])!,
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
       ),
     );
   }
 
   Widget section({required SectionModel sectionModel}) {
-    // return ListView.builder(
-    //   physics: const NeverScrollableScrollPhysics(),
-    //   shrinkWrap: true,
-    //   itemCount: sectionModel.fields.length,
-    //   itemBuilder: (context, index) {
-    //     return Field(fieldModel: sectionModel.fields[index]);
-    //   },
-    // );
     var index = 0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
           const SizedBox(
-            height: 20,
+            height: 18,
           ),
           Container(
             height: 50,
@@ -269,7 +269,7 @@ class _SheetState extends State<Sheet> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 18,
           ),
           ...sectionModel.fields.map(
             (fieldModel) {
@@ -284,25 +284,25 @@ class _SheetState extends State<Sheet> {
 
   Widget field({required FieldModel fieldModel, required int index}) {
     if (fieldModel.properties.type == Constants.multiSelect) {
-      // widget.informationModel.optionsForMultiSelect.addAll({
-      //   fieldModel.id: fieldModel.properties.data.options,
-      // });
-      // widget.informationModel.selectedOptionsForMultiSelect.addAll({
-      //   fieldModel.id: [],
-      // });
       return StreamBuilder<List<String>>(
         stream: sheetInformationModel
             .selectedOptionsForMultiSelect[fieldModel.id]?.stream,
         builder: (context, snapshotOfSelectedOptions) {
-          return MultiSelectField(
-            fieldProperties: fieldModel.properties,
-            fieldId: fieldModel.id,
-            sheetInformationModel: sheetInformationModel,
-            snapshotOfSelectedOptions: snapshotOfSelectedOptions,
-            rxStateClass: rxStateClass,
-            logginedStarted: logginedStarted,
-            index: index,
-            evidenceImageModal: showImageDialog,
+          return StreamBuilder<List<Uint8List>>(
+            stream: sheetInformationModel.evidenceImages[fieldModel.id]?.stream,
+            builder: (context, snapshotOfimages) {
+              return MultiSelectField(
+                fieldProperties: fieldModel.properties,
+                fieldId: fieldModel.id,
+                sheetInformationModel: sheetInformationModel,
+                snapshotOfSelectedOptions: snapshotOfSelectedOptions,
+                rxStateClass: rxStateClass,
+                logginedStarted: logginedStarted,
+                index: index,
+                evidenceImageModal: showImageDialog,
+                noOfImages: snapshotOfimages.data?.length ?? 0,
+              );
+            },
           );
         },
       );
@@ -311,104 +311,251 @@ class _SheetState extends State<Sheet> {
         stream: sheetInformationModel
             .selectedOptionForSingleSelect[fieldModel.id]?.stream,
         builder: (context, snapshotOfSelectedOption) {
-          return SingleSelectField(
-            fieldProperties: fieldModel.properties,
-            fieldId: fieldModel.id,
-            sheetInformationModel: sheetInformationModel,
-            snapshotOfSelectedOption: snapshotOfSelectedOption,
-            rxStateClass: rxStateClass,
-            logginedStarted: logginedStarted,
-            index: index,
-            evidenceImageModal: showImageDialog,
+          return StreamBuilder<List<Uint8List>>(
+            stream: sheetInformationModel.evidenceImages[fieldModel.id]?.stream,
+            builder: (context, snapshotOfimages) {
+              return SingleSelectField(
+                fieldProperties: fieldModel.properties,
+                fieldId: fieldModel.id,
+                sheetInformationModel: sheetInformationModel,
+                snapshotOfSelectedOption: snapshotOfSelectedOption,
+                rxStateClass: rxStateClass,
+                logginedStarted: logginedStarted,
+                index: index,
+                evidenceImageModal: showImageDialog,
+                noOfImages: snapshotOfimages.data?.length ?? 0,
+              );
+            },
           );
         },
       );
     } else if (fieldModel.properties.type == Constants.text) {
-      return TextSelectField(
-        fieldProperties: fieldModel.properties,
-        fieldId: fieldModel.id,
-        sheetInformationModel: sheetInformationModel,
-        rxStateClass: rxStateClass,
-        logginedStarted: logginedStarted,
-        index: index,
-        evidenceImageModal: showImageDialog,
+      return StreamBuilder<List<Uint8List>>(
+        stream: sheetInformationModel.evidenceImages[fieldModel.id]?.stream,
+        builder: (context, snapshotOfimages) {
+          return TextSelectField(
+            fieldProperties: fieldModel.properties,
+            fieldId: fieldModel.id,
+            sheetInformationModel: sheetInformationModel,
+            rxStateClass: rxStateClass,
+            logginedStarted: logginedStarted,
+            index: index,
+            evidenceImageModal: showImageDialog,
+            noOfImages: snapshotOfimages.data?.length ?? 0,
+          );
+        },
       );
     }
     return Container();
   }
 
   // show modal for image
-  void showImageDialog() {
-    showDialog<AlertDialog>(
+  void showImageDialog({required String fieldId}) {
+    showDialog<StreamBuilder<List<Uint8List>>>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          content: SizedBox(
-            height: 350,
-            width: 700,
-            child: Column(
-              children: [
-                Row(
+        return StreamBuilder<List<Uint8List>>(
+          stream: sheetInformationModel.evidenceImages[fieldId]?.stream,
+          builder: (context, snapshot) {
+            final images =
+                sheetInformationModel.evidenceImages[fieldId]?.value ?? [];
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              content: SizedBox(
+                height:
+                    (snapshot.hasData && (snapshot.data?.isNotEmpty ?? false))
+                        ? 350
+                        : 250,
+                width: 500,
+                child: Column(
                   children: [
-                    OutlinedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.photo_camera_outlined,
-                        color: AppColors.greyColor,
+                    Row(
+                      children: [
+                        OutlinedButton.icon(
+                          onPressed: () {
+                            showCupertinoModalPopup<AlertDialog>(
+                              context: context,
+                              builder: (contex) {
+                                return AlertDialog(
+                                  title: Text(
+                                    'Select Image',
+                                    style:
+                                        CfTextStyles.getTextStyle(TStyle.h1_600)
+                                            ?.copyWith(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      BouncingAnimation(
+                                        onTap: () async {
+                                          getIt<NavigationService>().pop();
+                                          final image =
+                                              await Shared.imagepicker(
+                                            ImageSource.camera,
+                                          );
+                                          if (image != null) {
+                                            images.add(image);
+                                            rxStateClass.onImageSelected(
+                                              fieldId,
+                                              images,
+                                            );
+                                          }
+                                          if (context.mounted) {
+                                            FocusScope.of(context).unfocus();
+                                          }
+                                        },
+                                        widget: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            gradient:
+                                                AppColors.gradientLeftToRight,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: const Icon(
+                                            Icons.camera_alt_outlined,
+                                            color: AppColors.whiteColor,
+                                          ),
+                                        ),
+                                      ),
+                                      BouncingAnimation(
+                                        onTap: () async {
+                                          getIt<NavigationService>().pop();
+                                          final image =
+                                              await Shared.imagepicker(
+                                            ImageSource.gallery,
+                                          );
+                                          if (image != null) {
+                                            images.add(image);
+                                            rxStateClass.onImageSelected(
+                                              fieldId,
+                                              images,
+                                            );
+                                          }
+                                          if (context.mounted) {
+                                            FocusScope.of(context).unfocus();
+                                          }
+                                        },
+                                        widget: Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            gradient:
+                                                AppColors.gradientLeftToRight,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: const Icon(
+                                            Icons.photo_library_outlined,
+                                            color: AppColors.whiteColor,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.photo_camera_outlined,
+                            color: AppColors.greyColor,
+                          ),
+                          label: Text(
+                            'Add Evidence Image',
+                            style: CfTextStyles.getTextStyle(
+                              TStyle.h1_600,
+                            )?.copyWith(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    if (snapshot.hasData &&
+                        (snapshot.data?.isNotEmpty ?? false))
+                      SizedBox(
+                        height: 100,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            return Stack(
+                              children: <Widget>[
+                                const SizedBox(
+                                  height: 120,
+                                  width: 120,
+                                ),
+                                Positioned(
+                                  top: 15,
+                                  bottom: 15,
+                                  left: 15,
+                                  right: 15,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: SizedBox(
+                                      height: 90,
+                                      width: 90,
+                                      child: Image.memory(
+                                        snapshot.data![index],
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 7.5,
+                                  right: 7.5,
+                                  child: BouncingAnimation(
+                                    onTap: () {
+                                      images.removeAt(index);
+                                      rxStateClass.onImageSelected(
+                                        fieldId,
+                                        images,
+                                      );
+                                    },
+                                    widget: const CircleAvatar(
+                                      radius: 15,
+                                      child: Icon(Icons.close_outlined),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                      label: Text(
-                        'Add Evidence Image',
-                        style: CfTextStyles.getTextStyle(
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextField(
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        labelText: 'Add Your Remarks here',
+                        labelStyle: CfTextStyles.getTextStyle(
                           TStyle.h1_600,
                         )?.copyWith(
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
                         ),
+                        border: const OutlineInputBorder(),
+                        alignLabelWithHint: true,
                       ),
-                    ),
+                    )
                   ],
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Placeholder(
-                          fallbackHeight: 50,
-                          fallbackWidth: 100,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    labelText: 'Add Your Remarks here',
-                    labelStyle: CfTextStyles.getTextStyle(
-                      TStyle.h1_600,
-                    )?.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.italic,
-                    ),
-                    border: const OutlineInputBorder(),
-                    alignLabelWithHint: true,
-                  ),
-                )
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
