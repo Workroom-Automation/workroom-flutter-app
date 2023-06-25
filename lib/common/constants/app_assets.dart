@@ -27,4 +27,25 @@ class AppAssets {
       'assets/icons/work_queue_icons/qa_passed.png';
   static const String runningClockIcon =
       'assets/icons/work_queue_icons/running_clock.png';
+
+  // workRoom logo
+  static const String workRoomLogo = 'assets/images/workroom_logo.png';
+
+  // home screen icons
+  static const String stationIcon =
+      'assets/icons/home_screen_icons/station_icon.png';
+  static const String buildingIcon =
+      'assets/icons/home_screen_icons/building_icon.png';
+  static const String saveIcon = 'assets/icons/home_screen_icons/save_icon.png';
+  static const String unitIcon = 'assets/icons/home_screen_icons/unit_icon.png';
+
+  // acess screen icons
+  static const String gradientSheetIcon =
+      'assets/icons/access_screen_icons/gradient_sheet_icon.png';
+  static const String accessDetailStationIcon =
+      'assets/icons/access_screen_icons/access_detail_station_icon.png';
+  static const String largeSheetIcon =
+      'assets/icons/access_screen_icons/large_sheet_icon.png';
+  static const String successIcon =
+      'assets/icons/access_screen_icons/success_icon.png';
 }

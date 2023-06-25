@@ -3,7 +3,6 @@ import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class DisplaySheetTile extends StatelessWidget {
   const DisplaySheetTile({
@@ -59,18 +58,30 @@ class DisplaySheetTile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  RawChip(
-                    label: Text(
-                      status,
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: AppColors.whiteColor,
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: statusColor,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: AppColors.greyBorderColor,
                       ),
                     ),
-                    backgroundColor: statusColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        status,
+                        style: CfTextStyles.getTextStyle(
+                          TStyle.h1_600,
+                        )?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

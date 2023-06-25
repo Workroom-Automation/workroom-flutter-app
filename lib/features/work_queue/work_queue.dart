@@ -4,17 +4,18 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
-import 'package:workroom_flutter_app/common/widgets/bottom_navigation_bar.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/animated_detail_sheet.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_mo_header.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/build_status_tile.dart';
 import 'package:workroom_flutter_app/features/work_queue/common_widgets/pending_or_submitted_status_tile.dart';
+import 'package:workroom_flutter_app/features/work_queue/inspection_part_list_bottom_sheet.dart';
 import 'package:workroom_flutter_app/features/work_queue/inspection_work_queue.dart';
 import 'package:workroom_flutter_app/features/work_queue/production_work_queue.dart';
 
 class WorkQueuePage extends StatefulWidget {
   const WorkQueuePage({super.key});
+  static const routeName = '/work_queue';
 
   @override
   State<WorkQueuePage> createState() => _WorkQueuePagePageState();
@@ -37,6 +38,29 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
         containerHeight = 120;
       }
       isExpanded = !isExpanded;
+    });
+  }
+
+  Map<String, bool> isSelected = {
+    'Completed': false,
+    'Open': false,
+    'Reject': false,
+    'Pending': false,
+    'Submitted': false,
+    'Rework': false,
+  };
+
+  void onStatusTap(String status) {
+    setState(() {
+      isSelected = {
+        'Completed': false,
+        'Open': false,
+        'Reject': false,
+        'Pending': false,
+        'Submitted': false,
+        'Rework': false,
+      };
+      isSelected[status] = !(isSelected[status] as bool);
     });
   }
 
@@ -95,12 +119,16 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                                     status: 'Completed',
                                     count: '0',
                                     color: AppColors.counterBoxCompletedColor,
+                                    ontapFunction: onStatusTap,
+                                    isSelected: isSelected['Completed']!,
                                   ),
                                   BuildStatusTile(
                                     width: width,
                                     status: 'Open',
                                     count: '0',
                                     color: AppColors.counterBoxOpenColor,
+                                    ontapFunction: onStatusTap,
+                                    isSelected: isSelected['Open']!,
                                   ),
                                 ],
                               ),
@@ -113,12 +141,16 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                                     status: 'Reject',
                                     count: '0',
                                     color: AppColors.counterBoxRejectedColor,
+                                    ontapFunction: onStatusTap,
+                                    isSelected: isSelected['Reject']!,
                                   ),
                                   BuildStatusTile(
                                     width: width,
                                     status: 'Rework',
                                     count: '0',
                                     color: AppColors.counterBoxReworkColor,
+                                    ontapFunction: onStatusTap,
+                                    isSelected: isSelected['Rework']!,
                                   ),
                                 ],
                               ),
@@ -171,12 +203,16 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                               status: 'Completed',
                               count: '0',
                               color: AppColors.counterBoxCompletedColor,
+                              ontapFunction: onStatusTap,
+                              isSelected: isSelected['Completed']!,
                             ),
                             BuildStatusTile(
                               width: width,
                               status: 'Open',
                               count: '0',
                               color: AppColors.counterBoxOpenColor,
+                              ontapFunction: onStatusTap,
+                              isSelected: isSelected['Open']!,
                             ),
                           ],
                         ),
@@ -191,12 +227,16 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
                               status: 'Reject',
                               count: '0',
                               color: AppColors.counterBoxRejectedColor,
+                              ontapFunction: onStatusTap,
+                              isSelected: isSelected['Reject']!,
                             ),
                             BuildStatusTile(
                               width: width,
                               status: 'Rework',
                               count: '0',
                               color: AppColors.counterBoxReworkColor,
+                              ontapFunction: onStatusTap,
+                              isSelected: isSelected['Rework']!,
                             ),
                           ],
                         ),
@@ -294,7 +334,70 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
           );
         },
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      // bottomNavigationBar: const CustomBottomNavigationBar(),
+      floatingActionButton: !isProductionQueueSelected
+          ? DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: AppColors.gradientLeftToRight,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: FloatingActionButton.extended(
+                elevation: 0,
+                splashColor: AppColors.transparent,
+                focusColor: AppColors.transparent,
+                hoverColor: AppColors.transparent,
+                foregroundColor: AppColors.transparent,
+                onPressed: () {
+                  showModalBottomSheet<dynamic>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => const InspectionPartListBottomSheet(
+                      isRadioDisabled: false,
+                    ),
+                  );
+                },
+                label: Text(
+                  'Select Part',
+                  style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
+                    color: AppColors.whiteColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+                backgroundColor: AppColors.transparent,
+              ),
+            )
+          : const SizedBox.shrink(),
+
+      // floatingActionButton: !isProductionQueueSelected
+      //     ? DecoratedBox(
+
+      //         decoration: BoxDecoration(
+      //           gradient: AppColors.gradientLeftToRight,
+      //           shape: BoxShape.circle,
+      //         ),
+      //         child: FloatingActionButton(
+      //           splashColor: AppColors.transparent,
+      //           focusColor: AppColors.transparent,
+      //           foregroundColor: AppColors.transparent,
+      //           onPressed: () {
+      //             showModalBottomSheet<dynamic>(
+      //               context: context,
+      //               isScrollControlled: true,
+      //               builder: (context) => const InspectionPartListBottomSheet(
+      //                 isRadioDisabled: false,
+      //               ),
+      //             );
+      //           },
+      //           backgroundColor: Colors.transparent,
+      //           elevation: 0,
+      //           child: const Icon(
+      //             Icons.add,
+      //             color: AppColors.whiteColor,
+      //           ),
+      //         ),
+      //       )
+      //     : const SizedBox.shrink(),
     );
   }
 }

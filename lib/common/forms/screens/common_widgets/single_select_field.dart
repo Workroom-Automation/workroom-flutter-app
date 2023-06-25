@@ -4,9 +4,9 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
+import 'package:workroom_flutter_app/common/forms/bloc/sheet_information_bloc.dart';
+import 'package:workroom_flutter_app/common/forms/bloc/state.dart';
+import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/models/sheets/field_properties_model.dart';
 
 class SingleSelectField extends StatefulWidget {
@@ -80,7 +80,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                         )?.copyWith(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor,
+                          color: AppColors.greyColor,
                         ),
                       )
                     ],
@@ -105,7 +105,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                         builder: (context) {
                           return AlertDialog(
                             elevation: 0,
-                            actionsAlignment: MainAxisAlignment.spaceBetween,
+                            actionsAlignment: MainAxisAlignment.spaceEvenly,
                             actions: [
                               BouncingAnimation(
                                 onTap: () {
@@ -121,8 +121,13 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                                     width: 70,
                                     decoration: BoxDecoration(
                                       gradient: widget.logginedStarted
-                                          ? AppColors.gradientLeftToRight
+                                          ? null
                                           : AppColors.disabledGradient,
+                                      border: !widget.logginedStarted
+                                          ? null
+                                          : Border.all(
+                                              color: AppColors.greyBorderColor,
+                                            ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -134,10 +139,8 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                                         style: CfTextStyles.getTextStyle(
                                           TStyle.h1_600,
                                         )?.copyWith(
-                                          color: widget.logginedStarted
-                                              ? AppColors.whiteColor
-                                              : AppColors.textColor,
                                           fontSize: 12,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
@@ -194,7 +197,8 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                               ),
                             ),
                             content: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.5,
+                              height: 300,
+                              width: 300,
                               child: SingleChildScrollView(
                                 child: Column(
                                   // mainAxisSize: MainAxisSize.min,
@@ -249,9 +253,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                             ? AppColors.whiteColor
                             : AppColors.greyBorderColor.withOpacity(0.5),
                         border: Border.all(
-                          color: widget.logginedStarted
-                              ? AppColors.greyColor
-                              : AppColors.formFieldDisabledColor,
+                          color: AppColors.greyBorderColor,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -323,9 +325,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                             ? AppColors.whiteColor
                             : AppColors.greyBorderColor.withOpacity(0.5),
                         border: Border.all(
-                          color: widget.logginedStarted
-                              ? AppColors.greyColor
-                              : AppColors.formFieldDisabledColor,
+                          color: AppColors.greyBorderColor,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),

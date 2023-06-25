@@ -43,7 +43,9 @@ class Shared {
   }
 
   static Future<Uint8List?> imagepicker(ImageSource source) async {
-    final image = await ImagePicker().pickImage(source: source);
+    final image = await ImagePicker().pickImage(
+      source: source,
+    );
     if (image != null) {
       return image.readAsBytes();
     }

@@ -3,7 +3,7 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
+import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 
 class BuildHeader extends StatelessWidget {
   const BuildHeader({

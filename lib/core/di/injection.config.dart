@@ -18,8 +18,7 @@ import 'package:workroom_flutter_app/common/services/hive_service/hive_service.d
     as _i3;
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart'
     as _i5;
-import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart'
-    as _i6;
+import 'package:workroom_flutter_app/common/forms/bloc/state.dart' as _i6;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/screens/bottom_sheet_detail.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_bottom_sheet/timer.dart';
+import 'package:workroom_flutter_app/common/forms/screens/bottom_sheet_detail.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/timer.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/animated_bottom_sheet.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/build_header.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/build_status_tile.dart';
@@ -71,7 +71,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
       if (isExpanded) {
         containerHeight = 100.0;
       } else {
-        containerHeight = MediaQuery.of(context).size.height * 0.8;
+        containerHeight = MediaQuery.of(context).size.height * 0.9;
       }
       isExpanded = !isExpanded;
     });
@@ -416,7 +416,6 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
             left: 0,
             right: 0,
             bottom: 0,
-            // top: 0,
             child: AnimatedBottomSheet(
               containerHeight: containerHeight,
               isExpanded: isExpanded,

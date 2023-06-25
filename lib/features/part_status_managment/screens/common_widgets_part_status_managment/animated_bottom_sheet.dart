@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/screens/bottom_sheet_detail.dart';
+import 'package:workroom_flutter_app/common/forms/screens/bottom_sheet_detail.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/display_sheet_tile.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
 
 class AnimatedBottomSheet extends StatefulWidget {
   const AnimatedBottomSheet({
@@ -111,7 +111,7 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet>
       splashColor: AppColors.transparent,
       onTap: widget.toggleContainer,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Row(
           children: [
             Expanded(

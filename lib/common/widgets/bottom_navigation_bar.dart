@@ -5,7 +5,13 @@ import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key});
+  const CustomBottomNavigationBar({
+    super.key,
+    this.currentIndex = 0,
+    required this.onTabTap,
+  });
+  final int currentIndex;
+  final Function onTabTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +26,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Shared.getIcon(AppAssets.actionsIcon),
-          label: 'Actions',
+          icon: Shared.getIcon(AppAssets.unitIcon),
+          label: 'Tasks',
           activeIcon: Shared.getColoredIcon(
             AppAssets.actionsIcon,
             Shared.getColorFromGradient(AppColors.gradientColors, 0.5),
@@ -44,7 +50,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
         ),
       ],
-      currentIndex: 1,
+      currentIndex: currentIndex,
       selectedItemColor: Shared.getColorFromGradient(
         AppColors.gradientColors,
         0.5,
@@ -61,7 +67,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
         fontSize: 12,
         color: AppColors.greyColor,
       ),
-      onTap: (index) {},
+      onTap: (index) {
+        onTabTap.call(index);
+      },
     );
   }
 }

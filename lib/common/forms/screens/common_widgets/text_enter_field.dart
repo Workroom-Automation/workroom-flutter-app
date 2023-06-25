@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/bloc/sheet_information_bloc.dart';
-import 'package:workroom_flutter_app/features/part_status_managment/bloc/state.dart';
-import 'package:workroom_flutter_app/features/work_queue/animations/bouncing_animation.dart';
+import 'package:workroom_flutter_app/common/forms/bloc/sheet_information_bloc.dart';
+import 'package:workroom_flutter_app/common/forms/bloc/state.dart';
+import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 
 import 'package:workroom_flutter_app/models/sheets/field_properties_model.dart';
 
@@ -88,7 +88,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
                         )?.copyWith(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor,
+                          color: AppColors.greyColor,
                         ),
                       )
                     ],
@@ -111,9 +111,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
                         ? AppColors.whiteColor
                         : AppColors.greyBorderColor.withOpacity(0.5),
                     border: Border.all(
-                      color: widget.logginedStarted
-                          ? AppColors.greyColor
-                          : AppColors.formFieldDisabledColor,
+                      color: AppColors.greyBorderColor,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -151,9 +149,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
                             ? AppColors.whiteColor
                             : AppColors.greyBorderColor.withOpacity(0.5),
                         border: Border.all(
-                          color: widget.logginedStarted
-                              ? AppColors.greyColor
-                              : AppColors.formFieldDisabledColor,
+                          color: AppColors.greyBorderColor,
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),

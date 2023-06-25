@@ -55,6 +55,14 @@ class AppColors {
     ],
   );
 
+  static LinearGradient gradientOngoingMo = const LinearGradient(
+    colors: [
+      Color(0xFFFF9533), // #FF9533
+      Color(0xFFEE4242), // #EE4242
+    ],
+    stops: [0.0, 1.0],
+  );
+
   static List<Color> gradientColors = const [
     Color(0xFF00C6FB), // #00C6FB
     Color(0xFF005BEA), // #005BEA
@@ -119,4 +127,7 @@ class AppColors {
   static LinearGradient disabledGradient = LinearGradient(
     colors: [Colors.grey.withOpacity(0.2), Colors.grey.withOpacity(0.4)],
   );
+
+  // home screen colors
+  static const historyDotColor = Color(0XFF7918F2);
 }
