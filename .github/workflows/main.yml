@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: 🏭 Build Web Application
-        run: flutter build web --target lib/main_development.dart --profile
+        run: flutter build web --target lib/main_development.dart --release
 
       # (3)
       - name: Make copy of artifacts
