@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
@@ -54,418 +55,473 @@ class _SheetState extends State<Sheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-      child: Scaffold(
-        backgroundColor: AppColors.transparent,
-        body: sheetModel == null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
-                children: [
-                  // Row(
-                  //   children: const [
-                  //     Spacer(),
-                  //     Expanded(
-                  //       child: Divider(
-                  //         thickness: 3,
-                  //       ),
-                  //     ),
-                  //     Spacer(),
-                  //   ],
-                  // ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // ListTile(
-                  //   leading: BouncingAnimation(
-                  //     onTap: () {
-                  //       widget.callBack();
-                  //     },
-                  //     widget: const Icon(
-                  //       Icons.arrow_back_ios_new_rounded,
-                  //     ),
-                  //   ),
-                  //   title: Text(
-                  //     '${sheetModel?.name}',
-                  //     overflow: TextOverflow.ellipsis,
-                  //     style: CfTextStyles.getTextStyle(
-                  //       TStyle.h1_600,
-                  //     )?.copyWith(
-                  //       fontSize: 18,
-                  //     ),
-                  //   ),
-                  //   subtitle: Text(
-                  //     '${sheetModel?.description}',
-                  //     maxLines: 1,
-                  //     overflow: TextOverflow.ellipsis,
-                  //     style: CfTextStyles.getTextStyle(
-                  //       TStyle.h1_600,
-                  //     )?.copyWith(
-                  //       fontSize: 14,
-                  //       fontWeight: FontWeight.w400,
-                  //       color: AppColors.subtitleColor,
-                  //     ),
-                  //   ),
-                  //   trailing: Row(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     children: [
-                  //       if (logginedStarted)
-                  //         Row(
-                  //           children: [
-                  //             BouncingAnimation(
-                  //               onTap: () {
-                  //                 // what happens when progress is saved
-                  //               },
-                  //               widget: Container(
-                  //                 height: 31,
-                  //                 decoration: BoxDecoration(
-                  //                   border: Border.all(
-                  //                     color: AppColors.greyBorderColor,
-                  //                   ),
-                  //                   borderRadius: BorderRadius.circular(5),
-                  //                 ),
-                  //                 child: Padding(
-                  //                   padding: const EdgeInsets.symmetric(
-                  //                     horizontal: 8,
-                  //                   ),
-                  //                   child: Center(
-                  //                     child: Text(
-                  //                       'Save Progress',
-                  //                       style: CfTextStyles.getTextStyle(
-                  //                         TStyle.h1_600,
-                  //                       )?.copyWith(
-                  //                         fontSize: 14,
-                  //                         fontWeight: FontWeight.w400,
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //             const SizedBox(
-                  //               width: 8,
-                  //             ),
-                  //             BouncingAnimation(
-                  //               onTap: () {
-                  //                 // what happens when sheet is submitted
-                  //               },
-                  //               widget: Container(
-                  //                 height: 31,
-                  //                 decoration: BoxDecoration(
-                  //                   gradient: AppColors.gradientLeftToRight,
-                  //                   borderRadius: BorderRadius.circular(5),
-                  //                 ),
-                  //                 child: Padding(
-                  //                   padding: const EdgeInsets.symmetric(
-                  //                     horizontal: 8,
-                  //                   ),
-                  //                   child: Center(
-                  //                     child: Text(
-                  //                       'Submit Sheet',
-                  //                       style: CfTextStyles.getTextStyle(
-                  //                         TStyle.h1_600,
-                  //                       )?.copyWith(
-                  //                         fontSize: 14,
-                  //                         color: AppColors.whiteColor,
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       if (!logginedStarted)
-                  //         BouncingAnimation(
-                  //           onTap: () {
-                  //             setState(() {
-                  //               logginedStarted = true;
-                  //             });
-                  //           },
-                  //           widget: Container(
-                  //             height: 31,
-                  //             decoration: BoxDecoration(
-                  //               gradient: AppColors.gradientLeftToRight,
-                  //               borderRadius: BorderRadius.circular(5),
-                  //             ),
-                  //             child: Padding(
-                  //               padding: const EdgeInsets.symmetric(
-                  //                 horizontal: 8,
-                  //               ),
-                  //               child: Center(
-                  //                 child: Text(
-                  //                   'Start Logging',
-                  //                   style: CfTextStyles.getTextStyle(
-                  //                     TStyle.h1_600,
-                  //                   )?.copyWith(
-                  //                     fontSize: 14,
-                  //                     color: AppColors.whiteColor,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //     ],
-                  //   ),
-                  // ),
+    return Scaffold(
+      backgroundColor: AppColors.transparent,
+      body: sheetModel == null
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: [
+                // Row(
+                //   children: const [
+                //     Spacer(),
+                //     Expanded(
+                //       child: Divider(
+                //         thickness: 3,
+                //       ),
+                //     ),
+                //     Spacer(),
+                //   ],
+                // ),
+                const SizedBox(
+                  height: 20,
+                ),
+                // ListTile(
+                //   leading: BouncingAnimation(
+                //     onTap: () {
+                //       widget.callBack();
+                //     },
+                //     widget: const Icon(
+                //       Icons.arrow_back_ios_new_rounded,
+                //     ),
+                //   ),
+                //   title: Text(
+                //     '${sheetModel?.name}',
+                //     overflow: TextOverflow.ellipsis,
+                //     style: CfTextStyles.getTextStyle(
+                //       TStyle.h1_600,
+                //     )?.copyWith(
+                //       fontSize: 18,
+                //     ),
+                //   ),
+                //   subtitle: Text(
+                //     '${sheetModel?.description}',
+                //     maxLines: 1,
+                //     overflow: TextOverflow.ellipsis,
+                //     style: CfTextStyles.getTextStyle(
+                //       TStyle.h1_600,
+                //     )?.copyWith(
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.w400,
+                //       color: AppColors.subtitleColor,
+                //     ),
+                //   ),
+                //   trailing: Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     children: [
+                //       if (logginedStarted)
+                //         Row(
+                //           children: [
+                //             BouncingAnimation(
+                //               onTap: () {
+                //                 // what happens when progress is saved
+                //               },
+                //               widget: Container(
+                //                 height: 31,
+                //                 decoration: BoxDecoration(
+                //                   border: Border.all(
+                //                     color: AppColors.greyBorderColor,
+                //                   ),
+                //                   borderRadius: BorderRadius.circular(5),
+                //                 ),
+                //                 child: Padding(
+                //                   padding: const EdgeInsets.symmetric(
+                //                     horizontal: 8,
+                //                   ),
+                //                   child: Center(
+                //                     child: Text(
+                //                       'Save Progress',
+                //                       style: CfTextStyles.getTextStyle(
+                //                         TStyle.h1_600,
+                //                       )?.copyWith(
+                //                         fontSize: 14,
+                //                         fontWeight: FontWeight.w400,
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //             const SizedBox(
+                //               width: 8,
+                //             ),
+                //             BouncingAnimation(
+                //               onTap: () {
+                //                 // what happens when sheet is submitted
+                //               },
+                //               widget: Container(
+                //                 height: 31,
+                //                 decoration: BoxDecoration(
+                //                   gradient: AppColors.gradientLeftToRight,
+                //                   borderRadius: BorderRadius.circular(5),
+                //                 ),
+                //                 child: Padding(
+                //                   padding: const EdgeInsets.symmetric(
+                //                     horizontal: 8,
+                //                   ),
+                //                   child: Center(
+                //                     child: Text(
+                //                       'Submit Sheet',
+                //                       style: CfTextStyles.getTextStyle(
+                //                         TStyle.h1_600,
+                //                       )?.copyWith(
+                //                         fontSize: 14,
+                //                         color: AppColors.whiteColor,
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       if (!logginedStarted)
+                //         BouncingAnimation(
+                //           onTap: () {
+                //             setState(() {
+                //               logginedStarted = true;
+                //             });
+                //           },
+                //           widget: Container(
+                //             height: 31,
+                //             decoration: BoxDecoration(
+                //               gradient: AppColors.gradientLeftToRight,
+                //               borderRadius: BorderRadius.circular(5),
+                //             ),
+                //             child: Padding(
+                //               padding: const EdgeInsets.symmetric(
+                //                 horizontal: 8,
+                //               ),
+                //               child: Center(
+                //                 child: Text(
+                //                   'Start Logging',
+                //                   style: CfTextStyles.getTextStyle(
+                //                     TStyle.h1_600,
+                //                   )?.copyWith(
+                //                     fontSize: 14,
+                //                     color: AppColors.whiteColor,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //     ],
+                //   ),
+                // ),
 
-                  ListTile(
-                    leading: BouncingAnimation(
-                      onTap: () {
-                        widget.callBack();
-                      },
-                      widget: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                      ),
+                ListTile(
+                  leading: BouncingAnimation(
+                    onTap: () {
+                      widget.callBack();
+                    },
+                    widget: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
                     ),
-                    title: Text(
-                      '${sheetModel?.name}',
-                      overflow: TextOverflow.ellipsis,
-                      style: CfTextStyles.getTextStyle(
-                        TStyle.h1_600,
-                      )?.copyWith(
-                        fontSize: 18,
-                      ),
+                  ),
+                  title: Text(
+                    '${sheetModel?.name}',
+                    overflow: TextOverflow.ellipsis,
+                    style: CfTextStyles.getTextStyle(
+                      TStyle.h1_600,
+                    )?.copyWith(
+                      fontSize: 18,
                     ),
-                    subtitle: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                splashColor: AppColors.transparent,
+                                highlightColor: AppColors.transparent,
+                                hoverColor: AppColors.transparent,
                                 onTap: () {
                                   setState(() {
                                     showFullDescription = !showFullDescription;
                                   });
                                 },
-                                child: Text(
-                                  showFullDescription
-                                      ? '${sheetModel?.description}'
-                                      : '${sheetModel?.description.substring(0, sheetModel!.description.length ~/ 4)}...',
-                                  style: CfTextStyles.getTextStyle(
-                                    TStyle.h1_600,
-                                  )?.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.subtitleColor,
-                                  ),
-                                ),
-                              ),
-                              if ((sheetModel?.description.length ?? 0) >
-                                  50) // Adjust the length as needed
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      showFullDescription =
-                                          !showFullDescription;
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    child: Text(
-                                      showFullDescription
-                                          ? 'Read Less'
-                                          : 'Read More',
-                                      style: CfTextStyles.getTextStyle(
-                                        TStyle.h1_600,
-                                      )?.copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                        const Expanded(child: SizedBox.shrink()),
-                      ],
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (logginedStarted)
-                          Row(
-                            children: [
-                              BouncingAnimation(
-                                onTap: () {
-                                  // what happens when progress is saved
-                                },
-                                widget: Container(
-                                  height: 31,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: AppColors.greyBorderColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                    ),
-                                    child: Center(
+                                child: Row(
+                                  // crossAxisAlignment:
+                                  //     CrossAxisAlignment.start,
+                                  children: [
+                                    Flexible(
                                       child: Text(
-                                        'Save Progress',
+                                        showFullDescription
+                                            ? '${sheetModel?.description}'
+                                            : '${sheetModel?.description.substring(0, sheetModel!.description.length ~/ 8)}...',
                                         style: CfTextStyles.getTextStyle(
                                           TStyle.h1_600,
                                         )?.copyWith(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
+                                          color: AppColors.subtitleColor,
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              BouncingAnimation(
-                                onTap: () {
-                                  // what happens when sheet is submitted
-                                },
-                                widget: Container(
-                                  height: 31,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.gradientLeftToRight,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
+                                    const SizedBox(
+                                      width: 8,
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        'Submit Sheet',
-                                        style: CfTextStyles.getTextStyle(
-                                          TStyle.h1_600,
-                                        )?.copyWith(
-                                          fontSize: 14,
-                                          color: AppColors.whiteColor,
+                                    if ((sheetModel?.description.length ?? 0) >
+                                        50)
+                                      Flexible(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              showFullDescription =
+                                                  !showFullDescription;
+                                            });
+                                          },
+                                          child: Text(
+                                            showFullDescription
+                                                ? 'Read Less'
+                                                : 'Read More',
+                                            style: CfTextStyles.getTextStyle(
+                                              TStyle.h1_600,
+                                            )?.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Expanded(child: SizedBox.shrink()),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (logginedStarted)
+                        Row(
+                          children: [
+                            BouncingAnimation(
+                              onTap: () {
+                                // what happens when progress is saved
+                              },
+                              widget: Container(
+                                height: 31,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: AppColors.greyBorderColor,
                                   ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                              ),
-                            ],
-                          ),
-                        if (!logginedStarted)
-                          BouncingAnimation(
-                            onTap: () {
-                              setState(() {
-                                logginedStarted = true;
-                              });
-                            },
-                            widget: Container(
-                              height: 31,
-                              decoration: BoxDecoration(
-                                gradient: AppColors.gradientLeftToRight,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Start Logging',
-                                    style: CfTextStyles.getTextStyle(
-                                      TStyle.h1_600,
-                                    )?.copyWith(
-                                      fontSize: 14,
-                                      color: AppColors.whiteColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Save Progress',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            BouncingAnimation(
+                              onTap: () {
+                                // what happens when sheet is submitted
+                              },
+                              widget: Container(
+                                height: 31,
+                                decoration: BoxDecoration(
+                                  gradient: AppColors.gradientLeftToRight,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Submit Sheet',
+                                      style: CfTextStyles.getTextStyle(
+                                        TStyle.h1_600,
+                                      )?.copyWith(
+                                        fontSize: 14,
+                                        color: AppColors.whiteColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      if (!logginedStarted)
+                        BouncingAnimation(
+                          onTap: () {
+                            setState(() {
+                              logginedStarted = true;
+                            });
+                          },
+                          widget: Container(
+                            height: 31,
+                            decoration: BoxDecoration(
+                              gradient: AppColors.gradientLeftToRight,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Start Logging',
+                                  style: CfTextStyles.getTextStyle(
+                                    TStyle.h1_600,
+                                  )?.copyWith(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
+                ),
 
-                  Expanded(
-                    child: SingleChildScrollView(
-                      controller: widget.scrollcontroller,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: sheetModel?.sections.length,
-                        itemBuilder: (context, index) {
-                          return section(
-                            sectionModel: (sheetModel?.sections[index])!,
-                          );
-                        },
-                      ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: widget.scrollcontroller,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: sheetModel?.sections.length,
+                      itemBuilder: (context, index) {
+                        return section(
+                          sectionModel: (sheetModel?.sections[index])!,
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
-      ),
+                ),
+              ],
+            ),
     );
   }
 
   Widget section({required SectionModel sectionModel}) {
     var index = 0;
-    return Column(
-      children: [
-        const SizedBox(
-          height: 18,
-        ),
-        Container(
-          height: 50,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            border: const Border(
-              bottom: BorderSide(
-                color: AppColors.greyBorderColor,
-              ),
-              top: BorderSide(
-                color: AppColors.greyBorderColor,
-              ),
-            ),
-            color: logginedStarted
-                ? AppColors.basicDetailTileColor
-                : AppColors.greyColor.withOpacity(0.15),
-          ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ColoredBox(
+          color: logginedStarted
+              ? AppColors.whiteColor
+              : AppColors.greyColor.withOpacity(0.09),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Column(
               children: [
-                Text(
-                  sectionModel.name,
-                  style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
-                    fontSize: 18,
+                // const SizedBox(
+                //   height: 18,
+                // ),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: const Border(
+                      bottom: BorderSide(
+                        color: AppColors.greyBorderColor,
+                      ),
+                      top: BorderSide(
+                        color: AppColors.greyBorderColor,
+                      ),
+                    ),
+                    color: logginedStarted
+                        ? AppColors.basicDetailTileColor
+                        : AppColors.greyColor.withOpacity(0.15),
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Text(
+                          sectionModel.name,
+                          style: CfTextStyles.getTextStyle(TStyle.h1_600)
+                              ?.copyWith(
+                            fontSize: 18,
+                            color: logginedStarted
+                                ? AppColors.textColor
+                                : AppColors.greyColor.withOpacity(0.5),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: constraints.maxWidth <= mobileScreenSizeLimit
+                      ? Column(
+                          children: [
+                            ...sectionModel.fields.map(
+                              (fieldModel) {
+                                index++;
+                                return field(
+                                    fieldModel: fieldModel, index: index);
+                              },
+                            ),
+                          ],
+                        )
+                      : LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            return MasonryGridView.count(
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              crossAxisCount:
+                                  constraints.maxWidth <= 800 ? 2 : 3,
+                              mainAxisSpacing: 4,
+                              itemCount: sectionModel.fields.length,
+                              itemBuilder: (context, ind) {
+                                index++;
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
+                                  child: field(
+                                    fieldModel: sectionModel.fields[ind],
+                                    index: index,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                 )
               ],
             ),
           ),
-        ),
-        const SizedBox(
-          height: 18,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            children: [
-              ...sectionModel.fields.map(
-                (fieldModel) {
-                  index++;
-                  return field(fieldModel: fieldModel, index: index);
-                },
-              ),
-            ],
-          ),
-        )
-      ],
+        );
+      },
     );
   }
 
@@ -672,6 +728,7 @@ class _SheetState extends State<Sheet> {
                                 ),
                                 Expanded(
                                   child: ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
                                     scrollDirection: Axis.horizontal,
                                     itemCount: snapshot.data?.length ?? 0,
                                     itemBuilder: (context, index) {
@@ -704,7 +761,7 @@ class _SheetState extends State<Sheet> {
                                                         BuildContext context,
                                                       ) {
                                                         return ImagePreviewDialog(
-                                                          imageUrl: snapshot
+                                                          memoryImage: snapshot
                                                               .data![index],
                                                         );
                                                       },
@@ -865,8 +922,9 @@ class _SheetState extends State<Sheet> {
 }
 
 class ImagePreviewDialog extends StatelessWidget {
-  const ImagePreviewDialog({super.key, required this.imageUrl});
-  final Uint8List imageUrl;
+  const ImagePreviewDialog({super.key, this.memoryImage, this.imageUrl = ''});
+  final Uint8List? memoryImage;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -877,10 +935,17 @@ class ImagePreviewDialog extends StatelessWidget {
         onTap: () {},
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: Image.memory(
-            imageUrl,
-            fit: BoxFit.fill,
-          ),
+          child: memoryImage != null
+              ? Image.memory(
+                  memoryImage!,
+                  fit: BoxFit.fill,
+                )
+              : imageUrl != ''
+                  ? Image.network(
+                      imageUrl,
+                      fit: BoxFit.fill,
+                    )
+                  : const SizedBox.shrink(),
         ),
       ),
     );

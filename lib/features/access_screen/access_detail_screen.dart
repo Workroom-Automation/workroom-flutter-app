@@ -1,29 +1,48 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/alert_box.dart';
+import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/animated_bottom_sheet.dart';
 import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/dropdown.dart';
 import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/search_box.dart';
 import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/sheet_tile.dart';
 
 class AccessDetailScreen extends StatefulWidget {
-  const AccessDetailScreen({super.key, required this.title});
+  const AccessDetailScreen(
+      {super.key, required this.title, required this.backToaccessScreen});
   final String title;
+  final VoidCallback backToaccessScreen;
 
   @override
   State<AccessDetailScreen> createState() => _AccessDetailScreenState();
 }
 
 class _AccessDetailScreenState extends State<AccessDetailScreen> {
-  bool _isVisible = false;
+  bool isVisible = false;
+  double containerHeight = 0;
+  bool isExpanded = false;
+
+  void toggleContainer() {
+    setState(() {
+      if (isExpanded) {
+        containerHeight = 0;
+      } else {
+        containerHeight = MediaQuery.of(context).size.height * 0.8;
+      }
+      isExpanded = !isExpanded;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        fit: StackFit.expand,
         children: [
           SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -37,6 +56,18 @@ class _AccessDetailScreenState extends State<AccessDetailScreen> {
                     padding: const EdgeInsets.only(left: 32),
                     child: Row(
                       children: [
+                        BouncingAnimation(
+                          widget: const Icon(
+                            Icons.arrow_back_ios,
+                            color: AppColors.whiteColor,
+                          ),
+                          onTap: () {
+                            widget.backToaccessScreen();
+                          },
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
                         Image.asset(
                           AppAssets.accessDetailStationIcon,
                           color: AppColors.whiteColor,
@@ -103,20 +134,21 @@ class _AccessDetailScreenState extends State<AccessDetailScreen> {
                           return InkWell(
                             splashColor: AppColors.transparent,
                             highlightColor: AppColors.transparent,
-                            onTap: () {
+                            onTap: toggleContainer,
+                            onDoubleTap: () {
                               setState(() {
-                                _isVisible = !_isVisible;
+                                isVisible = !isVisible;
                               });
 
-                              if (_isVisible) {
+                              if (isVisible) {
                                 Future.delayed(const Duration(seconds: 3), () {
                                   setState(() {
-                                    _isVisible = false;
+                                    isVisible = false;
                                   });
                                 });
                               }
                             },
-                            child: SheetBox(
+                            child: const SheetBox(
                               title: 'Safety & Regulatory Compliance ',
                             ),
                           );
@@ -128,20 +160,38 @@ class _AccessDetailScreenState extends State<AccessDetailScreen> {
               ],
             ),
           ),
+          if (isExpanded)
+            InkWell(
+              splashColor: AppColors.transparent,
+              onTap: toggleContainer,
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+              ),
+            ),
           Positioned(
             bottom: 20,
             right: 20,
             left: 20,
             child: AnimatedOpacity(
-              opacity: _isVisible ? 1.0 : 0.0,
+              opacity: isVisible ? 1.0 : 0.0,
               duration: const Duration(
                 seconds: 1,
               ),
               curve: Curves.easeInOut,
               child: Visibility(
-                visible: _isVisible,
+                visible: isVisible,
                 child: const AlertBox(),
               ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AnimatedBottomSheet(
+              containerHeight: containerHeight,
+              isExpanded: isExpanded,
+              toggleContainer: toggleContainer,
             ),
           ),
         ],

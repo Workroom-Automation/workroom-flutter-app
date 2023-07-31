@@ -66,12 +66,13 @@ class _AnimatedBottomSheetState extends State<AnimatedBottomSheet>
       );
     } else {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.8,
+        height: MediaQuery.of(context).size.height * 0.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
         child: Scaffold(
           body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 buildCollapsedContent(),

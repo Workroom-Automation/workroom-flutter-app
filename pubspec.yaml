@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
+  auth0_flutter: ^1.2.1
   bloc: ^8.1.1
   connectivity_plus: ^3.0.6
   dio: ^5.1.1
@@ -17,6 +18,8 @@ dependencies:
   flutter_form_builder: ^9.0.0
   flutter_localizations:
     sdk: flutter
+  flutter_spinkit: ^5.2.0
+  flutter_staggered_grid_view: ^0.6.2
   get_it: null
   hive: ^2.2.3
   image_picker: ^0.8.7+5
@@ -47,6 +50,8 @@ flutter:
     - assets/icons/
     - assets/icons/home_screen_icons/
     - assets/icons/access_screen_icons/
+    - assets/icons/auth_screen_icons/
+    - assets/images/station_test_images/
   fonts:
     - family: GlacialIndifference
       fonts:

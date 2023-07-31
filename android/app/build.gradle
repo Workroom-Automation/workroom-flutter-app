@@ -50,10 +50,11 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.verygoodcore.workroom_flutter_app"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [auth0Domain: "dev-x4nooh6fddekh6dd.us.auth0.com", auth0Scheme: "https"]
     }
 
     signingConfigs {

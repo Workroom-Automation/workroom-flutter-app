@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:workroom_flutter_app/app/app.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
@@ -79,6 +78,7 @@ class _WorkQueuePagePageState extends State<WorkQueuePage> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 BuildMOHeader(

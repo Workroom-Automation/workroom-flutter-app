@@ -130,4 +130,10 @@ class AppColors {
 
   // home screen colors
   static const historyDotColor = Color(0XFF7918F2);
+
+  // login colors
+  static const selectedWorkForceTileColor = Color(0XFFD0EBFF);
+
+  // loading color
+  static const loadingColor = Colors.blue;
 }

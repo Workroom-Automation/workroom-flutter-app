@@ -90,6 +90,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
         fit: StackFit.expand,
         children: [
           SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 const BuildHeader(
@@ -134,6 +135,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
                                         horizontal: 8,
                                       ),
                                       child: SingleChildScrollView(
+                                        physics: const BouncingScrollPhysics(),
                                         child: Column(
                                           children: [
                                             Padding(
@@ -463,6 +465,7 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
   void showBottomSheetWidget({required double width}) {
     showModalBottomSheet<dynamic>(
       // isDismissible: false,
+
       isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
@@ -483,15 +486,17 @@ class _PartStatusManagmentState extends State<PartStatusManagment> {
             }
             return Container(
               height: MediaQuery.of(context).size.height * 0.8,
+              width: MediaQuery.of(context).size.width,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
               child: Scaffold(
                 backgroundColor: AppColors.transparent,
                 body: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Spacer(),
                           Expanded(
                             child: Divider(

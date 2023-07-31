@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 
 const mobileScreenSizeLimit = 600;
+const tabletScreenSizeLimit = 1200;
 
 class Shared {
   Shared._();
@@ -50,5 +52,13 @@ class Shared {
       return image.readAsBytes();
     }
     return null;
+  }
+
+  static Widget loading() {
+    return const Center(
+      child: SpinKitFadingCube(
+        color: AppColors.loadingColor,
+      ),
+    );
   }
 }
