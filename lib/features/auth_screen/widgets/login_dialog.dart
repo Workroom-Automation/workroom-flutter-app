@@ -3,7 +3,6 @@ import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/common/services/auth_service/authentication.dart';
 
 class LoginDialog extends StatefulWidget {
   const LoginDialog({super.key});
@@ -150,9 +149,7 @@ class _LoginDialogState extends State<LoginDialog> {
             ),
             const SizedBox(height: 20),
             BouncingAnimation(
-              onTap: () async {
-                await Authentication().login();
-              },
+              onTap: () async {},
               widget: Container(
                 height: 45,
                 width: 100,
