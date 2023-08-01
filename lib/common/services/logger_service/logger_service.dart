@@ -7,7 +7,7 @@ class AppLogger {
     String? tag,
   }) {
     if (logEnable) {
-      log('[ ${tag ?? 'log'} ] ${object.toString()}');
+      log('[ ${tag ?? 'log'} ] $object');
     }
   }
 }

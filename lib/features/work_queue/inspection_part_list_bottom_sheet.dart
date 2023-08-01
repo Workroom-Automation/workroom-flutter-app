@@ -115,6 +115,7 @@ class _InspectionPartListBottomSheetState
             ),
             Expanded(
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 controller: scrollController,
                 shrinkWrap: true,
                 itemCount: _tiles.length,

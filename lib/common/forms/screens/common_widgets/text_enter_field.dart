@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/forms/bloc/sheet_information_bloc.dart';
 import 'package:workroom_flutter_app/common/forms/bloc/state.dart';
-import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
-
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/collapsable_container.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/evidence_capture_modal.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/multi_select_dropdown.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/single_select_dropdown.dart';
 import 'package:workroom_flutter_app/models/sheets/field_properties_model.dart';
 
 class TextSelectField extends StatefulWidget {
@@ -59,7 +60,6 @@ class _TextSelectFieldState extends State<TextSelectField> {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 4,
-        vertical: 8,
       ),
       child: Column(
         children: [
@@ -67,7 +67,7 @@ class _TextSelectFieldState extends State<TextSelectField> {
             children: [
               Expanded(
                 child: SizedBox(
-                  width: width * 0.8,
+                  // width: width * 0.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -78,7 +78,9 @@ class _TextSelectFieldState extends State<TextSelectField> {
                         )?.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor,
+                          color: widget.logginedStarted
+                              ? AppColors.textColor
+                              : AppColors.greyColor,
                         ),
                       ),
                       Text(
@@ -95,88 +97,214 @@ class _TextSelectFieldState extends State<TextSelectField> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 70,
-              )
             ],
           ),
           Row(
             children: [
               Expanded(
-                child: Container(
-                  height: 50,
-                  width: width * 0.8,
-                  decoration: BoxDecoration(
-                    color: widget.logginedStarted
-                        ? AppColors.whiteColor
-                        : AppColors.greyBorderColor.withOpacity(0.5),
-                    border: Border.all(
-                      color: AppColors.greyBorderColor,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: FormBuilderTextField(
-                      decoration:
-                          const InputDecoration(border: InputBorder.none),
-                      enabled: widget.logginedStarted,
-                      controller: _controller,
-                      name: 'form',
-                      onChanged: (String? val) {
-                        widget.rxStateClass.onTextEntered(widget.fieldId, val!);
+                child: InkWell(
+                  onTap: () {
+                    showDialog<AlertDialog>(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          elevation: 0,
+                          content: SizedBox(
+                            height: 780,
+                            width: 614,
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Container(
+                                    height: 32,
+                                    width: 86,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.whiteColor,
+                                      border: Border.all(
+                                        color: AppColors.greyBorderColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Section 1',
+                                          style: CfTextStyles.getTextStyle(
+                                            TStyle.h1_600,
+                                          )?.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColors.textColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    '01: Drum set (mm)',
+                                    style: CfTextStyles.getTextStyle(
+                                      TStyle.h1_600,
+                                    )?.copyWith(),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  const CollapsibleContainer(
+                                    title: 'Field Desc & References',
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    'Response(s)',
+                                    style:
+                                        CfTextStyles.getTextStyle(TStyle.h1_600)
+                                            ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  SingleSelectDropdown(
+                                    isDisabled: !widget.logginedStarted,
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  MultiSelectDropdown(
+                                    isDisabled: !widget.logginedStarted,
+                                  ),
+                                  // MultiValuedTextField(
+                                  //   isEnabled: widget.logginedStarted,
+                                  //   width: width,
+                                  //   fieldNo: '3',
+                                  // ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  const Divider(),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    'Controls',
+                                    style:
+                                        CfTextStyles.getTextStyle(TStyle.h1_600)
+                                            ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  const CollapsibleContainer(
+                                    title: 'Control 1',
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  const Divider(),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    'Evidence',
+                                    style:
+                                        CfTextStyles.getTextStyle(TStyle.h1_600)
+                                            ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  CaptureEvidence(
+                                    textFieldEnabled: widget.logginedStarted,
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
                       },
+                    );
+                  },
+                  child: Container(
+                    height: 50,
+                    width: width * 0.8,
+                    decoration: BoxDecoration(
+                      color: widget.logginedStarted
+                          ? AppColors.whiteColor
+                          : AppColors.greyBorderColor.withOpacity(0.5),
+                      border: Border.all(
+                        color: AppColors.greyBorderColor,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
               ),
-              Stack(
-                children: [
-                  const SizedBox(
-                    height: 70,
-                    width: 70,
-                  ),
-                  Positioned(
-                    top: 10,
-                    bottom: 10,
-                    left: 10,
-                    right: 10,
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: widget.logginedStarted
-                            ? AppColors.whiteColor
-                            : AppColors.greyBorderColor.withOpacity(0.5),
-                        border: Border.all(
-                          color: AppColors.greyBorderColor,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: BouncingAnimation(
-                        onTap: () {
-                          if (widget.logginedStarted) {
-                            widget.evidenceImageModal(fieldId: widget.fieldId);
-                          }
-                        },
-                        widget: Icon(
-                          Icons.add_a_photo,
-                          color: AppColors.greyColor.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (widget.noOfImages > 0)
-                    const Positioned(
-                      top: 5,
-                      right: 5,
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.red,
-                        radius: 10,
-                      ),
-                    ),
-                ],
-              ),
+              // Stack(
+              //   children: [
+              //     const SizedBox(
+              //       height: 70,
+              //       width: 70,
+              //     ),
+              //     Positioned(
+              //       top: 10,
+              //       bottom: 10,
+              //       left: 10,
+              //       right: 10,
+              //       child: Container(
+              //         height: 50,
+              //         width: 50,
+              //         decoration: BoxDecoration(
+              //           color: widget.logginedStarted
+              //               ? AppColors.whiteColor
+              //               : AppColors.greyBorderColor.withOpacity(0.5),
+              //           border: Border.all(
+              //             color: AppColors.greyBorderColor,
+              //           ),
+              //           borderRadius: BorderRadius.circular(8),
+              //         ),
+              //         child: BouncingAnimation(
+              //           onTap: () {
+              //             if (widget.logginedStarted) {
+              //               widget.evidenceImageModal(fieldId: widget.fieldId);
+              //             }
+              //           },
+              //           widget: Icon(
+              //             Icons.add_a_photo,
+              //             color: AppColors.greyColor.withOpacity(0.5),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     if (widget.noOfImages > 0)
+              //       const Positioned(
+              //         top: 5,
+              //         right: 5,
+              //         child: CircleAvatar(
+              //           backgroundColor: AppColors.red,
+              //           radius: 10,
+              //         ),
+              //       ),
+              //   ],
+              // ),
             ],
           ),
         ],

@@ -11,34 +11,34 @@ class AppBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 115,
-          width: 138,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: AppColors.greyBorderColor,
+        InkWell(
+          onTap: () async {},
+          hoverColor: AppColors.textColor.withOpacity(0.1),
+          child: Container(
+            height: 115,
+            width: 138,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.greyBorderColor,
+              ),
+              borderRadius: BorderRadius.circular(10),
             ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Image.asset(
-            AppAssets.gradientSheetIcon,
+            child: Center(
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: Image.asset(
+                  AppAssets.gradientSheetIcon,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 5),
         SizedBox(
-          height: 50,
+          height: 70,
           width: 120,
-          // child: title.length > 12
-          // ? Marquee(
-          //     text: title,
-          //     style: CfTextStyles.getTextStyle(TStyle.h1_600)?.copyWith(
-          //       fontSize: 14,
-          //       fontWeight: FontWeight.w400,
-          //     ),
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     blankSpace: 20,
-          //     pauseAfterRound: const Duration(seconds: 1),
-          //   )
           child: Text(
             title,
             textAlign: TextAlign.center,

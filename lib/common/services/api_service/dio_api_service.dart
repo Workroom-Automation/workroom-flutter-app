@@ -15,7 +15,7 @@ class DioApiService {
 
   late final Dio _dio;
 
-  Future<Response<dynamic>> get(
+  Future<Response<Map<String, dynamic>>> get(
     String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,

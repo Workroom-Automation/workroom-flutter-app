@@ -48,4 +48,16 @@ class AppAssets {
       'assets/icons/access_screen_icons/large_sheet_icon.png';
   static const String successIcon =
       'assets/icons/access_screen_icons/success_icon.png';
+
+  // auth screen icons
+  static const String loginIcon =
+      'assets/icons/auth_screen_icons/login_icon.png';
+  static const String loginWorkRoomIcon =
+      'assets/icons/auth_screen_icons/login_workroom_icon.png';
+
+  // !! just for testing
+  static const String stationImage =
+      'assets/images/station_test_images/station_image.png';
+  static const String profilePic =
+      'assets/images/station_test_images/profile.png';
 }

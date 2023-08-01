@@ -3,7 +3,9 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/services/connection_service/connection_service.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
+import 'package:workroom_flutter_app/features/auth_screen/workroom_login.dart';
 import 'package:workroom_flutter_app/features/main_screen.dart';
+import 'package:workroom_flutter_app/features/operations_screen/operations_screen.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/part_status_managment.dart';
 import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';
 import 'package:workroom_flutter_app/l10n/l10n.dart';
@@ -38,7 +40,7 @@ class App extends StatelessWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             // home: const HomeScreen(),
-            home: const MainScreen(),
+            home: const WorkRoomLogin(),
             builder: (BuildContext context, Widget? child) {
               return SafeArea(child: child!);
             },
@@ -46,6 +48,7 @@ class App extends StatelessWidget {
               PartStatusManagment.routeName: (context) =>
                   const PartStatusManagment(),
               WorkQueuePage.routeName: (context) => const WorkQueuePage(),
+              OperationsScreen.routeName: (context) => const OperationsScreen(),
             },
           );
         }

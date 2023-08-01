@@ -47,11 +47,10 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 4,
-        vertical: 8,
       ),
       child: Column(
         children: [
@@ -59,7 +58,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
             children: [
               Expanded(
                 child: SizedBox(
-                  width: width * 0.8,
+                  // width: width * 0.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -70,7 +69,9 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                         )?.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: AppColors.textColor,
+                          color: widget.logginedStarted
+                              ? AppColors.textColor
+                              : AppColors.greyColor,
                         ),
                       ),
                       Text(
@@ -87,18 +88,16 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 70,
-              )
             ],
           ),
           Row(
             children: [
               Expanded(
                 child: SizedBox(
-                  width: width * 0.8,
+                  // width: width * 0.8,
                   child: InkWell(
                     splashColor: AppColors.transparent,
+                    highlightColor: AppColors.transparent,
                     onTap: () {
                       showDialog<AlertDialog>(
                         context: context,
@@ -200,6 +199,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                               height: 300,
                               width: 300,
                               child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
                                 child: Column(
                                   // mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -258,6 +258,7 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         children: [
                           Padding(
@@ -306,53 +307,53 @@ class _SingleSelectFieldState extends State<SingleSelectField> {
                   ),
                 ),
               ),
-              Stack(
-                children: [
-                  const SizedBox(
-                    height: 70,
-                    width: 70,
-                  ),
-                  Positioned(
-                    top: 10,
-                    bottom: 10,
-                    left: 10,
-                    right: 10,
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: widget.logginedStarted
-                            ? AppColors.whiteColor
-                            : AppColors.greyBorderColor.withOpacity(0.5),
-                        border: Border.all(
-                          color: AppColors.greyBorderColor,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: BouncingAnimation(
-                        onTap: () {
-                          if (widget.logginedStarted) {
-                            widget.evidenceImageModal(fieldId: widget.fieldId);
-                          }
-                        },
-                        widget: Icon(
-                          Icons.add_a_photo,
-                          color: AppColors.greyColor.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (widget.noOfImages > 0)
-                    const Positioned(
-                      top: 5,
-                      right: 5,
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.red,
-                        radius: 10,
-                      ),
-                    ),
-                ],
-              ),
+              // Stack(
+              //   children: [
+              //     const SizedBox(
+              //       height: 70,
+              //       width: 70,
+              //     ),
+              //     Positioned(
+              //       top: 10,
+              //       bottom: 10,
+              //       left: 10,
+              //       right: 10,
+              //       child: Container(
+              //         height: 50,
+              //         width: 50,
+              //         decoration: BoxDecoration(
+              //           color: widget.logginedStarted
+              //               ? AppColors.whiteColor
+              //               : AppColors.greyBorderColor.withOpacity(0.5),
+              //           border: Border.all(
+              //             color: AppColors.greyBorderColor,
+              //           ),
+              //           borderRadius: BorderRadius.circular(8),
+              //         ),
+              //         child: BouncingAnimation(
+              //           onTap: () {
+              //             if (widget.logginedStarted) {
+              //               widget.evidenceImageModal(fieldId: widget.fieldId);
+              //             }
+              //           },
+              //           widget: Icon(
+              //             Icons.add_a_photo,
+              //             color: AppColors.greyColor.withOpacity(0.5),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     if (widget.noOfImages > 0)
+              //       const Positioned(
+              //         top: 5,
+              //         right: 5,
+              //         child: CircleAvatar(
+              //           backgroundColor: AppColors.red,
+              //           radius: 10,
+              //         ),
+              //       ),
+              //   ],
+              // ),
             ],
           ),
         ],
