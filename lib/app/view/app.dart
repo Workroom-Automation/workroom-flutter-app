@@ -4,7 +4,6 @@ import 'package:workroom_flutter_app/common/services/connection_service/connecti
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/auth_screen/workroom_login.dart';
-import 'package:workroom_flutter_app/features/main_screen.dart';
 import 'package:workroom_flutter_app/features/operations_screen/operations_screen.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/part_status_managment.dart';
 import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';

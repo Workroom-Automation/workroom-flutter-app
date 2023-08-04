@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
 import 'package:workroom_flutter_app/features/access_screen/access_detail_screen.dart';
 import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/app_box.dart';
+import 'package:workroom_flutter_app/features/access_screen/access_sceeen_widgets/search_box.dart';
 import 'package:workroom_flutter_app/features/access_screen/bloc/models/workroom_mappings.dart';
 import 'package:workroom_flutter_app/features/access_screen/bloc/state/workroom_application_mapping_state.dart';
-
-import 'access_sceeen_widgets/search_box.dart';
 
 class AccessScreen extends StatefulWidget {
   const AccessScreen({super.key});
@@ -50,6 +48,7 @@ class _AccessScreenState extends State<AccessScreen> {
     await workRoomAppLicationMappingState.fetchDataFromApi().then((value) {
       workRoomAppLicationMap =
           workRoomAppLicationMappingState.workRoomAppLicationMap;
+      // only for testing puropses
       Future.delayed(const Duration(seconds: 1)).then((value) {
         setState(() {
           isLoading = false;
