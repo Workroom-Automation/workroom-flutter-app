@@ -1,8 +1,12 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import 'package:workroom_flutter_app/common/config.dart';
+import 'package:workroom_flutter_app/common/services/hive_service/hive_service.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
+import 'package:workroom_flutter_app/models/boxes.dart';
+import 'package:workroom_flutter_app/models/user_model.dart';
 
 class Authentication {
   Authentication() {
@@ -20,8 +24,6 @@ class Authentication {
     }
   }
   UserProfile? user;
-  String domainName = 'dev-x4nooh6fddekh6dd.us.auth0.com';
-  String clientId = 'vfHzlrLh8JuZiz9nUt84HRcar9gBYnB0';
 
   late Auth0 auth0;
   late Auth0Web auth0Web;
@@ -36,6 +38,19 @@ class Authentication {
       final credentials = await auth0.webAuthentication().login();
       user = credentials.user;
       AppLogger.printLog('user=$user');
+      AppLogger.printLog('user=${user?.name ?? "No Name"}');
+
+      // storing user
+      final storedUser = UserModel()
+        ..email = user?.email ?? ''
+        ..name = user?.name ?? '';
+      final userBox = Hive.box<UserModel>('users');
+      if (user != null) {
+        final box = Boxes.getusers();
+        await box.add(storedUser);
+      }
+      final hiveUser = userBox.get(0);
+      AppLogger.printLog(hiveUser!);
     } catch (e) {
       AppLogger.printLog(e, tag: 'Authentication error');
     }

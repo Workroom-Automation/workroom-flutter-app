@@ -2,20 +2,33 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:auth0_flutter/auth0_flutter.dart';
+// import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
+import 'package:workroom_flutter_app/models/user_model.dart';
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   AppLogger.logEnable = true;
   WidgetsFlutterBinding.ensureInitialized();
+  // final path = Directory.current.path;
+
   if (!kIsWeb) {
     final directory = await getApplicationDocumentsDirectory();
-    Hive.init(directory.path);
+
+    Hive
+      ..init(directory.path)
+      ..registerAdapter(UserModelAdapter());
+    final encryptionKey = Hive.generateSecureKey();
+    final encryption = HiveAesCipher(encryptionKey);
+    await Hive.openBox<UserModel>('users', encryptionCipher: encryption);
+    // final encryptionKey = Hive.generateSecureKey();
+    // final encryption = HiveAesCipher(encryptionKey);
+    // await Hive.openBox<String>('users', encryptionCipher: encryption);
   }
   HttpOverrides.global = MyHttpOverrides();
 

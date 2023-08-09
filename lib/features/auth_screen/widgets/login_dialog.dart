@@ -151,7 +151,10 @@ class _LoginDialogState extends State<LoginDialog> {
             const SizedBox(height: 20),
             BouncingAnimation(
               onTap: () async {
-                await Authentication().login();
+                final auth = Authentication();
+                await auth.login().then((value) async {
+                  await auth.logout();
+                });
               },
               widget: Container(
                 height: 45,

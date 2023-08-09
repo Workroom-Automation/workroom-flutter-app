@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 abstract class HiveService {
   HiveService({required this.boxName});
-  final String boxName;
+  String boxName;
 
   Future<Box<dynamic>> _openBox() async {
     return Hive.openBox(boxName);

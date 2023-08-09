@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/features/auth_screen/widgets/login_dialog.dart';
+import 'package:workroom_flutter_app/features/auth_screen/widgets/worker_tile_workroom_login.dart';
+import 'package:workroom_flutter_app/models/boxes.dart';
+import 'package:workroom_flutter_app/models/user_model.dart';
 
 class WorkRoomLoginDetail extends StatelessWidget {
   const WorkRoomLoginDetail({super.key});
@@ -53,6 +58,24 @@ class WorkRoomLoginDetail extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ValueListenableBuilder<Box<UserModel>>(
+            valueListenable: Boxes.getusers().listenable(),
+            builder: (context, box, _) {
+              final users = box.values.toList().cast<UserModel>();
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  return WorkerTileWorkRoomLogin(
+                    name: users[index].name,
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
