@@ -62,3 +62,9 @@ class Shared {
     );
   }
 }
+
+enum QualityStatus {
+  start,
+  ongoing,
+  accepted,
+}
