@@ -54,7 +54,7 @@ class BuildStatusTile extends StatelessWidget {
                 color: AppColors.greyColor.withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: const Offset(0, 5), // horizontal, vertical offset
+                offset: const Offset(0, 5),
               ),
             ],
           ),
