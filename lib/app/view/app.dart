@@ -41,7 +41,7 @@ class App extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           // home: const HomeScreen(),
-          home: const SampleList(),
+          home: const InspectionQueueScreen(),
           builder: (BuildContext context, Widget? child) {
             return SafeArea(child: child!);
           },
@@ -50,6 +50,7 @@ class App extends StatelessWidget {
                 const PartStatusManagment(),
             WorkQueuePage.routeName: (context) => const WorkQueuePage(),
             OperationsScreen.routeName: (context) => const OperationsScreen(),
+            SampleList.routeName: (context) => const SampleList(),
           },
         );
         // if (snapshot.hasData && snapshot.data == ConnectionStatus.good) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
+import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
 import 'package:workroom_flutter_app/features/quality_app/quality_app_widgets/inspection_card.dart';
 
 class InspectionQueueScreen extends StatefulWidget {
@@ -13,6 +15,8 @@ class InspectionQueueScreen extends StatefulWidget {
 }
 
 class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
+  String fromDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String toDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,7 +187,7 @@ class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  '26/08/2023',
+                                  fromDate,
                                   style: CfTextStyles.getTextStyle(
                                     TStyle.h1_600,
                                   )?.copyWith(

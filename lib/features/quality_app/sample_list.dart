@@ -3,10 +3,12 @@ import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
+import 'package:workroom_flutter_app/core/di/injection.dart';
 
 class SampleList extends StatefulWidget {
   const SampleList({super.key});
-
+  static const routeName = '/sample_list_screen';
   @override
   State<SampleList> createState() => _SampleListState();
 }
@@ -37,9 +39,14 @@ class _SampleListState extends State<SampleList> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Icon(
-                    Icons.arrow_back_ios,
-                    color: AppColors.whiteColor,
+                  GestureDetector(
+                    onTap: () {
+                      getIt<NavigationService>().pop();
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
                   const SizedBox(
                     width: 10,
