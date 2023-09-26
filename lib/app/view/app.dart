@@ -8,6 +8,7 @@ import 'package:workroom_flutter_app/features/auth_screen/workroom_login.dart';
 import 'package:workroom_flutter_app/features/operations_screen/operations_screen.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/part_status_managment.dart';
 import 'package:workroom_flutter_app/features/quality_app/insepection_list.dart';
+import 'package:workroom_flutter_app/features/quality_app/sample_list.dart';
 import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';
 import 'package:workroom_flutter_app/l10n/l10n.dart';
 
@@ -40,7 +41,7 @@ class App extends StatelessWidget {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           // home: const HomeScreen(),
-          home: const InspectionQueueScreen(),
+          home: const SampleList(),
           builder: (BuildContext context, Widget? child) {
             return SafeArea(child: child!);
           },

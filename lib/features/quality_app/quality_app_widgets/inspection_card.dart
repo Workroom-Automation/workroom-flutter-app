@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
-import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
