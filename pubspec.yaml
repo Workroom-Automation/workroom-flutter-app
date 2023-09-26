@@ -7,10 +7,9 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  auth0_flutter: ^1.2.1
   bloc: ^8.1.1
   connectivity_plus: ^3.0.6
-  dio: ^5.1.1
+  dio: ^4.0.0
   dio_cache_interceptor: ^3.4.2
   flutter:
     sdk: flutter
@@ -28,6 +27,7 @@ dependencies:
   marquee: ^2.2.3
   path_provider: ^2.0.14
   rxdart: ^0.27.7
+  supertokens_flutter: ^0.1.1
   timelines: ^0.1.0
 
 dev_dependencies:

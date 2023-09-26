@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
@@ -20,7 +19,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   HttpOverrides.global = MyHttpOverrides();
 
   FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
+    log(details.exceptionAsString(),  stackTrace: details.stack);
   };
   configureDependencies();
   await runZonedGuarded(

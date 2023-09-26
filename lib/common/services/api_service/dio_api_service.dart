@@ -1,16 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:supertokens_flutter/dio.dart';
 
 class DioApiService {
   DioApiService(String baseUrl) {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
+        connectTimeout: 1500,
+        receiveTimeout: 1500,
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
       ),
     );
+    _dio.interceptors.add(SuperTokensInterceptorWrapper(client: _dio));
   }
 
   late final Dio _dio;
