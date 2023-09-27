@@ -5,8 +5,8 @@ class DioApiService {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
+        connectTimeout: timeOut,
+        receiveTimeout: timeOut,
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
       ),
@@ -14,6 +14,7 @@ class DioApiService {
   }
 
   late final Dio _dio;
+  int timeOut = 1500;
 
   Future<Response<Map<String, dynamic>>> get(
     String path,

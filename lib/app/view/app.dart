@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/services/connection_service/connection_service.dart';
+import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
+import 'package:workroom_flutter_app/common/services/supertoken_service/supertoken_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/authentication/auth.dart';
 // import 'package:workroom_flutter_app/features/auth_screen/workroom_login.dart';
@@ -13,11 +15,35 @@ import 'package:workroom_flutter_app/features/quality_app/sample_list.dart';
 import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';
 import 'package:workroom_flutter_app/l10n/l10n.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  bool isValidSession = false;
+  @override
+  void initState() {
+    fun();
+    super.initState();
+  }
+
+  void fun() async {
+    var a = await SupertokenService.doesSessionExist();
+    AppLogger.printLog(a);
+    if (a) {
+      setState(() {
+        isValidSession = true;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // check for current session..
+
     final navigatorKey = getIt<NavigationService>().myNavigatorKey;
     return StreamBuilder<Object>(
       stream: getIt<ConnectionService>().connectionChange,
