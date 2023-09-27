@@ -179,26 +179,43 @@ class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  fromDate,
-                                  style: CfTextStyles.getTextStyle(
-                                    TStyle.h1_600,
-                                  )?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 18,
+                          GestureDetector(
+                            onTap: () async {
+                              final pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1950),
+                                lastDate: DateTime(2100),
+                              );
+                              if (pickedDate != null) {
+                                AppLogger.printLog(pickedDate);
+                              }
+                              setState(() {
+                                fromDate = DateFormat('dd-MM-yyyy')
+                                    .format(pickedDate!);
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    fromDate,
+                                    style: CfTextStyles.getTextStyle(
+                                      TStyle.h1_600,
+                                    )?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                                const Icon(
-                                  Icons.arrow_drop_down,
-                                )
-                              ],
+                                  const Icon(
+                                    Icons.arrow_drop_down,
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
@@ -241,26 +258,43 @@ class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  '26/08/2023',
-                                  style: CfTextStyles.getTextStyle(
-                                    TStyle.h1_600,
-                                  )?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 18,
+                          GestureDetector(
+                            onTap: () async {
+                              final pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1950),
+                                lastDate: DateTime(2100),
+                              );
+                              if (pickedDate != null) {
+                                AppLogger.printLog(pickedDate);
+                              }
+                              setState(() {
+                                toDate = DateFormat('dd-MM-yyyy')
+                                    .format(pickedDate!);
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    toDate,
+                                    style: CfTextStyles.getTextStyle(
+                                      TStyle.h1_600,
+                                    )?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                                const Icon(
-                                  Icons.arrow_drop_down,
-                                )
-                              ],
+                                  const Icon(
+                                    Icons.arrow_drop_down,
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],

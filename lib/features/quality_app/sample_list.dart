@@ -5,6 +5,7 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
+import 'package:workroom_flutter_app/features/quality_app/quality_app_widgets/submit_modal.dart';
 
 class SampleList extends StatefulWidget {
   const SampleList({super.key});
@@ -113,7 +114,13 @@ class _SampleListState extends State<SampleList> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BouncingAnimation(
-                            onTap: () {},
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return SubmitModal();
+                                  });
+                            },
                             widget: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
