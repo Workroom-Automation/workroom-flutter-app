@@ -41,7 +41,6 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    // check for current session..
     final navigatorKey = getIt<NavigationService>().myNavigatorKey;
     return StreamBuilder<Object>(
       stream: getIt<ConnectionService>().connectionChange,

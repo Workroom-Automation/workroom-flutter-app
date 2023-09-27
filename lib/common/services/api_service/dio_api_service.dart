@@ -1,20 +1,22 @@
 import 'package:dio/dio.dart';
+import 'package:supertokens_flutter/dio.dart';
 
 class DioApiService {
   DioApiService(String baseUrl) {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: timeOut,
-        receiveTimeout: timeOut,
+        // connectTimeout: timeOut,
+        // receiveTimeout: timeOut,
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
       ),
     );
+    _dio.interceptors.add(SuperTokensInterceptorWrapper(client: _dio));
   }
 
   late final Dio _dio;
-  int timeOut = 1500;
+  int timeOut = 15000;
 
   Future<Response<Map<String, dynamic>>> get(
     String path,

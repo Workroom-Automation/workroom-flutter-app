@@ -3,6 +3,9 @@ import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
+import 'package:workroom_flutter_app/common/services/api_service/dio_api_service.dart';
+import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
+import 'package:workroom_flutter_app/features/authentication/auth_methods.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -127,7 +130,20 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
           const SizedBox(height: 20),
           BouncingAnimation(
-            onTap: () async {},
+            onTap: () async {
+              await AuthMethods()
+                  .emailPasswordLogin(
+                _emailController.text.trim(),
+                _passwordController.text.trim(),
+              )
+                  .then((value) {
+                if (value) {
+                  AppLogger.printLog('Success');
+                } else {
+                  AppLogger.printLog('Failed');
+                }
+              });
+            },
             widget: Container(
               height: 45,
               width: 100,

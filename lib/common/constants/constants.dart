@@ -68,3 +68,5 @@ enum QualityStatus {
   ongoing,
   accepted,
 }
+
+const String authBaseUrl = 'https://dev.api.onworkroom.com:9006';
