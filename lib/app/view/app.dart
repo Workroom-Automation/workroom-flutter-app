@@ -26,14 +26,13 @@ class _AppState extends State<App> {
   bool isValidSession = false;
   @override
   void initState() {
-    fun();
+    checkSessionValidity();
     super.initState();
   }
 
-  void fun() async {
-    var a = await SupertokenService.doesSessionExist();
-    AppLogger.printLog(a);
-    if (a) {
+  Future<void> checkSessionValidity() async {
+    final validSession = await SupertokenService.doesSessionExist();
+    if (validSession) {
       setState(() {
         isValidSession = true;
       });
@@ -43,7 +42,6 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     // check for current session..
-
     final navigatorKey = getIt<NavigationService>().myNavigatorKey;
     return StreamBuilder<Object>(
       stream: getIt<ConnectionService>().connectionChange,
