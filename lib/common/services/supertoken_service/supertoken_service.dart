@@ -7,7 +7,7 @@ class SupertokenService {
     return SuperTokens.doesSessionExist();
   }
 
-  Future<String> getUserId() async {
+  static Future<String> getUserId() async {
     return SuperTokens.getUserId();
   }
 
@@ -15,9 +15,17 @@ class SupertokenService {
     return SuperTokens.signOut();
   }
 
-  Future<void> manualRefresh() async {
+  static Future<bool> manualRefresh() async {
     // Returns true if session was refreshed, false if session is expired
-    var success = await SuperTokens.attemptRefreshingSession();
+    return SuperTokens.attemptRefreshingSession();
+  }
+
+  static Future<bool> doesSessionExistAndRefresh() async {
+    final success = await SupertokenService.doesSessionExist();
+    if (success) {
+      return true;
+    }
+    return SupertokenService.manualRefresh();
   }
 
   @disposeMethod

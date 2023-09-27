@@ -70,3 +70,5 @@ enum QualityStatus {
 }
 
 const String authBaseUrl = 'https://dev.api.onworkroom.com:9006';
+const String inspectionListBaseUrl =
+    'https://dev.api.onworkroom.com:8005/api/v1';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supertokens_flutter/supertokens.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/services/connection_service/connection_service.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
@@ -6,6 +7,7 @@ import 'package:workroom_flutter_app/common/services/navigation_service/navigati
 import 'package:workroom_flutter_app/common/services/supertoken_service/supertoken_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/authentication/auth.dart';
+import 'package:workroom_flutter_app/features/main_screen.dart';
 // import 'package:workroom_flutter_app/features/auth_screen/workroom_login.dart';
 // import 'package:workroom_flutter_app/features/main_screen.dart';
 import 'package:workroom_flutter_app/features/operations_screen/operations_screen.dart';
@@ -31,7 +33,8 @@ class _AppState extends State<App> {
   }
 
   Future<void> checkSessionValidity() async {
-    final validSession = await SupertokenService.doesSessionExist();
+    final validSession = await SupertokenService.doesSessionExistAndRefresh();
+    AppLogger.printLog(validSession);
     if (validSession) {
       setState(() {
         isValidSession = true;
@@ -65,11 +68,14 @@ class _AppState extends State<App> {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           // home: const HomeScreen(),
-          home: const AuthScreen(),
+          home: !isValidSession
+              ? const AuthScreen()
+              : const InspectionQueueScreen(),
           builder: (BuildContext context, Widget? child) {
             return SafeArea(child: child!);
           },
           routes: {
+            MainScreen.routeNmae: (context) => const MainScreen(),
             PartStatusManagment.routeName: (context) =>
                 const PartStatusManagment(),
             WorkQueuePage.routeName: (context) => const WorkQueuePage(),
