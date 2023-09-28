@@ -4,10 +4,13 @@ import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
-import 'package:workroom_flutter_app/common/services/api_service/dio_api_service.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
 import 'package:workroom_flutter_app/features/quality_app/api/api.dart';
 import 'package:workroom_flutter_app/features/quality_app/quality_app_widgets/inspection_card.dart';
+import 'package:workroom_flutter_app/features/quality_app/sample_list.dart';
+
+import '../../common/services/navigation_service/navigation_service.dart';
+import '../../core/di/injection.dart';
 
 class InspectionQueueScreen extends StatefulWidget {
   const InspectionQueueScreen({super.key});
@@ -328,13 +331,20 @@ class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
           const SizedBox(
             height: 20,
           ),
-          const InspectionCard(
-            title: '21.5” Keypad Board PCB',
-            quantity: '35',
-            date: 'Start by 12 PM, Today',
-            itemName: 'Supplier A Pvt. Ltd.',
-            status: QualityStatus.ongoing,
-            color: AppColors.reworkStatusColor,
+          InkWell(
+            onTap: () {
+              getIt<NavigationService>().pushNamed(
+                SampleList.routeName,
+              )?.then((value) => initState());
+            },
+            child: const InspectionCard(
+              title: '21.5” Keypad Board PCB',
+              quantity: '35',
+              date: 'Start by 12 PM, Today',
+              itemName: 'Supplier A Pvt. Ltd.',
+              status: QualityStatus.ongoing,
+              color: AppColors.reworkStatusColor,
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -350,5 +360,10 @@ class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
