@@ -6,10 +6,12 @@ import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/api_service/dio_api_service.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
+import 'package:workroom_flutter_app/features/quality_app/api/api.dart';
 import 'package:workroom_flutter_app/features/quality_app/quality_app_widgets/inspection_card.dart';
 
 class InspectionQueueScreen extends StatefulWidget {
   const InspectionQueueScreen({super.key});
+  static const String routeName = '/inspections';
 
   @override
   State<InspectionQueueScreen> createState() => _InspectionQueueScreenState();
@@ -18,21 +20,8 @@ class InspectionQueueScreen extends StatefulWidget {
 class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
   @override
   void initState() {
-    getData();
+    getMyInspectionList();
     super.initState();
-  }
-
-  Future<void> getData() async {
-    final dio = DioApiService(inspectionListBaseUrl);
-    final resp = await dio.get(
-      '/incoming-quality-inspections/my?supplierId=&includeIncomingPart=false%27',
-      {},
-      {
-        'CtxNamespaceKey': 'x-namespace',
-        'x-namespace': 'workroom',
-      },
-    );
-    AppLogger.printLog(resp);
   }
 
   String fromDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -237,7 +226,7 @@ class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),

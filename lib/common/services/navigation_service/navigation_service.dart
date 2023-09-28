@@ -40,7 +40,7 @@ class NavigationService {
   }
 
   void pop() {
-    return myNavigatorKey.currentState?.pop();
+    return myNavigatorKey.currentState?.pop(true);
   }
 
   void killApp() {

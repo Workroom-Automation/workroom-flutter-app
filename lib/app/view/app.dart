@@ -75,7 +75,8 @@ class _AppState extends State<App> {
             return SafeArea(child: child!);
           },
           routes: {
-            MainScreen.routeNmae: (context) => const MainScreen(),
+            InspectionQueueScreen.routeName:(context)=>const InspectionQueueScreen(),
+            MainScreen.routeName: (context) => const MainScreen(),
             PartStatusManagment.routeName: (context) =>
                 const PartStatusManagment(),
             WorkQueuePage.routeName: (context) => const WorkQueuePage(),

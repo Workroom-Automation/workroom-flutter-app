@@ -29,7 +29,7 @@ class InspectionCard extends StatelessWidget {
       onTap: () {
         getIt<NavigationService>().pushNamed(
           SampleList.routeName,
-        );
+        )?.then((value) => print('something'));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(

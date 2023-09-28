@@ -6,8 +6,8 @@ class DioApiService {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        // connectTimeout: timeOut,
-        // receiveTimeout: timeOut,
+        connectTimeout: timeOut,
+        receiveTimeout: timeOut,
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
       ),
