@@ -3,7 +3,7 @@ import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/forms/screens/bottom_sheet_detail.dart';
-import 'package:workroom_flutter_app/common/forms/screens/common_widgets/timer.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/sheet_widgets/timer.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/animated_bottom_sheet.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/build_header.dart';
 import 'package:workroom_flutter_app/features/part_status_managment/screens/common_widgets_part_status_managment/build_status_tile.dart';

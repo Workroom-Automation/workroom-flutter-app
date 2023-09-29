@@ -3,14 +3,12 @@ import 'package:workroom_flutter_app/common/animations/bouncing_animation.dart';
 import 'package:workroom_flutter_app/common/constants/app_assets.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/common/services/api_service/dio_api_service.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/authentication/auth_methods.dart';
-import 'package:workroom_flutter_app/features/main_screen.dart';
 
-import '../quality_app/insepection_list.dart';
+import 'package:workroom_flutter_app/features/quality_app/insepection_list.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -143,7 +141,8 @@ class _AuthScreenState extends State<AuthScreen> {
               )
                   .then((value) {
                 if (value) {
-                  getIt<NavigationService>().pushNamed(InspectionQueueScreen.routeName);
+                  getIt<NavigationService>()
+                      .pushNamed(InspectionQueueScreen.routeName);
                 } else {
                   AppLogger.printLog('Failed');
                 }

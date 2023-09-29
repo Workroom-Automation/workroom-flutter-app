@@ -3,10 +3,10 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/forms/bloc/sheet_information_bloc.dart';
 import 'package:workroom_flutter_app/common/forms/bloc/state.dart';
-import 'package:workroom_flutter_app/common/forms/screens/common_widgets/collapsable_container.dart';
-import 'package:workroom_flutter_app/common/forms/screens/common_widgets/evidence_capture_modal.dart';
-import 'package:workroom_flutter_app/common/forms/screens/common_widgets/multi_select_dropdown.dart';
-import 'package:workroom_flutter_app/common/forms/screens/common_widgets/single_select_dropdown.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/sheet_widgets/collapsable_container.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/sheet_widgets/evidence_capture_modal.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/sheet_widgets/multi_select_dropdown.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/sheet_widgets/single_select_dropdown.dart';
 import 'package:workroom_flutter_app/models/sheets/field_properties_model.dart';
 
 class TextSelectField extends StatefulWidget {

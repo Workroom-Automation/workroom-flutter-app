@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supertokens_flutter/supertokens.dart';
+// import 'package:supertokens_flutter/supertokens.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/services/connection_service/connection_service.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
@@ -75,7 +75,8 @@ class _AppState extends State<App> {
             return SafeArea(child: child!);
           },
           routes: {
-            InspectionQueueScreen.routeName:(context)=>const InspectionQueueScreen(),
+            InspectionQueueScreen.routeName: (context) =>
+                const InspectionQueueScreen(),
             MainScreen.routeName: (context) => const MainScreen(),
             PartStatusManagment.routeName: (context) =>
                 const PartStatusManagment(),

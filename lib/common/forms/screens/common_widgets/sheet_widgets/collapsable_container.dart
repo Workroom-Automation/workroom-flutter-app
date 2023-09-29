@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
-import 'package:workroom_flutter_app/common/forms/screens/common_widgets/image_reference_box.dart';
+import 'package:workroom_flutter_app/common/forms/screens/common_widgets/sheet_widgets/image_reference_box.dart';
 
 class CollapsibleContainer extends StatefulWidget {
   const CollapsibleContainer({super.key, required this.title});

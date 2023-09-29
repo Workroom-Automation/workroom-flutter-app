@@ -7,8 +7,8 @@ class AuthMethods {
   // TODO: get it through env variables
   Future<bool> emailPasswordLogin(String email, String password) async {
     try {
-      AppLogger.printLog("I came here");
-      var identifier = Map<String, dynamic>();
+      AppLogger.printLog('I came here');
+      final identifier = <String, dynamic>{};
       identifier['rid'] = 'emailpassword';
       final resp = await dio.post(
         '/auth/public/signin',
