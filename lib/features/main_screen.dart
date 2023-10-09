@@ -9,6 +9,7 @@ import 'package:workroom_flutter_app/features/work_queue/work_queue.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+  static const String routeName = '/main-screen';
 
   @override
   State<MainScreen> createState() => _MainScreenState();

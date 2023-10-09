@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 class AppLogger {
-  static bool logEnable = false;
+  static bool logEnable = true;
   static void printLog(
     Object object, {
     String? tag,

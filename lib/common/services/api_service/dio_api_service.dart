@@ -1,19 +1,22 @@
 import 'package:dio/dio.dart';
+import 'package:supertokens_flutter/dio.dart';
 
 class DioApiService {
   DioApiService(String baseUrl) {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
+        connectTimeout: timeOut,
+        receiveTimeout: timeOut,
         contentType: Headers.jsonContentType,
         responseType: ResponseType.plain,
       ),
     );
+    _dio.interceptors.add(SuperTokensInterceptorWrapper(client: _dio));
   }
 
   late final Dio _dio;
+  int timeOut = 15000;
 
   Future<Response<Map<String, dynamic>>> get(
     String path,
@@ -24,6 +27,7 @@ class DioApiService {
       path,
       queryParameters: queryParameters,
       options: Options(
+        responseType: ResponseType.json,
         headers: headers,
       ),
     );
@@ -36,6 +40,22 @@ class DioApiService {
     Map<String, dynamic>? headers,
   ) {
     return _dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
+  }
+
+  Future<Response<dynamic>> patch(
+    String path,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+  ) {
+    return _dio.patch(
       path,
       data: data,
       queryParameters: queryParameters,
