@@ -40,6 +40,7 @@ dev_dependencies:
     sdk: flutter
   # add the generator to your dev_dependencies
   injectable_generator: null
+  json_serializable: ^6.7.1
   mocktail: ^0.3.0
   very_good_analysis: ^3.1.0
 

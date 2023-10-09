@@ -27,6 +27,7 @@ class DioApiService {
       path,
       queryParameters: queryParameters,
       options: Options(
+        responseType: ResponseType.json,
         headers: headers,
       ),
     );
@@ -39,6 +40,22 @@ class DioApiService {
     Map<String, dynamic>? headers,
   ) {
     return _dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: headers,
+      ),
+    );
+  }
+
+  Future<Response<dynamic>> patch(
+    String path,
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+  ) {
+    return _dio.patch(
       path,
       data: data,
       queryParameters: queryParameters,

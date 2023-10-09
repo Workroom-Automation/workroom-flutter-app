@@ -5,12 +5,11 @@ import 'package:workroom_flutter_app/common/constants/app_colors.dart';
 import 'package:workroom_flutter_app/common/constants/app_text_styles.dart';
 import 'package:workroom_flutter_app/common/constants/constants.dart';
 import 'package:workroom_flutter_app/common/services/logger_service/logger_service.dart';
+import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
+import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/quality_app/api/api.dart';
 import 'package:workroom_flutter_app/features/quality_app/quality_app_widgets/inspection_card.dart';
 import 'package:workroom_flutter_app/features/quality_app/sample_list.dart';
-
-import '../../common/services/navigation_service/navigation_service.dart';
-import '../../core/di/injection.dart';
 
 class InspectionQueueScreen extends StatefulWidget {
   const InspectionQueueScreen({super.key});
@@ -23,8 +22,17 @@ class InspectionQueueScreen extends StatefulWidget {
 class _InspectionQueueScreenState extends State<InspectionQueueScreen> {
   @override
   void initState() {
-    getMyInspectionList();
     super.initState();
+    fetchAndSetInspections();
+
+  }
+
+  Future<void> fetchAndSetInspections() async{
+    // final myInspections = await getMyInspectionList();
+    // for (var i=0;i<myInspections.length;i++){
+    //   print(myInspections[i]);
+    // }
+    // print(list);
   }
 
   String fromDate = DateFormat('yyyy-MM-dd').format(DateTime.now());

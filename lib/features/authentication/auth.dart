@@ -7,8 +7,7 @@ import 'package:workroom_flutter_app/common/services/logger_service/logger_servi
 import 'package:workroom_flutter_app/common/services/navigation_service/navigation_service.dart';
 import 'package:workroom_flutter_app/core/di/injection.dart';
 import 'package:workroom_flutter_app/features/authentication/auth_methods.dart';
-
-import 'package:workroom_flutter_app/features/quality_app/insepection_list.dart';
+import 'package:workroom_flutter_app/features/quality_app/inspection_list.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
